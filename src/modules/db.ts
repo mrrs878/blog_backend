@@ -4,7 +4,7 @@ import MAIN_CONFIG from '../config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(MAIN_CONFIG.db),
+    MongooseModule.forRoot(MAIN_CONFIG.db, { useFindAndModify: false }),
   ],
 })
 export default class DB {}

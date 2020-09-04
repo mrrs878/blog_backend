@@ -4,3 +4,10 @@ interface Res<T> {
   msg: string;
   data?: T
 }
+
+interface FileI {
+  filename: string;
+  originalname: string;
+  buffer: Buffer;
+  size: number;
+}

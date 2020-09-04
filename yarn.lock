@@ -1335,6 +1335,11 @@
   resolved "https://registry.npm.taobao.org/@nestjs/mapped-types/download/@nestjs/mapped-types-0.0.5.tgz#0c3462de4125eea0e85e3a520f0de4e7e8dcfa40"
   integrity sha1-DDRi3kEl7qDoXjpSDw3k5+jc+kA=
 
+"@nestjs/mapped-types@0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/mapped-types/-/mapped-types-0.1.0.tgz#248435b4af4305bf6d1214d228c84926be56125a"
+  integrity sha512-FfQsZK5K1OvvGqjPHCJtrNTLlKLg7bLuphtCRTFb5K2P98JTfslauMbT7bS8huOoK/86HMNmNoHR/EVLAd4FzA==
+
 "@nestjs/mongoose@^7.0.2":
   version "7.0.2"
   resolved "https://registry.npm.taobao.org/@nestjs/mongoose/download/@nestjs/mongoose-7.0.2.tgz#cfb087de6e75e3fdc2e3a490abfa737009128da0"
@@ -1359,6 +1364,15 @@
     "@angular-devkit/core" "9.1.7"
     "@angular-devkit/schematics" "9.1.7"
     fs-extra "9.0.0"
+
+"@nestjs/swagger@^4.6.0":
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/swagger/-/swagger-4.6.0.tgz#42db9e5199bb67be7d09f85c87fb7593915f426b"
+  integrity sha512-B7DBMm+MTBfttGvtdb9quEbP9lgi5w3OFs30v/if0ZHE0Fl1B+t1FP8rnmR0xk5wfp7Wd/9LVl9ll/hvIheJ4w==
+  dependencies:
+    "@nestjs/mapped-types" "0.1.0"
+    lodash "4.17.20"
+    path-to-regexp "3.2.0"
 
 "@nestjs/testing@^7.0.0":
   version "7.2.0"
@@ -1547,7 +1561,7 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
-"@types/body-parser@*":
+"@types/body-parser@*", "@types/body-parser@^1.19.0":
   version "1.19.0"
   resolved "https://registry.npm.taobao.org/@types/body-parser/download/@types/body-parser-1.19.0.tgz#0685b3c47eb3006ffed117cdd55164b61f80538f"
   integrity sha1-BoWzxH6zAG/+0RfN1VFkth+AU48=
@@ -1774,15 +1788,15 @@
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-10.17.26.tgz?cache=0&sync_timestamp=1594229645186&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-10.17.26.tgz#a8a119960bff16b823be4c617da028570779bcfd"
   integrity sha1-qKEZlgv/FrgjvkxhfaAoVwd5vP0=
 
-"@types/node@^13.9.1":
-  version "13.13.12"
-  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-13.13.12.tgz?cache=0&sync_timestamp=1591735025911&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-13.13.12.tgz#9c72e865380a7dc99999ea0ef20fc9635b503d20"
-  integrity sha1-nHLoZTgKfcmZmeoO8g/JY1tQPSA=
-
 "@types/node@^14.0.11":
   version "14.0.20"
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.0.20.tgz?cache=0&sync_timestamp=1594229645186&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.0.20.tgz#0da05cddbc761e1fa98af88a17244c8c1ff37231"
   integrity sha1-DaBc3bx2Hh+piviKFyRMjB/zcjE=
+
+"@types/node@^14.6.3":
+  version "14.6.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.6.3.tgz#cc4f979548ca4d8e7b90bc0180052ab99ee64224"
+  integrity sha512-pC/hkcREG6YfDfui1FBmj8e20jFU5Exjw4NYDm8kEdrW+mOh0T1Zve8DWKnS7ZIZvgncrctcNCXF4Q2I+loyww==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -2841,7 +2855,7 @@ bn.js@^5.1.1:
   resolved "https://registry.npm.taobao.org/bn.js/download/bn.js-5.1.2.tgz#c9686902d3c9a27729f43ab10f9d79c2004da7b0"
   integrity sha1-yWhpAtPJoncp9DqxD515wgBNp7A=
 
-body-parser@1.19.0:
+body-parser@1.19.0, body-parser@^1.19.0:
   version "1.19.0"
   resolved "https://registry.npm.taobao.org/body-parser/download/body-parser-1.19.0.tgz#96b2709e57c9c4e09a6fd66a8fd979844f69f08a"
   integrity sha1-lrJwnlfJxOCab9Zqj9l5hE9p8Io=
@@ -6309,6 +6323,11 @@ lodash@4.17.19:
   resolved "https://registry.npm.taobao.org/lodash/download/lodash-4.17.19.tgz?cache=0&sync_timestamp=1594226827854&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Flodash%2Fdownload%2Flodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
   integrity sha1-5I3e2+MLMyF4PFtDAfvTU7weSks=
 
+lodash@4.17.20:
+  version "4.17.20"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
+  integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
+
 log-symbols@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npm.taobao.org/log-symbols/download/log-symbols-3.0.0.tgz#f3a08516a5dea893336a7dee14d18a1cfdab77c4"
@@ -8628,6 +8647,18 @@ supports-hyperlinks@^2.0.0:
   dependencies:
     has-flag "^4.0.0"
     supports-color "^7.0.0"
+
+swagger-ui-dist@^3.18.1:
+  version "3.32.5"
+  resolved "https://registry.yarnpkg.com/swagger-ui-dist/-/swagger-ui-dist-3.32.5.tgz#52fc8b714db113c0b5a0cf9ad12ad039fe5b87df"
+  integrity sha512-3SKHv8UVqsKKknivtACHbFDGcn297jkoZN2h6zAZ7b2yoaJNMaRadQpC3qFw3GobZTGzqHCgHph4ZH9NkaCjrQ==
+
+swagger-ui-express@^4.1.4:
+  version "4.1.4"
+  resolved "https://registry.yarnpkg.com/swagger-ui-express/-/swagger-ui-express-4.1.4.tgz#8b814ad998b850a1cf90e71808d6d0a8a8daf742"
+  integrity sha512-Ea96ecpC+Iq9GUqkeD/LFR32xSs8gYqmTW1gXCuKg81c26WV6ZC2FsBSPVExQP6WkyUuz5HEiR0sEv/HCC343g==
+  dependencies:
+    swagger-ui-dist "^3.18.1"
 
 symbol-observable@1.2.0, symbol-observable@^1.0.4:
   version "1.2.0"

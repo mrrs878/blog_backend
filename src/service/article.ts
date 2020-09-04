@@ -1,28 +1,57 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { Article } from 'src/models/article';
+import { Model, isValidObjectId } from 'mongoose';
+import { ArticleSummary } from 'src/models/summary';
+import { ArticleContent } from 'src/models/content';
 
 @Injectable()
 export default class ArticleService {
-  constructor(@InjectModel(Article.name) private readonly userModel: Model<Article>) {}
+  constructor(
+    @InjectModel(ArticleSummary.name) private readonly articleSummary: Model<ArticleSummary>,
+    @InjectModel(ArticleContent.name) private readonly articleContent: Model<ArticleContent>,
+  ) {}
 
-  async findAll(): Promise<Res<Array<Article>>> {
-    const data = await this.userModel.find().exec();
+  async findAll(): Promise<Res<Array<ArticleSummary>>> {
+    const data = await this.articleSummary.find();
     return { success: true, code: 0, msg: '', data };
   }
 
-  async findOneById(id: string): Promise<Res<Article>> {
-    const data = await this.userModel.findById(id).exec();
-    return { success: true, code: 0, msg: '', data };
+  async findOneById(id: string): Promise<Res<any|ArticleContent>> {
+    if (!isValidObjectId(id)) {
+      return { success: false, code: -1, msg: 'id错误', data: {} };
+    }
+    const summary = await this.articleSummary.findById(id);
+    const data = await this.articleContent.findOne({ title: summary.title });
+    return { success: true, code: 0, msg: '查询成功', data };
   }
 
-  async updateArticleById(article: Article): Promise<any> {
-    const data = await this.userModel.updateOne({ _id: article._id }, article).exec();
-    console.log(data);
-    
-    const { ok, nModified } = data;
-    if (ok && nModified === 1) return { success: true, code: 0, msg: '' };
-    return { success: false, code: 1, msg: '修改失败' };
+  async updateArticleById(article: ArticleSummary): Promise<any> {
+    const data = await Promise.all([
+      this.articleSummary.updateOne({ _id: article._id }, article),
+      this.articleContent.updateOne({ title: article.title }, article),
+    ]);
+    const [updateSummaryRes, updateContentRes] = data;
+    if (updateSummaryRes.ok
+      && updateSummaryRes.nModified === 1
+      && updateContentRes.ok
+      && updateContentRes.nModified === 1) return { success: true, code: 0, msg: '修改成功' };
+    return { success: false, code: -1, msg: '修改失败' };
+  }
+
+  async uploadArticle(file: FileI): Promise<any> {
+    if (!file) {
+      return { success: true, code: -1, msg: '文件错误', data: {} };
+    }
+    console.log(file);
+
+    return { success: true, code: 0, msg: '', data: {} };
+  }
+
+  async deleteArticle(id: string): Promise<Res<any>> {
+    if (!isValidObjectId(id)) {
+      return { success: false, code: -1, msg: 'id错误', data: {} };
+    }
+    const data = await this.articleSummary.findByIdAndUpdate(id, { isDeleted: true, deleteTime: Date.now() });
+    return { success: true, code: 0, msg: '', data };
   }
 }
