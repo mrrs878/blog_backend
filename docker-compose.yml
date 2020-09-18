@@ -1,22 +1,22 @@
 version: '3.7'
 services:
-  monitor_database:
+  blog_database:
     image: mongo
-    container_name: monitor_database
+    container_name: blog_backend
     restart: always
     volumes:
-      - ~/data/db:/data/db
+      - ~/data/blog_backend:/data/db
     networks:
-      - monitor_backend-network
-  monitor_backend:
-    image: registry.cn-shanghai.aliyuncs.com/mrrs878/monitor_backend:latest
-    container_name: monitor_backend
+      - blog_backend-network
+  blog_backend:
+    image: mrrs878/blog_backend:latest
+    container_name: blog_backend
     depends_on:
-      - monitor_database
+      - blog_database
     ports:
       - 3000:3000
     networks:
-      - monitor_backend-network
+      - blog_backend-network
 networks:
-  monitor_backend-network:
+  blog_backend-network:
     driver: bridge

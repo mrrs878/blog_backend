@@ -4,7 +4,7 @@ echo "updating code..."
 git pull
 
 echo "building image..."
-docker build -t registry.cn-shanghai.aliyuncs.com/mrrs878/monitor_backend:latest .
+docker build -t mrrs878/blog_backend:latest .
 
 echo "stoping app..."
 docker-compose down
