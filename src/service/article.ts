@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-21 18:04:02
+ * @LastEditTime: 2020-09-21 19:23:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\article.ts
@@ -9,34 +9,32 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, isValidObjectId } from 'mongoose';
-import { ArticleSummary } from 'src/models/summary';
-import { ArticleContent } from 'src/models/content';
+import { Article } from 'src/models/article';
 
 @Injectable()
 export default class ArticleService {
   constructor(
-    @InjectModel(ArticleSummary.name) private readonly articleSummary: Model<ArticleSummary>,
-    @InjectModel(ArticleContent.name) private readonly articleContent: Model<ArticleContent>,
+    @InjectModel(Article.name) private readonly article: Model<Article>,
   ) {}
 
-  async findAll(): Promise<Res<Array<ArticleSummary>>> {
-    const data = await this.articleSummary.find();
+  async findAll(): Promise<Res<Array<Article>>> {
+    const data = await this.article.find();
     return { success: true, code: 0, msg: '', data };
   }
 
-  async findOneById(id: string): Promise<Res<any|ArticleContent>> {
+  async findOneById(id: string): Promise<Res<any|Article>> {
     if (!isValidObjectId(id)) {
       return { success: false, code: -1, msg: 'id错误', data: {} };
     }
-    const summary = await this.articleSummary.findById(id);
-    const data = await this.articleContent.findOne({ title: summary.title });
+    const summary = await this.article.findById(id);
+    const data = await this.article.findOne({ title: summary.title });
     return { success: true, code: 0, msg: '查询成功', data };
   }
 
-  async updateArticleById(article: ArticleSummary): Promise<any> {
+  async updateArticleById(article: Article): Promise<any> {
     const data = await Promise.all([
-      this.articleSummary.updateOne({ _id: article._id }, article),
-      this.articleContent.updateOne({ title: article.title }, article),
+      this.article.updateOne({ _id: article._id }, article),
+      this.article.updateOne({ title: article.title }, article),
     ]);
     const [updateSummaryRes, updateContentRes] = data;
     if (updateSummaryRes.ok
@@ -59,13 +57,12 @@ export default class ArticleService {
     if (!isValidObjectId(id)) {
       return { success: false, code: -1, msg: 'id错误', data: {} };
     }
-    const data = await this.articleSummary.findByIdAndUpdate(id, { isDeleted: true, deleteTime: Date.now() });
+    const data = await this.article.findByIdAndUpdate(id, { isDeleted: true, deleteTime: Date.now() });
     return { success: true, code: 0, msg: '', data };
   }
 
-  async createArticle(article: ArticleSummary): Promise<any> {
-    console.log(article);
-    const data = await this.articleSummary.create(article);
-    return { success: true, code: 0, msg: '', data };
+  async createArticle(article: Article): Promise<any> {
+    const data = await this.article.create({ ...article, createTime: new Date().getTime().toString() });
+    return { success: true, code: 0, msg: '创建成功', data };
   }
 }

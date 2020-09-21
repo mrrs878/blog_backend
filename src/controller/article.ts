@@ -1,8 +1,19 @@
-import { Controller, Get, Param, Put, Body, Post, UploadedFile, UseInterceptors, Delete } from '@nestjs/common';
+/*
+ * @Author: your name
+ * @Date: 2020-09-21 14:48:46
+ * @LastEditTime: 2020-09-21 19:27:39
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \blog_backend\src\controller\article.ts
+ */
+import { Controller, Get, Param, Put, Body, Post, UploadedFile, UseInterceptors, Delete, UsePipes } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiOperation, ApiParam, ApiOkResponse, ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { GetArticleRes, GetArticlesSummaryRes, UpdateArticleRes, DeleteArticle } from 'src/swagger/res';
-import { UploadArticleDto, UpdateArticleDto } from 'src/swagger/dto';
+import { UploadArticleDto, UpdateArticleDto, CreateArticleDto } from 'src/swagger/dto';
+import { JoiValidationPipe } from 'src/pipes';
+import * as Joi from '@hapi/joi';
+import { Article } from 'src/models/article';
 import ArticleService from '../service/article';
 
 @Controller('/article')
@@ -55,10 +66,17 @@ export default class ArticleController {
   @ApiOperation({ description: '创建文章', summary: '创建文章' })
   @ApiBody({
     description: '文章',
-    type: UpdateArticleDto,
+    type: CreateArticleDto,
   })
-  @ApiOkResponse({ status: 200, type: UpdateArticleRes })
-  createArticle(@Body() body) {
+  @ApiOkResponse({ status: 200, type: CreateArticleDto })
+  @UsePipes(new JoiValidationPipe(Joi.object({
+    title: Joi.string().required(),
+    category: Joi.string().required(),
+    description: Joi.string().required(),
+    tag: Joi.string().required(),
+    content: Joi.string().required(),
+  })))
+  createArticle(@Body() body:Article) {
     return this.articleService.createArticle(body);
   }
 
