@@ -48,7 +48,10 @@ export default class ArticleService {
     if (!file) {
       return { success: true, code: -1, msg: '文件错误', data: {} };
     }
-    console.log(file);
+    console.log(JSON.parse(file.buffer.toString()).length);
+    JSON.parse(file.buffer.toString()).forEach(async (item) => {
+      await this.article.create({ ...item, createTime: new Date(item.createTime).getTime() });
+    });
 
     return { success: true, code: 0, msg: '', data: {} };
   }
