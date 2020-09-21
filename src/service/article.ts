@@ -10,6 +10,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, isValidObjectId } from 'mongoose';
 import { Article } from 'src/models/article';
+import { Base64 } from 'js-base64';
 
 @Injectable()
 export default class ArticleService {
@@ -50,7 +51,7 @@ export default class ArticleService {
     }
     console.log(JSON.parse(file.buffer.toString()).length);
     JSON.parse(file.buffer.toString()).forEach(async (item) => {
-      await this.article.create({ ...item, createTime: new Date(item.createTime).getTime() });
+      await this.article.create({ ...item, content: Base64.encode(item.content) });
     });
 
     return { success: true, code: 0, msg: '', data: {} };
@@ -65,7 +66,7 @@ export default class ArticleService {
   }
 
   async createArticle(article: Article): Promise<any> {
-    const data = await this.article.create({ ...article, createTime: new Date().getTime().toString() });
+    const data = await this.article.create({ ...article, createTime: new Date().getTime().toString(), content: Base64.encode(article.content) });
     return { success: true, code: 0, msg: '创建成功', data };
   }
 }
