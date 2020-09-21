@@ -19,7 +19,7 @@ export default class ArticleService {
   ) {}
 
   async findAll(): Promise<Res<Array<Article>>> {
-    const data = await this.article.find();
+    const data = await this.article.find(null, { content: 0 });
     return { success: true, code: 0, msg: '', data };
   }
 
@@ -27,8 +27,7 @@ export default class ArticleService {
     if (!isValidObjectId(id)) {
       return { success: false, code: -1, msg: 'id错误', data: {} };
     }
-    const summary = await this.article.findById(id);
-    const data = await this.article.findOne({ title: summary.title });
+    const data = await this.article.findById(id);
     return { success: true, code: 0, msg: '查询成功', data };
   }
 
