@@ -37,7 +37,7 @@ export default class ArticleController {
     return this.articleService.updateArticleById({ ...body, _id: params.id });
   }
 
-  @Post('/')
+  @Post('/upload')
   @ApiOperation({ description: '上传文章', summary: '上传文章' })
   @UseInterceptors(FileInterceptor('file'))
   @ApiConsumes('multipart/form-data')
@@ -49,6 +49,17 @@ export default class ArticleController {
   @UseInterceptors(FileInterceptor('article'))
   uploadFile(@UploadedFile() file) {
     return this.articleService.uploadArticle(file);
+  }
+
+  @Post('/')
+  @ApiOperation({ description: '创建文章', summary: '创建文章' })
+  @ApiBody({
+    description: '文章',
+    type: UpdateArticleDto,
+  })
+  @ApiOkResponse({ status: 200, type: UpdateArticleRes })
+  createArticle(@Body() body) {
+    return this.articleService.createArticle(body);
   }
 
   @Delete('/:id')

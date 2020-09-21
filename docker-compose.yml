@@ -6,8 +6,6 @@ services:
     restart: always
     volumes:
       - ~/data/blog_backend:/data/db
-    ports:
-      - 3001:27017
     networks:
       - blog_backend-network
   blog_backend:

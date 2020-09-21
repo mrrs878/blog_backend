@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-09-21 14:48:46
+ * @LastEditTime: 2020-09-21 18:04:02
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \blog_backend\src\service\article.ts
+ */
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, isValidObjectId } from 'mongoose';
@@ -52,6 +60,12 @@ export default class ArticleService {
       return { success: false, code: -1, msg: 'id错误', data: {} };
     }
     const data = await this.articleSummary.findByIdAndUpdate(id, { isDeleted: true, deleteTime: Date.now() });
+    return { success: true, code: 0, msg: '', data };
+  }
+
+  async createArticle(article: ArticleSummary): Promise<any> {
+    console.log(article);
+    const data = await this.articleSummary.create(article);
     return { success: true, code: 0, msg: '', data };
   }
 }
