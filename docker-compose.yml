@@ -2,7 +2,7 @@ version: '3.7'
 services:
   blog_database:
     image: mongo
-    container_name: blog_backend
+    container_name: blog_database
     restart: always
     volumes:
       - ~/data/blog_backend:/data/db
