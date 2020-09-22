@@ -19,7 +19,7 @@ export default class ArticleService {
   ) {}
 
   async findAll(): Promise<Res<Array<Article>>> {
-    const data = await this.article.find(null, { content: 0 });
+    const data = await this.article.find(null, { content: 0 }).sort({ createTime: -1 });
     return { success: true, code: 0, msg: '', data };
   }
 

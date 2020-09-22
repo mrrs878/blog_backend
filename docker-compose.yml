@@ -4,6 +4,8 @@ services:
     image: mongo
     container_name: blog_database
     restart: always
+    ports: 
+      - 8084:27017
     volumes:
       - ~/data/blog_backend:/data/db
     networks:
