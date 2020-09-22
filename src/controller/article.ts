@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-21 19:27:39
+ * @LastEditTime: 2020-09-22 13:12:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\article.ts
@@ -71,7 +71,7 @@ export default class ArticleController {
   @ApiOkResponse({ status: 200, type: CreateArticleDto })
   @UsePipes(new JoiValidationPipe(Joi.object({
     title: Joi.string().required(),
-    category: Joi.string().required(),
+    categories: Joi.string().required(),
     description: Joi.string().required(),
     tag: Joi.string().required(),
     content: Joi.string().required(),

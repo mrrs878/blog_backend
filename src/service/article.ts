@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-21 19:23:15
+ * @LastEditTime: 2020-09-22 13:11:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\article.ts
@@ -32,15 +32,8 @@ export default class ArticleService {
   }
 
   async updateArticleById(article: Article): Promise<any> {
-    const data = await Promise.all([
-      this.article.updateOne({ _id: article._id }, article),
-      this.article.updateOne({ title: article.title }, article),
-    ]);
-    const [updateSummaryRes, updateContentRes] = data;
-    if (updateSummaryRes.ok
-      && updateSummaryRes.nModified === 1
-      && updateContentRes.ok
-      && updateContentRes.nModified === 1) return { success: true, code: 0, msg: '修改成功' };
+    const data = await this.article.updateOne({ _id: article._id }, { ...article, updateTime: new Date().toLocaleString() });
+    if (data.ok && data.nModified === 1) return { success: true, code: 0, msg: '修改成功' };
     return { success: false, code: -1, msg: '修改失败' };
   }
 
@@ -65,7 +58,10 @@ export default class ArticleService {
   }
 
   async createArticle(article: Article): Promise<any> {
-    const data = await this.article.create({ ...article, createTime: new Date().getTime().toString(), content: Base64.encode(article.content) });
+    const data = await this.article.create({
+      ...article,
+      createTime: new Date().toLocaleString(),
+    });
     return { success: true, code: 0, msg: '创建成功', data };
   }
 }
