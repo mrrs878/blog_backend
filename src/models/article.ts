@@ -33,7 +33,7 @@ export class Article extends Document {
   isDeleted: boolean;
 
   @Prop()
-  deleteTime: number;
+  deleteTime: string;
 
   @Prop()
   content: string;

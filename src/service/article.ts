@@ -11,6 +11,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, isValidObjectId } from 'mongoose';
 import { Article } from 'src/models/article';
 import { Base64 } from 'js-base64';
+import * as dayjs from 'dayjs';
 
 @Injectable()
 export default class ArticleService {
@@ -32,7 +33,7 @@ export default class ArticleService {
   }
 
   async updateArticleById(article: Article): Promise<any> {
-    const data = await this.article.updateOne({ _id: article._id }, { ...article, updateTime: new Date().toLocaleString() });
+    const data = await this.article.updateOne({ _id: article._id }, { ...article, updateTime: dayjs().format('YYYY-MM-DD HH:mm:ss') });
     if (data.ok && data.nModified === 1) return { success: true, code: 0, msg: '修改成功' };
     return { success: false, code: -1, msg: '修改失败' };
   }
@@ -53,14 +54,14 @@ export default class ArticleService {
     if (!isValidObjectId(id)) {
       return { success: false, code: -1, msg: 'id错误', data: {} };
     }
-    const data = await this.article.findByIdAndUpdate(id, { isDeleted: true, deleteTime: Date.now() });
+    const data = await this.article.findByIdAndUpdate(id, { isDeleted: true, deleteTime: dayjs().format('YYYY-MM-DD HH:mm:ss') });
     return { success: true, code: 0, msg: '', data };
   }
 
   async createArticle(article: Article): Promise<any> {
     const data = await this.article.create({
       ...article,
-      createTime: new Date().toLocaleString(),
+      createTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
     });
     return { success: true, code: 0, msg: '创建成功', data };
   }
