@@ -1,12 +1,31 @@
+/*
+ * @Author: your name
+ * @Date: 2020-09-21 14:48:46
+ * @LastEditTime: 2020-09-23 18:55:03
+ * @LastEditors: mrrs878
+ * @Description: In User Settings Edit
+ * @FilePath: \blog_backend\src\modules\auth.ts
+ */
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import AuthController from '../controller/auth';
-import AuthService from '../service/auth';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
+import MAIN_CONFIG from 'src/config';
+import { JWTStrategy } from 'src/tool/jwt';
+import UserController from '../controller/auth';
+import UserService from '../service/auth';
 import { User, UserSchema } from '../models/user';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: User.name, schema: UserSchema }])],
-  controllers: [AuthController],
-  providers: [AuthService],
+  imports: [
+    PassportModule.register({ defaultStrategy: 'jwt' }),
+    JwtModule.register({
+      secret: MAIN_CONFIG.secret,
+      signOptions: { expiresIn: '1min' },
+    }),
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+  ],
+  controllers: [UserController],
+  providers: [UserService, JWTStrategy],
 })
-export default class Auth {}
+export default class AuthModule {}

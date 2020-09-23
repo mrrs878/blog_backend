@@ -1,12 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-22 13:12:43
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-09-23 18:50:47
+ * @LastEditors: mrrs878
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\article.ts
  */
-import { Controller, Get, Param, Put, Body, Post, UploadedFile, UseInterceptors, Delete, UsePipes } from '@nestjs/common';
+import { Controller, Get, Param, Put, Body, Post, UploadedFile, UseInterceptors, Delete, UsePipes, UseGuards } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiOperation, ApiParam, ApiOkResponse, ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { GetArticleRes, GetArticlesSummaryRes, UpdateArticleRes, DeleteArticle } from 'src/swagger/res';
@@ -14,6 +14,7 @@ import { UploadArticleDto, UpdateArticleDto, CreateArticleDto } from 'src/swagge
 import { JoiValidationPipe } from 'src/pipes';
 import * as Joi from '@hapi/joi';
 import { Article } from 'src/models/article';
+import { AuthGuard } from '@nestjs/passport';
 import ArticleService from '../service/article';
 
 @Controller('/article')
@@ -21,6 +22,7 @@ import ArticleService from '../service/article';
 export default class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @Get('/all')
   @ApiOperation({ description: '获取所有文章', summary: '获取所有文章' })
   @ApiOkResponse({ status: 200, type: GetArticlesSummaryRes })

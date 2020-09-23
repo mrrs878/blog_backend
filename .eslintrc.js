@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-09-21 14:48:46
+ * @LastEditTime: 2020-09-23 18:43:20
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \blog_backend\.eslintrc.js
+ */
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -29,7 +37,6 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/camelcase': 'off',
-    '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     'no-underscore-dangle': 'off',
     'no-bitwise': 0,

@@ -23,6 +23,14 @@ export class Article extends ArticleSummary {
   content: string;
 }
 
+export class User {
+  @ApiProperty()
+  name: string;
+
+  @ApiProperty()
+  password: string;
+}
+
 class BaseRes {
   @ApiProperty({ description: '操作是否成功' })
   success: boolean;
@@ -52,3 +60,13 @@ export class UploadArticle extends BaseRes {
 }
 
 export class DeleteArticle extends BaseRes {}
+
+export class LoginRes extends BaseRes {
+  @ApiProperty({ description: 'token' })
+  data: {
+    token: string
+  };
+}
+
+export class RegRes extends BaseRes {
+}

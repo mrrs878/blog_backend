@@ -1,6 +1,15 @@
+/*
+ * @Author: your name
+ * @Date: 2020-09-21 14:48:46
+ * @LastEditTime: 2020-09-23 19:12:35
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \blog_backend\src\main.ts
+ */
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as bodyParser from 'body-parser';
+import { HttpExceptionFilter } from 'src/filter/httpException';
 import AppModule from './app.module';
 
 async function bootstrap() {
@@ -18,6 +27,8 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api-doc', app, document);
+
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   await app.listen(process.env.PORT);
 }

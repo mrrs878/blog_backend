@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import Auth from './modules/auth';
+import AuthModule from './modules/auth';
 import ArticleModule from './modules/article';
 import DB from './modules/db';
 
@@ -11,7 +11,7 @@ import DB from './modules/db';
       isGlobal: true,
     }),
     DB,
-    Auth,
+    AuthModule,
     ArticleModule,
   ],
 })
