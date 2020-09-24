@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-23 19:12:35
- * @LastEditors: your name
+ * @LastEditTime: 2020-09-24 18:46:05
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\main.ts
  */
@@ -11,6 +11,9 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as bodyParser from 'body-parser';
 import { HttpExceptionFilter } from 'src/filter/httpException';
 import AppModule from './app.module';
+import { AnyExceptionFilter } from './filter/anyException';
+import { TransformInterceptor } from './interceptor/transform';
+import { logger } from './middleware/logger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -19,6 +22,7 @@ async function bootstrap() {
   app.enableCors();
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
+  app.use(logger);
 
   const options = new DocumentBuilder()
     .setTitle('blog')
@@ -28,7 +32,9 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api-doc', app, document);
 
+  app.useGlobalFilters(new AnyExceptionFilter());
   app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalInterceptors(new TransformInterceptor());
 
   await app.listen(process.env.PORT);
 }

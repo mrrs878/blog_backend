@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-23 18:50:47
- * @LastEditors: mrrs878
+ * @LastEditTime: 2020-09-24 18:49:10
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\article.ts
  */
@@ -15,6 +15,8 @@ import { JoiValidationPipe } from 'src/pipes';
 import * as Joi from '@hapi/joi';
 import { Article } from 'src/models/article';
 import { AuthGuard } from '@nestjs/passport';
+import MAIN_CONFIG from 'src/config';
+import { RBACGuard } from 'src/guards/auth';
 import ArticleService from '../service/article';
 
 @Controller('/article')
@@ -29,7 +31,8 @@ export default class ArticleController {
   getAllArticles() {
     return this.articleService.findAll();
   }
-
+  
+  @UseGuards(AuthGuard('jwt'))
   @Get('/:id')
   @ApiOperation({ description: '查询单个文章', summary: '查询单个文章' })
   @ApiParam({ name: 'id', description: '文章id', example: '5f50bf09e29bc4b4e723dbf5', allowEmptyValue: false, type: String })
@@ -37,7 +40,9 @@ export default class ArticleController {
   getArticle(@Param() params) {
     return this.articleService.findOneById(params.id);
   }
-
+  
+  @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.ADMIN))
+  @UseGuards(AuthGuard('jwt'))
   @Put('/:id')
   @ApiOperation({ description: '更新文章', summary: '更新文章' })
   @ApiParam({ name: 'id', description: '文章id', example: '5f50bf09e29bc4b4e723dbf5', allowEmptyValue: false, type: String })
@@ -49,7 +54,9 @@ export default class ArticleController {
   updateArticle(@Param() params, @Body() body) {
     return this.articleService.updateArticleById({ ...body, _id: params.id });
   }
-
+  
+  @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.ADMIN))
+  @UseGuards(AuthGuard('jwt'))
   @Post('/upload')
   @ApiOperation({ description: '上传文章', summary: '上传文章' })
   @UseInterceptors(FileInterceptor('file'))
@@ -63,7 +70,9 @@ export default class ArticleController {
   uploadFile(@UploadedFile() file) {
     return this.articleService.uploadArticle(file);
   }
-
+  
+  @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.ADMIN))
+  @UseGuards(AuthGuard('jwt'))
   @Post('/')
   @ApiOperation({ description: '创建文章', summary: '创建文章' })
   @ApiBody({
@@ -81,7 +90,9 @@ export default class ArticleController {
   createArticle(@Body() body:Article) {
     return this.articleService.createArticle(body);
   }
-
+  
+  @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.ADMIN))
+  @UseGuards(AuthGuard('jwt'))
   @Delete('/:id')
   @ApiOperation({ description: '删除文章', summary: '删除文章' })
   @ApiParam({ name: 'id', description: '文章id', example: '5f50bf09e29bc4b4e723dbf5', allowEmptyValue: false, type: String })

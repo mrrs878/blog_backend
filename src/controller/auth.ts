@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-23 18:50:57
- * @LastEditors: mrrs878
+ * @LastEditTime: 2020-09-24 17:13:27
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\auth.ts
  */
@@ -12,6 +12,7 @@ import { JoiValidationPipe } from 'src/pipes';
 import * as Joi from '@hapi/joi';
 import { LoginDto, RegDto } from 'src/swagger/dto';
 import { LoginRes, RegRes } from 'src/swagger/res';
+import MAIN_CONFIG from 'src/config';
 import UserService from '../service/auth';
 
 @Controller('/auth')
@@ -47,6 +48,7 @@ export default class AuthController {
     name: Joi.string().required(),
     password: Joi.string().required(),
     repassword: Joi.string().required(),
+    role: Joi.number().default(MAIN_CONFIG.ROLE.HUMAN),
   })))
   reg(@Body() body: RegBodyI) {
     return this.userService.reg(body);

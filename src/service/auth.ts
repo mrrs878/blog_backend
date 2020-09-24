@@ -18,7 +18,7 @@ export default class UserService {
   }
 
   async reg(body: RegBodyI): Promise<Res<UserI|undefined>> {
-    const { name, password, repassword } = body;
+    const { name, password, repassword, role } = body;
     if (password !== repassword) {
       return {
         success: false,
@@ -46,7 +46,7 @@ export default class UserService {
       };
     }
     try {
-      await this.userModel.create({ name, passwordHash, salt });
+      await this.userModel.create({ name, passwordHash, salt, role });
       return {
         success: true,
         code: 0,
@@ -77,6 +77,7 @@ export default class UserService {
       return {
         code: 0,
         msg: '',
+        user,
       };
     }
     return {
@@ -85,9 +86,10 @@ export default class UserService {
     };
   }
 
-  certificate(user: LoginBodyI) {
+  certificate(user: User) {
     try {
-      const token = this.jwtService.sign(user);
+      const { name, role } = user;
+      const token = this.jwtService.sign({ name, role });
       return token;
     } catch (e) {
       console.log(e);
@@ -96,7 +98,7 @@ export default class UserService {
 
   async login(body: LoginBodyI): Promise<Res<undefined|{ token: string }>> {
     try {
-      const { code, msg } = await this.validateUser(body);
+      const { code, msg, user } = await this.validateUser(body);
       if (code !== 0) {
         return {
           code,
@@ -105,7 +107,7 @@ export default class UserService {
         };
       }
 
-      const token = this.certificate(body);
+      const token = this.certificate(user);
       return {
         success: true,
         code: 0,

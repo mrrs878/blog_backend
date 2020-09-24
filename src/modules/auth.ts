@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-23 18:55:03
- * @LastEditors: mrrs878
+ * @LastEditTime: 2020-09-24 17:15:12
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\modules\auth.ts
  */
@@ -20,8 +20,8 @@ import { User, UserSchema } from '../models/user';
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
-      secret: MAIN_CONFIG.secret,
-      signOptions: { expiresIn: '1min' },
+      secret: MAIN_CONFIG.SECRET,
+      signOptions: { expiresIn: '10min' },
     }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
