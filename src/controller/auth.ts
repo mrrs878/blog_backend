@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-24 17:13:27
+ * @LastEditTime: 2020-09-24 20:31:06
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\auth.ts
@@ -35,6 +35,16 @@ export default class AuthController {
   })))
   login(@Body() body: LoginBodyI) {
     return this.userService.login(body);
+  }
+
+  @Post('/logout')
+  @ApiOperation({ description: '退出登录', summary: '退出登录' })
+  @ApiBody({
+    description: '退出登录',
+  })
+  @ApiOkResponse({ status: 200 })
+  logout() {
+    return this.userService.logout();
   }
 
   @Post('/reg')

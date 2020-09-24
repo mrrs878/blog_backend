@@ -122,4 +122,12 @@ export default class UserService {
       };
     }
   }
+
+  async logout(): Promise<Res<undefined>> {
+    return {
+      success: true,
+      code: 0,
+      msg: '退出登录成功',
+    };
+  }
 }
