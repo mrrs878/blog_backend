@@ -1,12 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-24 18:49:10
+ * @LastEditTime: 2020-09-25 10:47:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\article.ts
  */
-import { Controller, Get, Param, Put, Body, Post, UploadedFile, UseInterceptors, Delete, UsePipes, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Put, Body, Post, UploadedFile, UseInterceptors, Delete, UsePipes, UseGuards, CacheInterceptor } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiOperation, ApiParam, ApiOkResponse, ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { GetArticleRes, GetArticlesSummaryRes, UpdateArticleRes, DeleteArticle } from 'src/swagger/res';
@@ -25,13 +25,14 @@ export default class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
   @UseGuards(AuthGuard('jwt'))
+  @UseInterceptors(CacheInterceptor)
   @Get('/all')
   @ApiOperation({ description: '获取所有文章', summary: '获取所有文章' })
   @ApiOkResponse({ status: 200, type: GetArticlesSummaryRes })
   getAllArticles() {
     return this.articleService.findAll();
   }
-  
+
   @UseGuards(AuthGuard('jwt'))
   @Get('/:id')
   @ApiOperation({ description: '查询单个文章', summary: '查询单个文章' })
@@ -40,7 +41,7 @@ export default class ArticleController {
   getArticle(@Param() params) {
     return this.articleService.findOneById(params.id);
   }
-  
+
   @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.ADMIN))
   @UseGuards(AuthGuard('jwt'))
   @Put('/:id')
@@ -54,7 +55,7 @@ export default class ArticleController {
   updateArticle(@Param() params, @Body() body) {
     return this.articleService.updateArticleById({ ...body, _id: params.id });
   }
-  
+
   @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.ADMIN))
   @UseGuards(AuthGuard('jwt'))
   @Post('/upload')
@@ -70,7 +71,7 @@ export default class ArticleController {
   uploadFile(@UploadedFile() file) {
     return this.articleService.uploadArticle(file);
   }
-  
+
   @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.ADMIN))
   @UseGuards(AuthGuard('jwt'))
   @Post('/')
@@ -90,7 +91,7 @@ export default class ArticleController {
   createArticle(@Body() body:Article) {
     return this.articleService.createArticle(body);
   }
-  
+
   @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.ADMIN))
   @UseGuards(AuthGuard('jwt'))
   @Delete('/:id')

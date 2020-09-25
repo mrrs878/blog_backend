@@ -1,7 +1,15 @@
+/*
+ * @Author: your name
+ * @Date: 2020-09-21 14:48:46
+ * @LastEditTime: 2020-09-25 18:54:32
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \blog_backend\test\app.e2e-spec.ts
+ */
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from '../src/app.module';
+import AppModule from '../src/app.module';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;

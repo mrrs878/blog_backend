@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-23 18:43:20
- * @LastEditors: your name
+ * @LastEditTime: 2020-09-25 19:10:15
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\.eslintrc.js
  */
@@ -44,6 +44,7 @@ module.exports = {
     'consistent-return': 0,
     'no-param-reassign': 0,
     'linebreak-style': ['off', 'windows'],
-    'class-methods-use-this': 0
+    'class-methods-use-this': 0,
+    'import/no-absolute-path': 1,
   },
 };

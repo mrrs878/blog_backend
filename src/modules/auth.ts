@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-24 17:15:12
+ * @LastEditTime: 2020-09-25 18:50:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\modules\auth.ts
@@ -11,9 +11,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import MAIN_CONFIG from 'src/config';
-import { JWTStrategy } from 'src/tool/jwt';
-import UserController from '../controller/auth';
-import UserService from '../service/auth';
+import { JWTStrategy } from 'src/service/jwtStrategy';
+import AuthService from 'src/service/auth';
+import CacheService from 'src/service/cache';
+import AuthController from 'src/controller/auth';
 import { User, UserSchema } from '../models/user';
 
 @Module({
@@ -25,7 +26,7 @@ import { User, UserSchema } from '../models/user';
     }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
-  controllers: [UserController],
-  providers: [UserService, JWTStrategy],
+  controllers: [AuthController],
+  providers: [AuthService, JWTStrategy, CacheService],
 })
 export default class AuthModule {}

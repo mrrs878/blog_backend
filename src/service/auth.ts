@@ -1,20 +1,61 @@
+/*
+ * @Author: your name
+ * @Date: 2020-09-23 17:38:45
+ * @LastEditTime: 2020-09-25 19:10:28
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \blog_backend\src\service\auth.ts
+ */
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
-import { makeSalt, encryptPwd } from 'src/tool';
+import { InjectModel } from '@nestjs/mongoose';
+import { encryptPwd, makeSalt } from '../tool';
 import { User } from '../models/user';
+import CacheService from './cache';
 
 @Injectable()
-export default class UserService {
+export default class AuthService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<User>,
     private readonly jwtService: JwtService,
+    private readonly cacheService: CacheService,
   ) {}
 
-  async findAll(): Promise<Res<Array<User>>> {
-    const data = await this.userModel.find().exec();
-    return { success: true, code: 0, msg: '', data };
+  async validateUser(body: LoginBodyI) {
+    const { name, password } = body;
+    const user = await this.userModel.findOne({ name });
+    if (!user) {
+      return {
+        code: -1,
+        msg: '用户不存在',
+      };
+    }
+
+    const { passwordHash, salt } = user;
+    const hashPassword = encryptPwd(password, salt);
+    if (passwordHash === hashPassword) {
+      return {
+        code: 0,
+        msg: '',
+        user,
+      };
+    }
+    return {
+      code: -2,
+      msg: '密码错误',
+    };
+  }
+
+  async certificate(user: User) {
+    try {
+      const { name, role } = user;
+      const token = this.jwtService.sign({ name, role });
+      await this.cacheService.set(name, token);
+      return token;
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async reg(body: RegBodyI): Promise<Res<UserI|undefined>> {
@@ -61,41 +102,6 @@ export default class UserService {
     }
   }
 
-  async validateUser(body: LoginBodyI) {
-    const { name, password } = body;
-    const user = await this.userModel.findOne({ name });
-    if (!user) {
-      return {
-        code: -1,
-        msg: '用户不存在',
-      };
-    }
-
-    const { passwordHash, salt } = user;
-    const hashPassword = encryptPwd(password, salt);
-    if (passwordHash === hashPassword) {
-      return {
-        code: 0,
-        msg: '',
-        user,
-      };
-    }
-    return {
-      code: -2,
-      msg: '密码错误',
-    };
-  }
-
-  certificate(user: User) {
-    try {
-      const { name, role } = user;
-      const token = this.jwtService.sign({ name, role });
-      return token;
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
   async login(body: LoginBodyI): Promise<Res<undefined|{ token: string }>> {
     try {
       const { code, msg, user } = await this.validateUser(body);
@@ -107,7 +113,7 @@ export default class UserService {
         };
       }
 
-      const token = this.certificate(user);
+      const token = await this.certificate(user);
       return {
         success: true,
         code: 0,
@@ -123,7 +129,10 @@ export default class UserService {
     }
   }
 
-  async logout(): Promise<Res<undefined>> {
+  async logout(req: any): Promise<Res<undefined>> {
+    const { user } = req;
+    const { name } = user;
+    await this.cacheService.set(name, '');
     return {
       success: true,
       code: 0,

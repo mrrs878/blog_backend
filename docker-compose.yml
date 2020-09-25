@@ -4,12 +4,23 @@ services:
     image: mongo
     container_name: blog_database
     restart: always
-    ports: 
+    ports:
       - 8084:27017
     volumes:
       - ~/data/blog_backend:/data/db
     networks:
-      - blog_backend-network
+      - blog_backend-n-mongo
+  blog_cache:
+    image: redis:alpine
+    container_name: blog_cache
+    restart: always
+    ports:
+      - 8085:6379
+    volumes:
+      - ~/cache/blog_backend:/data
+    networks:
+      - blog_backend-n-mongo
+    command: --appendonly yes
   blog_backend:
     image: mrrs878/blog_backend:latest
     container_name: blog_backend
@@ -18,7 +29,10 @@ services:
     ports:
       - 3000:3000
     networks:
-      - blog_backend-network
+      - blog_backend-n-mongo
+      - blog_backend-n-redis
 networks:
-  blog_backend-network:
+  blog_backend-n-mongo:
+    driver: bridge
+  blog_backend-n-redis:
     driver: bridge
