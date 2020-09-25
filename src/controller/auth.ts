@@ -1,20 +1,20 @@
 /*
  * @Author: your name
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-25 19:08:28
+ * @LastEditTime: 2020-09-25 19:45:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\auth.ts
  */
 import { Controller, Post, Body, UsePipes, Req, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBody, ApiOkResponse } from '@nestjs/swagger';
-import { JoiValidationPipe } from '../pipes';
 import * as Joi from '@hapi/joi';
+import { Request } from 'express';
+import { AuthGuard } from '@nestjs/passport';
+import { JoiValidationPipe } from '../pipes';
 import { LoginDto, RegDto } from '../swagger/dto';
 import { LoginRes, RegRes } from '../swagger/res';
 import MAIN_CONFIG from '../config';
-import { Request } from 'express';
-import { AuthGuard } from '@nestjs/passport';
 import AuthService from '../service/auth';
 
 @Controller('/auth')
