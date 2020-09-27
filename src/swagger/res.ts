@@ -31,6 +31,38 @@ export class User {
   password: string;
 }
 
+export class Menu {
+  @ApiProperty()
+  key: string;
+
+  @ApiProperty({ required: false })
+  icon?: Record<string, unknown>;
+
+  @ApiProperty({ required: false })
+  icon_name?: string;
+
+  @ApiProperty()
+  title: string;
+
+  @ApiProperty()
+  path?: string;
+
+  @ApiProperty({ required: false })
+  children?: Array<MenuItemI>;
+
+  @ApiProperty()
+  sub_menu?: Array<string>;
+
+  @ApiProperty()
+  parent: string;
+
+  @ApiProperty({ required: false })
+  role?: Array<number>;
+
+  @ApiProperty()
+  status?: number;
+}
+
 class BaseRes {
   @ApiProperty({ description: '操作是否成功' })
   success: boolean;
@@ -69,4 +101,15 @@ export class LoginRes extends BaseRes {
 }
 
 export class RegRes extends BaseRes {
+}
+
+export class GetMenusRes extends BaseRes {
+  @ApiProperty({ description: 'menus' })
+  data: Array<MenuItemI>;
+}
+
+export class AddMenuRes extends BaseRes {
+}
+
+export class UpdateMenuRes extends BaseRes {
 }

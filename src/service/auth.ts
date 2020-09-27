@@ -1,15 +1,16 @@
 /*
- * @Author: your name
+ * @Author: mrrs878
  * @Date: 2020-09-23 17:38:45
- * @LastEditTime: 2020-09-25 19:10:28
+ * @LastEditTime: 2020-09-27 15:36:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\auth.ts
  */
 import { Injectable } from '@nestjs/common';
-import { Model } from 'mongoose';
+import { Model, isValidObjectId } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
+import { Menu } from 'src/models/menu';
 import { encryptPwd, makeSalt } from '../tool';
 import { User } from '../models/user';
 import CacheService from './cache';
@@ -18,6 +19,7 @@ import CacheService from './cache';
 export default class AuthService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<User>,
+    @InjectModel(Menu.name) private readonly menuModel: Model<Menu>,
     private readonly jwtService: JwtService,
     private readonly cacheService: CacheService,
   ) {}
@@ -138,5 +140,57 @@ export default class AuthService {
       code: 0,
       msg: '退出登录成功',
     };
+  }
+
+  async getMenu(req: any): Promise<Res<Array<MenuItemI>>> {
+    const res = await this.menuModel.find();
+    const { user } = req;
+    const { role } = user;
+    const data = res.filter((item) => item.role?.includes(role));
+    return {
+      success: true,
+      code: 0,
+      msg: '获取成功',
+      data,
+    };
+  }
+
+  async addMenu(body: AddMenuBodyI): Promise<Res<MenuItemI|undefined>> {
+    try {
+      const data = await this.menuModel.create(body);
+      return {
+        success: true,
+        code: 0,
+        msg: '添加成功',
+        data,
+      };
+    } catch (e) {
+      return {
+        success: false,
+        code: -1,
+        msg: e.message,
+      };
+    }
+  }
+
+  async updateMenu(body: UpdateMenuBodyI, _id: string): Promise<Res<MenuItemI|undefined>> {
+    try {
+      if (!isValidObjectId(_id)) {
+        return { success: false, code: -1, msg: 'id错误' };
+      }
+      const data = await this.menuModel.updateOne({ _id }, body);
+      return {
+        success: true,
+        code: 0,
+        msg: '更新成功',
+        data,
+      };
+    } catch (e) {
+      return {
+        success: false,
+        code: -1,
+        msg: e.message,
+      };
+    }
   }
 }

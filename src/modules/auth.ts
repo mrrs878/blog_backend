@@ -1,7 +1,7 @@
 /*
- * @Author: your name
+ * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-25 18:50:00
+ * @LastEditTime: 2020-09-27 14:03:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\modules\auth.ts
@@ -15,6 +15,7 @@ import { JWTStrategy } from 'src/service/jwtStrategy';
 import AuthService from 'src/service/auth';
 import CacheService from 'src/service/cache';
 import AuthController from 'src/controller/auth';
+import { Menu, MenuSchema } from 'src/models/menu';
 import { User, UserSchema } from '../models/user';
 
 @Module({
@@ -22,9 +23,10 @@ import { User, UserSchema } from '../models/user';
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       secret: MAIN_CONFIG.SECRET,
-      signOptions: { expiresIn: '10min' },
+      signOptions: { expiresIn: '1h' },
     }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: Menu.name, schema: MenuSchema }]),
   ],
   controllers: [AuthController],
   providers: [AuthService, JWTStrategy, CacheService],

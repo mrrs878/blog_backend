@@ -1,8 +1,8 @@
 /*
- * @Author: your name
+ * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-25 10:47:24
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-09-27 16:46:15
+ * @LastEditors: mrrs878
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\article.ts
  */
@@ -11,8 +11,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiOperation, ApiParam, ApiOkResponse, ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { GetArticleRes, GetArticlesSummaryRes, UpdateArticleRes, DeleteArticle } from 'src/swagger/res';
 import { UploadArticleDto, UpdateArticleDto, CreateArticleDto } from 'src/swagger/dto';
-import { JoiValidationPipe } from 'src/pipes';
-import * as Joi from '@hapi/joi';
+import { addArticleV } from 'src/pipes/JoiValidationPipe';
 import { Article } from 'src/models/article';
 import { AuthGuard } from '@nestjs/passport';
 import MAIN_CONFIG from 'src/config';
@@ -38,7 +37,7 @@ export default class ArticleController {
   @ApiOperation({ description: '查询单个文章', summary: '查询单个文章' })
   @ApiParam({ name: 'id', description: '文章id', example: '5f50bf09e29bc4b4e723dbf5', allowEmptyValue: false, type: String })
   @ApiOkResponse({ status: 200, type: GetArticleRes })
-  getArticle(@Param() params) {
+  getArticle(@Param() params: { id: string }) {
     return this.articleService.findOneById(params.id);
   }
 
@@ -47,10 +46,7 @@ export default class ArticleController {
   @Put('/:id')
   @ApiOperation({ description: '更新文章', summary: '更新文章' })
   @ApiParam({ name: 'id', description: '文章id', example: '5f50bf09e29bc4b4e723dbf5', allowEmptyValue: false, type: String })
-  @ApiBody({
-    description: '文章',
-    type: UpdateArticleDto,
-  })
+  @ApiBody({ description: '文章', type: UpdateArticleDto })
   @ApiOkResponse({ status: 200, type: UpdateArticleRes })
   updateArticle(@Param() params, @Body() body) {
     return this.articleService.updateArticleById({ ...body, _id: params.id });
@@ -62,10 +58,7 @@ export default class ArticleController {
   @ApiOperation({ description: '上传文章', summary: '上传文章' })
   @UseInterceptors(FileInterceptor('file'))
   @ApiConsumes('multipart/form-data')
-  @ApiBody({
-    description: '文章',
-    type: UploadArticleDto,
-  })
+  @ApiBody({ description: '文章', type: UploadArticleDto })
   @ApiOkResponse({ status: 200, type: UpdateArticleRes })
   @UseInterceptors(FileInterceptor('article'))
   uploadFile(@UploadedFile() file) {
@@ -76,18 +69,9 @@ export default class ArticleController {
   @UseGuards(AuthGuard('jwt'))
   @Post('/')
   @ApiOperation({ description: '创建文章', summary: '创建文章' })
-  @ApiBody({
-    description: '文章',
-    type: CreateArticleDto,
-  })
+  @ApiBody({ description: '文章', type: CreateArticleDto })
   @ApiOkResponse({ status: 200, type: CreateArticleDto })
-  @UsePipes(new JoiValidationPipe(Joi.object({
-    title: Joi.string().required(),
-    categories: Joi.string().required(),
-    description: Joi.string().required(),
-    tag: Joi.string().required(),
-    content: Joi.string().required(),
-  })))
+  @UsePipes(addArticleV)
   createArticle(@Body() body:Article) {
     return this.articleService.createArticle(body);
   }
