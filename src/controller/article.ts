@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-27 16:46:15
+ * @LastEditTime: 2020-09-28 10:11:27
  * @LastEditors: mrrs878
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\article.ts
@@ -23,7 +23,6 @@ import ArticleService from '../service/article';
 export default class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
-  @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(CacheInterceptor)
   @Get('/all')
   @ApiOperation({ description: '获取所有文章', summary: '获取所有文章' })
@@ -32,7 +31,6 @@ export default class ArticleController {
     return this.articleService.findAll();
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Get('/:id')
   @ApiOperation({ description: '查询单个文章', summary: '查询单个文章' })
   @ApiParam({ name: 'id', description: '文章id', example: '5f50bf09e29bc4b4e723dbf5', allowEmptyValue: false, type: String })

@@ -24,8 +24,11 @@ services:
   blog_backend:
     image: mrrs878/blog_backend:latest
     container_name: blog_backend
+    volumes:
+      - ~/log/blog_backend:/app/log
     depends_on:
       - blog_database
+      - blog_cache
     ports:
       - 3000:3000
     networks:
