@@ -1,14 +1,14 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-27 14:36:02
+ * @LastEditTime: 2020-09-29 18:50:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\swagger\dto.ts
  */
 /* eslint-disable max-classes-per-file */
 import { ApiProperty } from '@nestjs/swagger';
-import { Article, User, Menu } from './res';
+import { Article, User, Menu, Dict } from './res';
 
 export class UploadArticleDto {
   @ApiProperty({ type: 'string', format: 'binary' })
@@ -32,3 +32,9 @@ export class RegDto extends LoginDto {
 export class AddMenuDto extends Menu {}
 
 export class UpdateMenuDto extends Menu {}
+
+export class AddDictDto extends Dict {}
+
+export class UpdateDictDto extends Dict {}
+
+export class CreateDictDto extends Dict {}

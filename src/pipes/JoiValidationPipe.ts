@@ -1,8 +1,8 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 18:46:01
- * @LastEditTime: 2020-09-27 18:58:40
- * @LastEditors: mrrs878
+ * @LastEditTime: 2020-09-29 19:06:02
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\pipes\index.ts
  */
@@ -52,4 +52,14 @@ export const updateMenuV = new JoiValidationPipe(Joi.object({
   status: Joi.number().required(),
   children: Joi.array().required(),
   _id: Joi.string().required(),
+}));
+
+export const addDictV = new JoiValidationPipe(Joi.object({
+  status: Joi.number().required(),
+  label: Joi.string().required(),
+  label_view: Joi.string().required(),
+  type: Joi.string().required(),
+  type_view: Joi.string().required(),
+  name: Joi.string().required(),
+  value: Joi.number().required(),
 }));

@@ -63,6 +63,29 @@ export class Menu {
   status?: number;
 }
 
+export class Dict {
+  @ApiProperty()
+  status: number;
+
+  @ApiProperty()
+  label: string;
+
+  @ApiProperty()
+  label_view: string;
+
+  @ApiProperty()
+  type: string;
+
+  @ApiProperty()
+  type_view: string;
+
+  @ApiProperty()
+  name: string;
+
+  @ApiProperty()
+  value: number;
+}
+
 class BaseRes {
   @ApiProperty({ description: '操作是否成功' })
   success: boolean;
@@ -113,3 +136,17 @@ export class AddMenuRes extends BaseRes {
 
 export class UpdateMenuRes extends BaseRes {
 }
+
+export class GetDictRes extends BaseRes {
+  @ApiProperty({ description: 'dict' })
+  data: DictI;
+}
+
+export class GetDicts extends BaseRes {
+  @ApiProperty({ description: 'dict' })
+  data: Array<DictI>;
+}
+
+export class UpdateDictRes extends BaseRes {}
+
+export class DeleteDictRes extends BaseRes {}

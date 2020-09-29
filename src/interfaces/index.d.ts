@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-27 14:12:45
+ * @LastEditTime: 2020-09-29 18:54:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\interfaces\index.d.ts
@@ -40,6 +40,17 @@ interface MenuItemI {
   status?: number;
   createTime?: string;
   updateTime?: string;
+}
+
+interface DictI {
+  status: number;
+  create_time: number;
+  label: string;
+  label_view: string;
+  type: string;
+  type_view: string;
+  name: string;
+  value: number;
 }
 
 interface RegBodyI extends UserI {
