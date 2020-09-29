@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-24 18:46:05
+ * @LastEditTime: 2020-09-29 17:16:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\main.ts
@@ -18,7 +18,7 @@ import { logger } from './middleware/logger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.setGlobalPrefix('/api');
+  app.setGlobalPrefix('/blog');
   app.enableCors();
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
@@ -30,7 +30,7 @@ async function bootstrap() {
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api-doc', app, document);
+  SwaggerModule.setup('blog-doc', app, document);
 
   app.useGlobalFilters(new AnyExceptionFilter());
   app.useGlobalFilters(new HttpExceptionFilter());
