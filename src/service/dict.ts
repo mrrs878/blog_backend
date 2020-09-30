@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-29 14:48:46
- * @LastEditTime: 2020-09-29 18:46:48
+ * @LastEditTime: 2020-09-30 12:01:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\article.ts
@@ -19,7 +19,7 @@ export default class DictService {
   ) {}
 
   async findAll(): Promise<Res<Array<Dict>>> {
-    const data = await this.article.find(null, { content: 0 }).sort({ createTime: -1 });
+    const data = await this.article.find().sort({ type: -1 });
     return { success: true, code: 0, msg: '', data };
   }
 

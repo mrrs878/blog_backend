@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-24 17:08:55
+ * @LastEditTime: 2020-09-30 14:13:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\article.ts
@@ -21,7 +21,7 @@ export default class ArticleService {
 
   async findAll(): Promise<Res<Array<Article>>> {
     const data = await this.article.find(null, { content: 0 }).sort({ createTime: -1 });
-    return { success: true, code: 0, msg: '', data };
+    return { success: true, code: 0, msg: '获取成功', data };
   }
 
   async findOneById(id: string): Promise<Res<any|Article>> {

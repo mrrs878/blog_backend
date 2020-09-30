@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 17:38:45
- * @LastEditTime: 2020-09-27 15:36:38
+ * @LastEditTime: 2020-09-30 14:14:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\auth.ts
@@ -150,7 +150,7 @@ export default class AuthService {
     return {
       success: true,
       code: 0,
-      msg: '获取成功',
+      msg: '',
       data,
     };
   }
