@@ -16,6 +16,9 @@ class ArticleSummary {
 
   @ApiProperty()
   title: string;
+
+  @ApiProperty()
+  author: string;
 }
 
 export class Article extends ArticleSummary {

@@ -66,6 +66,14 @@ export default class AuthController {
     return this.authService.getMenu(request);
   }
 
+  @UseGuards(AuthGuard('jwt'))
+  @Get('/info')
+  @ApiOperation({ description: '获取用户信息', summary: '权限管理' })
+  @ApiOkResponse({ status: 200, type: GetMenusRes })
+  getUserInfo(@Request() request) {
+    return this.authService.getUserInfo(request);
+  }
+
   @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.SUPER_ADMIN))
   @UseGuards(AuthGuard('jwt'))
   @Post('/menu')

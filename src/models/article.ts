@@ -37,6 +37,9 @@ export class Article extends Document {
 
   @Prop()
   content: string;
+
+  @Prop()
+  author: string;
 }
 
 export const ArticleSchema = SchemaFactory.createForClass(Article);

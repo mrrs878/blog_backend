@@ -24,6 +24,17 @@ export default class AuthService {
     private readonly cacheService: CacheService,
   ) {}
 
+  async getUserInfo(req: any) {
+    const { user } = req;
+    const { name, role } = user;
+    return {
+      success: true,
+      code: 0,
+      msg: '',
+      data: { name, role },
+    };
+  }
+
   async validateUser(body: LoginBodyI) {
     const { name, password } = body;
     const user = await this.userModel.findOne({ name });
@@ -104,7 +115,7 @@ export default class AuthService {
     }
   }
 
-  async login(body: LoginBodyI): Promise<Res<undefined|{ token: string }>> {
+  async login(body: LoginBodyI): Promise<Res<undefined|{ name: string, role: number, _id: string, token: string }>> {
     try {
       const { code, msg, user } = await this.validateUser(body);
       if (code !== 0) {
@@ -116,11 +127,13 @@ export default class AuthService {
       }
 
       const token = await this.certificate(user);
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      const { _id, role, name } = user;
       return {
         success: true,
         code: 0,
         msg: '登录成功',
-        data: { token },
+        data: { _id, role, name, token },
       };
     } catch (e) {
       return {
