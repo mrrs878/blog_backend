@@ -53,6 +53,15 @@ interface DictI {
   value: number;
 }
 
+interface CommentI {
+  name: string;
+  content: string;
+  user_id: string;
+  article_id: string;
+  createTime: string;
+  avatar?: string;
+}
+
 interface RegBodyI extends UserI {
   repassword: string;
 }
@@ -78,4 +87,11 @@ interface UpdateMenuBodyI {
   path?: string;
   parent: string;
   role?: Array<number>;
+}
+
+interface AddCommentBodyI {
+  name: string;
+  content: string;
+  user_id: string;
+  article_id: string;
 }

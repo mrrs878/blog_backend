@@ -25,13 +25,13 @@ export default class AuthService {
   ) {}
 
   async getUserInfo(req: any) {
-    const { user } = req;
-    const { name, role } = user;
+    const { name, role } = req.user;
+    const data = await this.userModel.findOne({ name, role }, { salt: 0, passwordHash: 0 });
     return {
       success: true,
       code: 0,
       msg: '',
-      data: { name, role },
+      data,
     };
   }
 

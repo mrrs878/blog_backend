@@ -8,7 +8,7 @@
  */
 /* eslint-disable max-classes-per-file */
 import { ApiProperty } from '@nestjs/swagger';
-import { Article, User, Menu, Dict } from './res';
+import { Article, User, Menu, Dict, Comment } from './res';
 
 export class UploadArticleDto {
   @ApiProperty({ type: 'string', format: 'binary' })
@@ -38,3 +38,7 @@ export class AddDictDto extends Dict {}
 export class UpdateDictDto extends Dict {}
 
 export class CreateDictDto extends Dict {}
+
+export class UpdateCommentDto extends Comment {}
+
+export class CreateCommentDto extends Comment {}

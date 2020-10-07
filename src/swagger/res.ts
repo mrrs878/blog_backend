@@ -89,6 +89,20 @@ export class Dict {
   value: number;
 }
 
+export class Comment {
+  @ApiProperty()
+  name: string;
+
+  @ApiProperty()
+  content: string;
+
+  @ApiProperty()
+  user_id: string;
+
+  @ApiProperty()
+  avatar?: string;
+}
+
 class BaseRes {
   @ApiProperty({ description: '操作是否成功' })
   success: boolean;
@@ -146,10 +160,30 @@ export class GetDictRes extends BaseRes {
 }
 
 export class GetDicts extends BaseRes {
-  @ApiProperty({ description: 'dict' })
+  @ApiProperty({ description: '字典' })
   data: Array<DictI>;
 }
 
 export class UpdateDictRes extends BaseRes {}
 
 export class DeleteDictRes extends BaseRes {}
+
+export class GetCommentsRes extends BaseRes {
+  @ApiProperty({ description: '所有评论' })
+  data: Array<CommentI>;
+}
+
+export class GetCommentRes extends BaseRes {
+  @ApiProperty({ description: '所有评论' })
+  data: CommentI;
+}
+
+export class UpdateCommentRes extends BaseRes {
+  @ApiProperty({ description: '所有评论' })
+  data: any;
+}
+
+export class DeleteCommentRes extends BaseRes {
+  @ApiProperty({ description: '所有评论' })
+  data: any;
+}

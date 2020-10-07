@@ -32,7 +32,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       data: {
         error: exception.message,
       },
-      msg: EXCEPTION_MSG[status],
+      msg: EXCEPTION_MSG[status] || exception.message,
     });
   }
 }

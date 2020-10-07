@@ -8,5 +8,6 @@
  */
 export const EXCEPTION_MSG = {
   401: '登录token失效',
+  403: '对不起,您无权操作',
   500: '服务器内部错误',
 };

@@ -13,6 +13,7 @@ import { RedisCacheModule } from './modules/cache';
 import ArticleModule from './modules/article';
 import AuthModule from './modules/auth';
 import DictModule from './modules/dict';
+import CommentModule from './modules/comment';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import DictModule from './modules/dict';
     AuthModule,
     ArticleModule,
     DictModule,
+    CommentModule,
   ],
 })
 export default class AppModule {}

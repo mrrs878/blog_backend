@@ -63,3 +63,11 @@ export const addDictV = new JoiValidationPipe(Joi.object({
   name: Joi.string().required(),
   value: Joi.number().required(),
 }));
+
+export const addCommentV = new JoiValidationPipe(Joi.object({
+  name: Joi.string().required(),
+  content: Joi.string().required(),
+  user_id: Joi.string().required(),
+  article_id: Joi.string().required(),
+  avatar: Joi.string().required().allow(''),
+}));
