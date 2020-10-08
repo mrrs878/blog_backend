@@ -24,6 +24,13 @@ export default class ArticleService {
     return { success: true, code: 0, msg: '获取成功', data };
   }
 
+  async findByUser(req: any): Promise<Res<Array<Article>>> {
+    const { name } = req.user;
+    const filter = name === 'admin' ? {} : { author: name };
+    const data = await this.article.find(filter, { content: 0 }).sort({ createTime: -1 });
+    return { success: true, code: 0, msg: '获取成功', data };
+  }
+
   async findOneById(id: string): Promise<Res<any|Article>> {
     if (!isValidObjectId(id)) {
       return { success: false, code: -1, msg: 'id错误', data: {} };
@@ -58,10 +65,12 @@ export default class ArticleService {
     return { success: true, code: 0, msg: '', data };
   }
 
-  async createArticle(article: Article): Promise<any> {
+  async createArticle(req: any, article: Article): Promise<any> {
+    const { name } = req.user;
     const data = await this.article.create({
       ...article,
       createTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+      author: name,
     });
     return { success: true, code: 0, msg: '创建成功', data };
   }

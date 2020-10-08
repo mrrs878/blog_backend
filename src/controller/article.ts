@@ -6,11 +6,10 @@
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\article.ts
  */
-import { Controller, Get, Param, Put, Body, Post, UploadedFile, UseInterceptors, Delete, UsePipes, UseGuards, CacheInterceptor } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiTags, ApiOperation, ApiParam, ApiOkResponse, ApiBody, ApiConsumes } from '@nestjs/swagger';
+import { Controller, Get, Param, Put, Body, Post, UseInterceptors, Delete, UsePipes, UseGuards, CacheInterceptor, Req } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiParam, ApiOkResponse, ApiBody } from '@nestjs/swagger';
 import { GetArticleRes, GetArticlesSummaryRes, UpdateArticleRes, DeleteArticle } from 'src/swagger/res';
-import { UploadArticleDto, UpdateArticleDto, CreateArticleDto } from 'src/swagger/dto';
+import { UpdateArticleDto, CreateArticleDto } from 'src/swagger/dto';
 import { addArticleV } from 'src/pipes/JoiValidationPipe';
 import { Article } from 'src/models/article';
 import { AuthGuard } from '@nestjs/passport';
@@ -29,6 +28,15 @@ export default class ArticleController {
   @ApiOkResponse({ status: 200, type: GetArticlesSummaryRes })
   getAllArticles() {
     return this.articleService.findAll();
+  }
+
+  @UseInterceptors(CacheInterceptor)
+  @UseGuards(AuthGuard('jwt'))
+  @Get('/user')
+  @ApiOperation({ description: '获取所有文章', summary: '获取所有文章' })
+  @ApiOkResponse({ status: 200, type: GetArticlesSummaryRes })
+  getArticlesByUser(@Req() req) {
+    return this.articleService.findByUser(req);
   }
 
   @Get('/:id')
@@ -52,26 +60,13 @@ export default class ArticleController {
 
   @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.ADMIN))
   @UseGuards(AuthGuard('jwt'))
-  @Post('/upload')
-  @ApiOperation({ description: '上传文章', summary: '上传文章' })
-  @UseInterceptors(FileInterceptor('file'))
-  @ApiConsumes('multipart/form-data')
-  @ApiBody({ description: '文章', type: UploadArticleDto })
-  @ApiOkResponse({ status: 200, type: UpdateArticleRes })
-  @UseInterceptors(FileInterceptor('article'))
-  uploadFile(@UploadedFile() file) {
-    return this.articleService.uploadArticle(file);
-  }
-
-  @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.ADMIN))
-  @UseGuards(AuthGuard('jwt'))
   @Post('/')
   @ApiOperation({ description: '创建文章', summary: '创建文章' })
   @ApiBody({ description: '文章', type: CreateArticleDto })
   @ApiOkResponse({ status: 200, type: CreateArticleDto })
   @UsePipes(addArticleV)
-  createArticle(@Body() body:Article) {
-    return this.articleService.createArticle(body);
+  createArticle(@Body() body:Article, @Req() req) {
+    return this.articleService.createArticle(req, body);
   }
 
   @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.ADMIN))

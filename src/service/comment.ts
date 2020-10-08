@@ -20,6 +20,12 @@ export default class CommentService {
     return { success: true, code: 0, msg: '获取成功', data };
   }
 
+  async findByAuthor(req: any): Promise<Res<Array<Comment>>> {
+    const { name } = req.user;
+    const data = await this.comment.find({ article_id: name }).sort({ createTime: -1 });
+    return { success: true, code: 0, msg: '获取成功', data };
+  }
+
   async findOneById(id: string): Promise<Res<any|Comment>> {
     if (!isValidObjectId(id)) {
       return { success: false, code: -1, msg: 'id错误', data: {} };

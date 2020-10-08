@@ -1,4 +1,4 @@
-import { Controller, UseInterceptors, CacheInterceptor, Get, Param, UseGuards, Put, Body, Post, UsePipes, Delete } from '@nestjs/common';
+import { Controller, UseInterceptors, CacheInterceptor, Get, Param, UseGuards, Put, Body, Post, UsePipes, Delete, Req } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiOkResponse, ApiParam, ApiBody } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import CommentService from 'src/service/comment';
@@ -15,12 +15,20 @@ export default class CommentController {
   constructor(private readonly articleService: CommentService) {}
 
   @UseInterceptors(CacheInterceptor)
-  @Get('/:id')
-  @ApiOperation({ description: '获取所有评论', summary: '获取所有评论' })
+  @Get('/article/:id')
+  @ApiOperation({ description: '获取文章所有评论', summary: '获取文章所有评论' })
   @ApiParam({ name: 'id', description: '评论id', example: '5f50bf09e29bc4b4e723dbf5', allowEmptyValue: false, type: String })
   @ApiOkResponse({ status: 200, type: GetCommentsRes })
-  getAllComments(@Param() params: { id: string }) {
+  getArticleAllComments(@Param() params: { id: string }) {
     return this.articleService.findByArticleId(params.id);
+  }
+
+  @UseInterceptors(CacheInterceptor)
+  @Get('/author')
+  @ApiOperation({ description: '获取作者所有评论', summary: '获取作者所有评论' })
+  @ApiOkResponse({ status: 200, type: GetCommentsRes })
+  getAuthorAllComments(@Req() req) {
+    return this.articleService.findByAuthor(req);
   }
 
   @Get('/:id')
