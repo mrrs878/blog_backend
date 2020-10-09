@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-10-09 16:38:11
+ * @LastEditTime: 2020-10-09 18:46:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\app.module.ts
@@ -23,9 +23,9 @@ import CommentModule from './modules/comment';
     }),
     RedisCacheModule,
     DB,
-    // AuthModule,
+    AuthModule,
     ArticleModule,
-    // DictModule,
+    DictModule,
     CommentModule,
   ],
 })

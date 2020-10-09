@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-09 09:57:52
- * @LastEditTime: 2020-10-09 15:45:40
+ * @LastEditTime: 2020-10-09 19:38:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\models\comment.ts
@@ -20,8 +20,11 @@ export class Comment extends Document {
   @Prop()
   user_id: string;
 
-  @Prop({ type: [Types.ObjectId], ref: 'article' })
+  @Prop({ type: Types.ObjectId })
   article_id: string;
+
+  @Prop()
+  author: string;
 
   @Prop()
   status: number;

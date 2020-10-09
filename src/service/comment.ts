@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-09 09:57:52
- * @LastEditTime: 2020-10-09 16:31:37
+ * @LastEditTime: 2020-10-09 19:50:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\comment.ts
@@ -33,26 +33,25 @@ export default class CommentService {
   async findByAuthor(req: any): Promise<Res<Array<any>>> {
     const { name } = req.user;
 
-    // const data = await this.article.aggregate([
-    //   {
-    //     $match: {
-    //       author: name,
-    //     },
-    //   },
-    //   {
-    //     $lookup: {
-    //       from: 'comment',
-    //       localField: '_id',
-    //       foreignField: 'article_id',
-    //       as: 'comments',
-    //     },
-    //   },
-    //   {
-    //     $project: { content: 0 },
-    //   },
-    // ]);
-
-    const data = await this.article.find({ author: name }).populate('comments');
+    const data = await this.article.aggregate([
+      { $addFields: { article_id: { $toString: '$_id' } } },
+      {
+        $match: {
+          author: name,
+        },
+      },
+      {
+        $lookup: {
+          from: 'comment',
+          localField: 'article_id',
+          foreignField: 'article_id',
+          as: 'comments',
+        },
+      },
+      {
+        $project: { content: 0 },
+      },
+    ]);
 
     return { success: true, code: 0, msg: '获取成功', data };
   }
