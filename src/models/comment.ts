@@ -1,5 +1,13 @@
+/*
+ * @Author: your name
+ * @Date: 2020-10-09 09:57:52
+ * @LastEditTime: 2020-10-09 15:45:40
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \blog_backend\src\models\comment.ts
+ */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 @Schema({ collection: 'comment' })
 export class Comment extends Document {
@@ -12,7 +20,7 @@ export class Comment extends Document {
   @Prop()
   user_id: string;
 
-  @Prop()
+  @Prop({ type: [Types.ObjectId], ref: 'article' })
   article_id: string;
 
   @Prop()

@@ -1,13 +1,23 @@
+/*
+ * @Author: your name
+ * @Date: 2020-10-09 09:57:52
+ * @LastEditTime: 2020-10-09 16:31:37
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \blog_backend\src\service\comment.ts
+ */
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, isValidObjectId } from 'mongoose';
 import { Comment } from 'src/models/comment';
 import * as dayjs from 'dayjs';
+import { Article } from 'src/models/article';
 
 @Injectable()
 export default class CommentService {
   constructor(
     @InjectModel(Comment.name) private readonly comment: Model<Comment>,
+    @InjectModel(Article.name) private readonly article: Model<Article>,
   ) {}
 
   async findAll(): Promise<Res<Array<Comment>>> {
@@ -20,9 +30,30 @@ export default class CommentService {
     return { success: true, code: 0, msg: '获取成功', data };
   }
 
-  async findByAuthor(req: any): Promise<Res<Array<Comment>>> {
+  async findByAuthor(req: any): Promise<Res<Array<any>>> {
     const { name } = req.user;
-    const data = await this.comment.find({ article_id: name }).sort({ createTime: -1 });
+
+    // const data = await this.article.aggregate([
+    //   {
+    //     $match: {
+    //       author: name,
+    //     },
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: 'comment',
+    //       localField: '_id',
+    //       foreignField: 'article_id',
+    //       as: 'comments',
+    //     },
+    //   },
+    //   {
+    //     $project: { content: 0 },
+    //   },
+    // ]);
+
+    const data = await this.article.find({ author: name }).populate('comments');
+
     return { success: true, code: 0, msg: '获取成功', data };
   }
 

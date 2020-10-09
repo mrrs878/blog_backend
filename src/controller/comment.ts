@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-10-09 09:57:52
+ * @LastEditTime: 2020-10-09 11:42:34
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \blog_backend\src\controller\comment.ts
+ */
 import { Controller, UseInterceptors, CacheInterceptor, Get, Param, UseGuards, Put, Body, Post, UsePipes, Delete, Req } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiOkResponse, ApiParam, ApiBody } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
@@ -24,6 +32,7 @@ export default class CommentController {
   }
 
   @UseInterceptors(CacheInterceptor)
+  @UseGuards(AuthGuard('jwt'))
   @Get('/author')
   @ApiOperation({ description: '获取作者所有评论', summary: '获取作者所有评论' })
   @ApiOkResponse({ status: 200, type: GetCommentsRes })
@@ -31,6 +40,7 @@ export default class CommentController {
     return this.articleService.findByAuthor(req);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get('/:id')
   @ApiOperation({ description: '查询单个评论', summary: '查询单个评论' })
   @ApiParam({ name: 'id', description: '评论id', example: '5f50bf09e29bc4b4e723dbf5', allowEmptyValue: false, type: String })
