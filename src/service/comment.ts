@@ -33,27 +33,34 @@ export default class CommentService {
   async findByAuthor(req: any): Promise<Res<Array<any>>> {
     const { name } = req.user;
 
-    const data = await this.article.aggregate([
-      { $addFields: { article_id: { $toString: '$_id' } } },
-      {
-        $match: {
-          author: name,
-        },
-      },
+    const data = await this.comment.aggregate([
+      { $addFields: { o_article_id: { $toObjectId: '$article_id' } } },
       {
         $lookup: {
-          from: 'comment',
-          localField: 'article_id',
-          foreignField: 'article_id',
-          as: 'comments',
+          from: 'article',
+          localField: 'o_article_id',
+          foreignField: '_id',
+          as: 'article',
         },
       },
+      { $unwind: '$article' },
+      { $sort: { createTime: -1 } },
       {
-        $project: { content: 0 },
+        $project: {
+          content: 1,
+          name: 1,
+          createTime: 1,
+          article: {
+            title: 1,
+            categories: 1,
+            author: 1,
+            createTime: 1,
+          },
+        },
       },
     ]);
 
-    return { success: true, code: 0, msg: '获取成功', data };
+    return { success: true, code: 0, msg: '获取成功', data: data.filter((item) => item.article.author === name) };
   }
 
   async findOneById(id: string): Promise<Res<any|Comment>> {

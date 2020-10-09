@@ -69,6 +69,5 @@ export const addCommentV = new JoiValidationPipe(Joi.object({
   content: Joi.string().required(),
   user_id: Joi.string().required(),
   article_id: Joi.string().required(),
-  author: Joi.string().required(),
   avatar: Joi.string().required().allow(''),
 }));

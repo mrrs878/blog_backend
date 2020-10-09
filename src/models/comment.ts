@@ -24,9 +24,6 @@ export class Comment extends Document {
   article_id: string;
 
   @Prop()
-  author: string;
-
-  @Prop()
   status: number;
 
   @Prop({ required: false, default: new Date().toLocaleString() })
