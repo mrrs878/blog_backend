@@ -187,3 +187,8 @@ export class DeleteCommentRes extends BaseRes {
   @ApiProperty({ description: '所有评论' })
   data: any;
 }
+
+export class GetUsersRes extends BaseRes {
+  @ApiProperty({ description: '所有用户' })
+  data: Array<UserI>;
+}

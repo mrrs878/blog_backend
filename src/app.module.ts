@@ -14,6 +14,7 @@ import ArticleModule from './modules/article';
 import AuthModule from './modules/auth';
 import DictModule from './modules/dict';
 import CommentModule from './modules/comment';
+import UserModule from './modules/user';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import CommentModule from './modules/comment';
     ArticleModule,
     DictModule,
     CommentModule,
+    UserModule,
   ],
 })
 export default class AppModule {}

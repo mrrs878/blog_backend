@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-10-09 18:56:55
+ * @LastEditTime: 2020-10-13 17:17:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\interfaces\index.d.ts
@@ -25,6 +25,8 @@ interface UserI {
   password: string;
   salt: string;
   role?: number;
+  createTime: string;
+  create_by: number;
 }
 
 interface MenuItemI {
