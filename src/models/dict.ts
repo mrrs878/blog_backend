@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 19:08:46
- * @LastEditTime: 2020-09-29 18:45:44
+ * @LastEditTime: 2020-10-14 13:11:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\models\article.ts
@@ -28,6 +28,9 @@ export class Dict extends Document {
 
   @Prop()
   name: string;
+
+  @Prop()
+  name_view: string;
 
   @Prop()
   value: number;

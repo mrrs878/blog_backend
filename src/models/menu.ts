@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-27 15:44:31
+ * @LastEditTime: 2020-10-14 19:10:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\models\user.ts
@@ -22,9 +22,6 @@ export class Menu extends Document {
 
   @Prop({ default: '', required: false })
   path?: string;
-
-  @Prop({ required: false, default: [] })
-  children?: Array<MenuItemI>;
 
   @Prop({ required: false, default: [] })
   sub_menu?: Array<string>;

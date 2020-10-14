@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 18:46:01
- * @LastEditTime: 2020-10-09 19:15:00
+ * @LastEditTime: 2020-10-14 19:09:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\pipes\index.ts
@@ -39,6 +39,7 @@ export const addMenuV = new JoiValidationPipe(Joi.object({
   role: Joi.array().default([]),
   sub_menu: Joi.array().default([]),
   status: Joi.number().default(1),
+  position: Joi.number().default(1),
 }));
 
 export const updateMenuV = new JoiValidationPipe(Joi.object({
@@ -50,8 +51,8 @@ export const updateMenuV = new JoiValidationPipe(Joi.object({
   role: Joi.array().required(),
   sub_menu: Joi.array().required(),
   status: Joi.number().required(),
-  children: Joi.array().required(),
   _id: Joi.string().required(),
+  position: Joi.number().default(1),
 }));
 
 export const addDictV = new JoiValidationPipe(Joi.object({
@@ -61,6 +62,7 @@ export const addDictV = new JoiValidationPipe(Joi.object({
   type: Joi.string().required(),
   type_view: Joi.string().required(),
   name: Joi.string().required(),
+  name_view: Joi.string().required(),
   value: Joi.number().required(),
 }));
 

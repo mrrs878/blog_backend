@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 17:38:30
- * @LastEditTime: 2020-09-27 16:40:31
+ * @LastEditTime: 2020-10-14 17:53:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\auth.ts
@@ -74,7 +74,7 @@ export default class AuthController {
     return this.authService.getUserInfo(request);
   }
 
-  @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.SUPER_ADMIN))
+  @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.ADMIN))
   @UseGuards(AuthGuard('jwt'))
   @Post('/menu')
   @ApiOperation({ description: '添加菜单', summary: '权限管理' })
@@ -85,14 +85,14 @@ export default class AuthController {
     return this.authService.addMenu(body);
   }
 
-  @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.SUPER_ADMIN))
+  @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.ADMIN))
   @UseGuards(AuthGuard('jwt'))
   @Put('/menu/:id')
   @ApiOperation({ description: '更新菜单', summary: '权限管理' })
   @ApiBody({ description: '更新菜单', type: UpdateMenuDto })
   @ApiParam({ name: 'id', description: '菜单项id', example: '5f50bf09e29bc4b4e723dbf5', allowEmptyValue: false, type: String })
   @ApiOkResponse({ status: 200, type: UpdateMenuRes })
-  updateMenu(@Body(updateMenuV) body: UpdateMenuBodyI, @Param() params: { id: string }) {
+  updateMenu(@Body(updateMenuV) body, @Param() params: { id: string }) {
     return this.authService.updateMenu(body, params.id);
   }
 }

@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 17:38:45
- * @LastEditTime: 2020-09-30 14:14:15
+ * @LastEditTime: 2020-10-14 18:10:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\auth.ts
@@ -11,6 +11,7 @@ import { Model, isValidObjectId } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { Menu } from 'src/models/menu';
+import * as dayjs from 'dayjs';
 import { encryptPwd, makeSalt } from '../tool';
 import { User } from '../models/user';
 import CacheService from './cache';
@@ -191,7 +192,7 @@ export default class AuthService {
       if (!isValidObjectId(_id)) {
         return { success: false, code: -1, msg: 'id错误' };
       }
-      const data = await this.menuModel.updateOne({ _id }, body);
+      const data = await this.menuModel.updateOne({ _id }, { ...body, updateTime: dayjs().format('YYYY-MM-DD HH:mm:ss') });
       return {
         success: true,
         code: 0,

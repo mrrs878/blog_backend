@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-10-13 17:17:20
+ * @LastEditTime: 2020-10-14 19:10:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\interfaces\index.d.ts
@@ -35,7 +35,6 @@ interface MenuItemI {
   icon_name?: string;
   title: string;
   path?: string;
-  children?: Array<MenuItemI>;
   sub_menu?: Array<string>;
   parent: string;
   role?: Array<number>;
@@ -52,6 +51,7 @@ interface DictI {
   type: string;
   type_view: string;
   name: string;
+  name_view: string;
   value: number;
 }
 
