@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-10-14 19:10:19
+ * @LastEditTime: 2020-10-14 20:02:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\interfaces\index.d.ts
@@ -24,9 +24,17 @@ interface UserI {
   name: string;
   password: string;
   salt: string;
-  role?: number;
+  role: number;
+  avatar: string;
+  createdBy: number;
+  profession: string;
+  tags: Array<string>;
+  signature: string;
+  department: string;
+  address: string;
+  teams: Array<string>;
+  updateTime?: string;
   createTime: string;
-  create_by: number;
 }
 
 interface MenuItemI {

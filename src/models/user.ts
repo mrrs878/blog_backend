@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-24 17:07:22
+ * @LastEditTime: 2020-10-14 19:59:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\models\user.ts
@@ -21,8 +21,38 @@ export class User extends Document {
   @Prop()
   salt: string;
 
+  @Prop()
+  avatar: string;
+
+  @Prop()
+  createdBy: number;
+
+  @Prop()
+  signature: string;
+
+  @Prop()
+  department: string;
+
+  @Prop()
+  address: string;
+
+  @Prop()
+  profession: string;
+
+  @Prop()
+  tags: Array<string>;
+
+  @Prop()
+  teams: Array<string>;
+
   @Prop({ default: MAIN_CONFIG.ROLE.HUMAN, required: false })
   role: number;
+
+  @Prop({ required: false, default: new Date().toLocaleString() })
+  createTime?: string;
+
+  @Prop({ required: false, default: new Date().toLocaleString() })
+  updateTime?: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
