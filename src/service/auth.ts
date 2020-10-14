@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 17:38:45
- * @LastEditTime: 2020-10-14 20:03:04
+ * @LastEditTime: 2020-10-14 23:06:09
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\auth.ts
@@ -27,7 +27,7 @@ export default class AuthService {
 
   async getUserInfo(req: any) {
     const { name, role } = req.user;
-    const data = await this.userModel.findOne({ name, role }, { salt: 0, passwordHash: 0 });
+    const data = await this.userModel.findOne({ name, role }, { salt: 0, passwordHash: 0, _v: 0 });
     return {
       success: true,
       code: 0,

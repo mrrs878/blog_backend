@@ -1,19 +1,19 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 18:46:01
- * @LastEditTime: 2020-10-14 19:09:58
+ * @LastEditTime: 2020-10-14 23:04:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\pipes\index.ts
  */
-import { PipeTransform, Injectable, ArgumentMetadata, BadRequestException } from '@nestjs/common';
+import { PipeTransform, Injectable, BadRequestException } from '@nestjs/common';
 import * as Joi from '@hapi/joi';
 
 @Injectable()
 export class JoiValidationPipe implements PipeTransform {
   constructor(private schema: Joi.ObjectSchema) {}
 
-  transform(value: any, metadata: ArgumentMetadata) {
+  transform(value: any) {
     const { error } = this.schema.validate(value);
     if (error) {
       throw new BadRequestException(`参数校验失败,${error.message}`);
@@ -72,4 +72,18 @@ export const addCommentV = new JoiValidationPipe(Joi.object({
   user_id: Joi.string().required(),
   article_id: Joi.string().required(),
   avatar: Joi.string().required().allow(''),
+}));
+
+export const updateUserV = new JoiValidationPipe(Joi.object({
+  _id: Joi.string().required(),
+  name: Joi.string().required(),
+  role: Joi.number().required(),
+  avatar: Joi.string().required().allow(''),
+  createdBy: Joi.number().required(),
+  profession: Joi.string().required().allow(''),
+  tags: Joi.array().required(),
+  signature: Joi.string().required().allow(''),
+  department: Joi.string().required().allow(''),
+  address: Joi.string().required().allow(''),
+  teams: Joi.array().required(),
 }));
