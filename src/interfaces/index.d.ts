@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-10-14 20:02:41
+ * @LastEditTime: 2020-10-15 10:21:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\interfaces\index.d.ts
@@ -35,6 +35,7 @@ interface UserI {
   teams: Array<string>;
   updateTime?: string;
   createTime: string;
+  status: number;
 }
 
 interface MenuItemI {
