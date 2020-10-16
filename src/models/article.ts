@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 19:08:46
- * @LastEditTime: 2020-10-09 16:20:43
+ * @LastEditTime: 2020-10-16 09:50:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\models\article.ts
@@ -21,7 +21,7 @@ export class Article extends Document {
   description: string;
 
   @Prop()
-  tag: string;
+  tags: string;
 
   @Prop()
   title: string;

@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-10-15 10:21:21
+ * @LastEditTime: 2020-10-16 12:49:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\interfaces\index.d.ts
@@ -46,6 +46,7 @@ interface MenuItemI {
   path?: string;
   sub_menu?: Array<string>;
   parent: string;
+  position: number;
   role?: Array<number>;
   status?: number;
   createTime?: string;
@@ -62,6 +63,8 @@ interface DictI {
   name: string;
   name_view: string;
   value: number;
+  creator: string;
+  updater: string;
 }
 
 interface CommentI {

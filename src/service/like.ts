@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-15 11:08:34
- * @LastEditTime: 2020-10-15 17:07:54
+ * @LastEditTime: 2020-10-16 09:50:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\like.ts
@@ -11,7 +11,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { isValidObjectId, Model } from 'mongoose';
 import { DocumentStatus } from 'src/constant';
 import { Like } from 'src/models/like';
-import * as dayjs from 'dayjs';
 import { getNow } from 'src/tool';
 
 @Injectable()

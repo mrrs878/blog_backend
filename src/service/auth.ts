@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 17:38:45
- * @LastEditTime: 2020-10-15 10:45:06
+ * @LastEditTime: 2020-10-16 12:31:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\auth.ts
@@ -174,7 +174,7 @@ export default class AuthService {
     };
   }
 
-  async addMenu(body: AddMenuBodyI): Promise<Res<MenuItemI|undefined>> {
+  async addMenu(body: any): Promise<Res<MenuItemI|undefined>> {
     try {
       const data = await this.menuModel.create(body);
       return {
