@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 17:38:45
- * @LastEditTime: 2020-10-14 23:06:09
+ * @LastEditTime: 2020-10-19 11:52:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\auth.ts
@@ -63,8 +63,8 @@ export default class AuthService {
 
   async certificate(user: User) {
     try {
-      const { name, role } = user;
-      const token = this.jwtService.sign({ name, role });
+      const { name, role, _id } = user;
+      const token = this.jwtService.sign({ name, role, _id });
       await this.cacheService.set(name, token);
       return token;
     } catch (e) {
@@ -73,7 +73,7 @@ export default class AuthService {
   }
 
   async reg(body: RegBodyI): Promise<Res<UserI|undefined>> {
-    const { name, password, repassword, role, createdBy, tags, avatar, profession, teams, signature, department, address } = body;
+    const { name, password, repassword, createdBy, role } = body;
     if (password !== repassword) {
       return {
         success: false,
@@ -101,8 +101,11 @@ export default class AuthService {
       };
     }
     try {
+      const defaultVal = {
+        department: '', address: '', tags: [], avatar: '', teams: [], profession: '', signature: '', status: 0,
+      };
       await this.userModel.create({
-        name, passwordHash, salt, role, createdBy, department, address, tags, avatar, teams, profession, signature, createTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+        name, passwordHash, salt, role, createdBy, ...defaultVal, createTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
       });
       return {
         success: true,
@@ -171,7 +174,7 @@ export default class AuthService {
     };
   }
 
-  async addMenu(body: AddMenuBodyI): Promise<Res<MenuItemI|undefined>> {
+  async addMenu(body: any): Promise<Res<MenuItemI|undefined>> {
     try {
       const data = await this.menuModel.create(body);
       return {

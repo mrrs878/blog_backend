@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-09 09:57:52
- * @LastEditTime: 2020-10-09 19:50:03
+ * @LastEditTime: 2020-10-19 19:05:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\comment.ts
@@ -26,15 +26,12 @@ export default class CommentService {
   }
 
   async findByArticleId(article_id: string): Promise<Res<Array<Comment>>> {
-    const data = await this.comment.find({ article_id }).sort({ createTime: -1 });
-    return { success: true, code: 0, msg: '获取成功', data };
-  }
-
-  async findByAuthor(req: any): Promise<Res<Array<any>>> {
-    const { name } = req.user;
-
     const data = await this.comment.aggregate([
+      {
+        $match: { article_id },
+      },
       { $addFields: { o_article_id: { $toObjectId: '$article_id' } } },
+      { $addFields: { o_creator_id: { $toObjectId: '$creator_id' } } },
       {
         $lookup: {
           from: 'article',
@@ -43,18 +40,73 @@ export default class CommentService {
           as: 'article',
         },
       },
+      {
+        $lookup: {
+          from: 'user',
+          localField: 'o_creator_id',
+          foreignField: '_id',
+          as: 'creator',
+        },
+      },
       { $unwind: '$article' },
+      { $unwind: '$creator' },
       { $sort: { createTime: -1 } },
       {
         $project: {
           content: 1,
-          name: 1,
           createTime: 1,
           article: {
             title: 1,
             categories: 1,
             author: 1,
             createTime: 1,
+          },
+          creator: {
+            name: 1,
+          },
+        },
+      },
+    ]);
+    return { success: true, code: 0, msg: '获取成功', data };
+  }
+
+  async findByAuthor(req: any): Promise<Res<Array<any>>> {
+    const { name } = req.user;
+
+    const data = await this.comment.aggregate([
+      { $addFields: { o_article_id: { $toObjectId: '$article_id' } } },
+      { $addFields: { o_creator_id: { $toObjectId: '$creator_id' } } },
+      {
+        $lookup: {
+          from: 'article',
+          localField: 'o_article_id',
+          foreignField: '_id',
+          as: 'article',
+        },
+      },
+      {
+        $lookup: {
+          from: 'user',
+          localField: 'o_creator_id',
+          foreignField: '_id',
+          as: 'creator',
+        },
+      },
+      { $unwind: '$article' },
+      { $unwind: '$creator' },
+      { $sort: { createTime: -1 } },
+      {
+        $project: {
+          content: 1,
+          createTime: 1,
+          article: {
+            title: 1,
+            categories: 1,
+            author: 1,
+            createTime: 1,
+          },
+          creator: {
+            name: 1,
           },
         },
       },

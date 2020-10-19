@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 18:46:01
- * @LastEditTime: 2020-10-15 23:04:52
+ * @LastEditTime: 2020-10-19 23:08:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\pipes\index.ts
@@ -26,7 +26,7 @@ export const addArticleV = new JoiValidationPipe(Joi.object({
   title: Joi.string().required(),
   categories: Joi.string().required(),
   description: Joi.string().required(),
-  tag: Joi.string().required(),
+  tags: Joi.string().required(),
   content: Joi.string().required(),
 }));
 
@@ -86,4 +86,13 @@ export const updateUserV = new JoiValidationPipe(Joi.object({
   department: Joi.string().required().allow(''),
   address: Joi.string().required().allow(''),
   teams: Joi.array().required(),
+}));
+
+export const likeArticleV = new JoiValidationPipe(Joi.object({
+  article_id: Joi.string().required(),
+}));
+
+export const updateRoleV = new JoiValidationPipe(Joi.object({
+  _id: Joi.string().required(),
+  menu: Joi.array().required(),
 }));

@@ -1,12 +1,12 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-29 14:48:46
- * @LastEditTime: 2020-09-29 19:20:34
+ * @LastEditTime: 2020-10-16 12:52:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\article.ts
  */
-import { Controller, Get, Param, Put, Body, Post, UseInterceptors, Delete, UsePipes, UseGuards, CacheInterceptor } from '@nestjs/common';
+import { Controller, Get, Param, Put, Body, Post, UseInterceptors, Delete, UsePipes, UseGuards, CacheInterceptor, Req } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiParam, ApiOkResponse, ApiBody } from '@nestjs/swagger';
 import { GetDictRes, GetDicts, UpdateDictRes, DeleteDictRes } from 'src/swagger/res';
 import { UpdateDictDto, CreateDictDto } from 'src/swagger/dto';
@@ -46,8 +46,8 @@ export default class DictController {
   @ApiParam({ name: 'id', description: '字段id', example: '5f50bf09e29bc4b4e723dbf5', allowEmptyValue: false, type: String })
   @ApiBody({ description: '字段', type: UpdateDictDto })
   @ApiOkResponse({ status: 200, type: UpdateDictRes })
-  updateDict(@Param() params, @Body() body) {
-    return this.dictService.updateDictById({ ...body, _id: params.id });
+  updateDict(@Param() params, @Body() body, @Req() req) {
+    return this.dictService.updateDictById({ ...body, _id: params.id }, req);
   }
 
   @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.ADMIN))
@@ -57,8 +57,8 @@ export default class DictController {
   @ApiBody({ description: '字段', type: CreateDictDto })
   @ApiOkResponse({ status: 200, type: CreateDictDto })
   @UsePipes(addDictV)
-  createDict(@Body() body:Dict) {
-    return this.dictService.createDict(body);
+  createDict(@Body() body:Dict, @Req() req) {
+    return this.dictService.createDict(body, req);
   }
 
   @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.ADMIN))
@@ -67,7 +67,7 @@ export default class DictController {
   @ApiOperation({ description: '删除字段', summary: '删除字段' })
   @ApiParam({ name: 'id', description: '字段id', example: '5f50bf09e29bc4b4e723dbf5', allowEmptyValue: false, type: String })
   @ApiOkResponse({ status: 200, type: DeleteDictRes })
-  deleteDict(@Param() params) {
-    return this.dictService.deleteDict(params.id);
+  deleteDict(@Param() params, @Req() req) {
+    return this.dictService.deleteDict(params.id, req);
   }
 }

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-09 09:57:52
- * @LastEditTime: 2020-10-09 19:38:29
+ * @LastEditTime: 2020-10-19 12:01:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\models\comment.ts
@@ -12,13 +12,10 @@ import { Document, Types } from 'mongoose';
 @Schema({ collection: 'comment' })
 export class Comment extends Document {
   @Prop()
-  name: string;
-
-  @Prop()
   content: string;
 
   @Prop()
-  user_id: string;
+  creator_id: string;
 
   @Prop({ type: Types.ObjectId })
   article_id: string;
