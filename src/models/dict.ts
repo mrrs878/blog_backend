@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 19:08:46
- * @LastEditTime: 2020-10-16 12:49:39
+ * @LastEditTime: 2020-10-19 11:56:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\models\article.ts
@@ -33,10 +33,10 @@ export class Dict extends BaseModel {
   value: number;
 
   @Prop()
-  creator: string;
+  creator_id: string;
 
   @Prop()
-  updater: string;
+  updater_id: string;
 }
 
 export const DictSchema = SchemaFactory.createForClass(Dict);

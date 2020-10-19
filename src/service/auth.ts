@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 17:38:45
- * @LastEditTime: 2020-10-16 12:31:45
+ * @LastEditTime: 2020-10-19 11:52:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\auth.ts
@@ -63,8 +63,8 @@ export default class AuthService {
 
   async certificate(user: User) {
     try {
-      const { name, role } = user;
-      const token = this.jwtService.sign({ name, role });
+      const { name, role, _id } = user;
+      const token = this.jwtService.sign({ name, role, _id });
       await this.cacheService.set(name, token);
       return token;
     } catch (e) {

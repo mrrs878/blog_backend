@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 18:46:01
- * @LastEditTime: 2020-10-15 11:12:39
+ * @LastEditTime: 2020-10-19 13:17:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\pipes\index.ts
@@ -89,5 +89,10 @@ export const updateUserV = new JoiValidationPipe(Joi.object({
 }));
 
 export const likeArticleV = new JoiValidationPipe(Joi.object({
-  articleId: Joi.string().required(),
+  article_id: Joi.string().required(),
+}));
+
+export const updateRoleV = new JoiValidationPipe(Joi.object({
+  _id: Joi.string().required(),
+  menu: Joi.array().required(),
 }));

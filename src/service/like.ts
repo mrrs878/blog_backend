@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-15 11:08:34
- * @LastEditTime: 2020-10-16 09:50:45
+ * @LastEditTime: 2020-10-19 13:14:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\like.ts
@@ -38,7 +38,7 @@ export default class LikeService {
         msg: 'id有误',
       };
     }
-    const data = await this.like.find({ articleId, status: DocumentStatus.running });
+    const data = await this.like.find({ article_id: articleId, status: DocumentStatus.running });
     return {
       success: true,
       code: 0,
@@ -47,10 +47,10 @@ export default class LikeService {
     };
   }
 
-  async addLike(body: { articleId: string }, req: any): Promise<Res<any>> {
+  async addLike(body: { article_id: string }, req: any): Promise<Res<any>> {
     const { name } = req.user;
-    const { articleId } = body;
-    const tmp = await this.like.findOneAndUpdate({ name, articleId }, { status: DocumentStatus.running, updateTime: getNow() });
+    const { article_id } = body;
+    const tmp = await this.like.findOneAndUpdate({ name, article_id }, { status: DocumentStatus.running, updateTime: getNow() });
     if (tmp) {
       return {
         success: true,
@@ -60,7 +60,7 @@ export default class LikeService {
       };
     }
     const createTime = getNow();
-    const like = { articleId, name, status: DocumentStatus.running, createTime, updateTime: createTime };
+    const like = { article_id, name, status: DocumentStatus.running, createTime, updateTime: createTime };
     const data = await this.like.create(like);
     return {
       success: true,
@@ -72,7 +72,7 @@ export default class LikeService {
 
   async unLike(articleId: string, req: any): Promise<Res<any>> {
     const { name } = req.user;
-    const data = await this.like.update({ articleId, name }, { status: DocumentStatus.deleted, updateTime: getNow() });
+    const data = await this.like.update({ article_id: articleId, name }, { status: DocumentStatus.deleted, updateTime: getNow() });
     return {
       success: true,
       msg: '取消点赞成功',

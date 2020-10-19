@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-10-15 11:04:23
- * @LastEditTime: 2020-10-15 11:24:01
- * @LastEditors: your name
+ * @LastEditTime: 2020-10-19 13:14:02
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\models\like.ts
  */
@@ -20,7 +20,7 @@ import { BaseModel } from './base';
 @Schema({ collection: 'like' })
 export class Like extends BaseModel {
   @Prop()
-  articleId: string;
+  article_id: string;
 
   @Prop()
   name: string;
