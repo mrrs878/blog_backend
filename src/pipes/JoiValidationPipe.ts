@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 18:46:01
- * @LastEditTime: 2020-10-20 15:04:39
+ * @LastEditTime: 2020-10-20 15:05:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\pipes\index.ts
@@ -26,7 +26,7 @@ export const addArticleV = new JoiValidationPipe(Joi.object({
   title: Joi.string().required(),
   categories: Joi.string().required(),
   description: Joi.string().required(),
-  tag: Joi.string().required(),
+  tags: Joi.string().required(),
   content: Joi.string().required(),
 }));
 
