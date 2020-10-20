@@ -1,13 +1,15 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-10-15 13:21:34
+ * @LastEditTime: 2020-10-20 15:03:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\app.module.ts
  */
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import * as dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
 import DB from './modules/db';
 import { RedisCacheModule } from './modules/cache';
 import ArticleModule from './modules/article';
@@ -16,6 +18,8 @@ import DictModule from './modules/dict';
 import CommentModule from './modules/comment';
 import UserModule from './modules/user';
 import LikeModule from './modules/like';
+
+dayjs.locale('zh-cn');
 
 @Module({
   imports: [
