@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 18:46:01
- * @LastEditTime: 2020-10-20 15:05:54
+ * @LastEditTime: 2020-10-20 16:14:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\pipes\index.ts
@@ -67,11 +67,9 @@ export const addDictV = new JoiValidationPipe(Joi.object({
 }));
 
 export const addCommentV = new JoiValidationPipe(Joi.object({
-  name: Joi.string().required(),
   content: Joi.string().required(),
   creator_id: Joi.string().required(),
   article_id: Joi.string().required(),
-  avatar: Joi.string().required().allow(''),
 }));
 
 export const updateUserV = new JoiValidationPipe(Joi.object({
