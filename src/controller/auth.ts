@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 17:38:30
- * @LastEditTime: 2020-10-14 17:53:50
+ * @LastEditTime: 2020-10-26 22:38:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\auth.ts
@@ -16,6 +16,7 @@ import { AddMenuDto, LoginDto, RegDto, UpdateMenuDto } from '../swagger/dto';
 import { AddMenuRes, GetMenusRes, LoginRes, RegRes, UpdateMenuRes } from '../swagger/res';
 import MAIN_CONFIG from '../config';
 import AuthService from '../service/auth';
+import bodyParser from 'body-parser';
 
 @Controller('/auth')
 @ApiTags('登录模块')
@@ -94,5 +95,12 @@ export default class AuthController {
   @ApiOkResponse({ status: 200, type: UpdateMenuRes })
   updateMenu(@Body(updateMenuV) body, @Param() params: { id: string }) {
     return this.authService.updateMenu(body, params.id);
+  }
+
+  @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.ADMIN))
+  @UseGuards(AuthGuard('jwt'))
+  @Put('/user')
+  updateUserStatus(@Body() body) {
+    return this.authService.updateUserStatus(body);
   }
 }

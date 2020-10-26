@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-30 12:01:57
+ * @LastEditTime: 2020-10-23 17:09:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\article.ts
@@ -54,8 +54,8 @@ export default class ArticleController {
   @ApiParam({ name: 'id', description: '文章id', example: '5f50bf09e29bc4b4e723dbf5', allowEmptyValue: false, type: String })
   @ApiBody({ description: '文章', type: UpdateArticleDto })
   @ApiOkResponse({ status: 200, type: UpdateArticleRes })
-  updateArticle(@Param() params, @Body() body) {
-    return this.articleService.updateArticleById({ ...body, _id: params.id });
+  updateArticle(@Body() body, @Req() req) {
+    return this.articleService.updateArticleById(body, req);
   }
 
   @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.ADMIN))

@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-10-16 16:20:56
+ * @LastEditTime: 2020-10-23 17:09:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\article.ts
@@ -82,22 +82,16 @@ export default class ArticleService {
     return { success: true, code: 0, msg: '查询成功', data };
   }
 
-  async updateArticleById(article: Article): Promise<any> {
-    const data = await this.article.updateOne({ _id: article._id }, { ...article, updateTime: dayjs().format('YYYY-MM-DD HH:mm:ss') });
+  async updateArticleById(article: Article, req: any): Promise<any> {
+    const { name, _id } = req.user;
+    const data = await this.article.updateOne({ _id: article._id }, {
+      ...article,
+      author: name,
+      author_id: _id,
+      updateTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+    });
     if (data.ok && data.nModified === 1) return { success: true, code: 0, msg: '修改成功' };
     return { success: false, code: -1, msg: '修改失败' };
-  }
-
-  async uploadArticle(file: FileI): Promise<any> {
-    if (!file) {
-      return { success: true, code: -1, msg: '文件错误', data: {} };
-    }
-    console.log(JSON.parse(file.buffer.toString()).length);
-    JSON.parse(file.buffer.toString()).forEach(async (item) => {
-      await this.article.create({ ...item, content: Base64.encode(item.content) });
-    });
-
-    return { success: true, code: 0, msg: '', data: {} };
   }
 
   async deleteArticle(id: string): Promise<Res<any>> {
@@ -109,11 +103,12 @@ export default class ArticleService {
   }
 
   async createArticle(req: any, article: Article): Promise<any> {
-    const { name } = req.user;
+    const { name, _id } = req.user;
     const data = await this.article.create({
       ...article,
       createTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
       author: name,
+      author_id: _id,
     });
     return { success: true, code: 0, msg: '创建成功', data };
   }

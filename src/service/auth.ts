@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 17:38:45
- * @LastEditTime: 2020-10-19 11:52:24
+ * @LastEditTime: 2020-10-26 22:58:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\auth.ts
@@ -211,5 +211,26 @@ export default class AuthService {
         msg: e.message,
       };
     }
+  }
+
+  async updateUserStatus(body: any): Promise<Res<any>> {
+    const { userId, status } = body;
+    const user = await this.userModel.findOne({ _id: userId });
+    console.log(user);
+
+    if (!user) {
+      return {
+        success: false,
+        msg: '用户不存在',
+        code: -1,
+      };
+    }
+    const data = await this.userModel.updateOne({ _id: body.userId }, { status, updateTime: dayjs().format('YYYY-MM-DD HH:mm:ss') });
+    return {
+      success: true,
+      code: 0,
+      msg: '更新成功',
+      data,
+    };
   }
 }
