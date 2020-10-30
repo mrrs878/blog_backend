@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-10-23 17:09:23
+ * @LastEditTime: 2020-10-30 18:02:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\article.ts
@@ -10,7 +10,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, isValidObjectId } from 'mongoose';
 import { Article } from 'src/models/article';
-import { Base64 } from 'js-base64';
 import * as dayjs from 'dayjs';
 
 @Injectable()
@@ -19,14 +18,16 @@ export default class ArticleService {
     @InjectModel(Article.name) private readonly article: Model<Article>,
   ) {}
 
-  async findAll(): Promise<Res<Array<Article>>> {
-    const data = await this.article.find(null, { content: 0 }).sort({ createTime: -1 });
+  async findAll(status: string): Promise<Res<Array<Article>>> {
+    const data = await this.article.find({ status: Number(status) }, { content: 0 }).sort({ createTime: -1 });
     return { success: true, code: 0, msg: '获取成功', data };
   }
 
-  async findByUser(req: any): Promise<Res<Array<Article>>> {
+  async findByUser(req: any, status: string): Promise<Res<Array<Article>>> {
     const { name } = req.user;
-    const filter = name === 'admin' ? {} : { author: name };
+    let filter = {};
+    filter = name === 'admin' ? filter : { ...filter, author: name };
+    filter = status === '0' ? filter : { ...filter, status: 1 };
 
     const data = await this.article.aggregate([
       {
@@ -52,12 +53,14 @@ export default class ArticleService {
       { $sort: { createTime: -1 } },
       {
         $project: {
+          _id: 1,
           title: 1,
           categories: 1,
           author: 1,
           createTime: 1,
           updateTime: 1,
           tags: 1,
+          status: 1,
           comments: {
             content: 1,
             name: 1,
@@ -82,7 +85,7 @@ export default class ArticleService {
     return { success: true, code: 0, msg: '查询成功', data };
   }
 
-  async updateArticleById(article: Article, req: any): Promise<any> {
+  async updateArticleById(article: any, req: any): Promise<any> {
     const { name, _id } = req.user;
     const data = await this.article.updateOne({ _id: article._id }, {
       ...article,

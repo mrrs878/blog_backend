@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-10-23 17:09:16
+ * @LastEditTime: 2020-10-30 18:01:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\article.ts
@@ -23,20 +23,20 @@ export default class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
   @UseInterceptors(CacheInterceptor)
-  @Get('/')
+  @Get('/:enabled')
   @ApiOperation({ description: '获取所有文章', summary: '获取所有文章' })
   @ApiOkResponse({ status: 200, type: GetArticlesSummaryRes })
-  getAllArticles() {
-    return this.articleService.findAll();
+  getAllArticles(@Param() params: { enabled: string }) {
+    return this.articleService.findAll(params.enabled);
   }
 
   @UseInterceptors(CacheInterceptor)
   @UseGuards(AuthGuard('jwt'))
-  @Get('/user')
+  @Get('/user/:enabled')
   @ApiOperation({ description: '获取所有文章', summary: '获取所有文章' })
   @ApiOkResponse({ status: 200, type: GetArticlesSummaryRes })
-  getArticlesByUser(@Req() req) {
-    return this.articleService.findByUser(req);
+  getArticlesByUser(@Req() req, @Param() params: { enabled: string }) {
+    return this.articleService.findByUser(req, params.enabled);
   }
 
   @Get('/:id')
@@ -49,7 +49,7 @@ export default class ArticleController {
 
   @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.ADMIN))
   @UseGuards(AuthGuard('jwt'))
-  @Put('/:id')
+  @Put('/')
   @ApiOperation({ description: '更新文章', summary: '更新文章' })
   @ApiParam({ name: 'id', description: '文章id', example: '5f50bf09e29bc4b4e723dbf5', allowEmptyValue: false, type: String })
   @ApiBody({ description: '文章', type: UpdateArticleDto })
