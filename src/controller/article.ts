@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-10-30 18:01:50
+ * @LastEditTime: 2020-11-02 22:41:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\article.ts
@@ -23,7 +23,7 @@ export default class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
   @UseInterceptors(CacheInterceptor)
-  @Get('/:enabled')
+  @Get('/all/:enabled')
   @ApiOperation({ description: '获取所有文章', summary: '获取所有文章' })
   @ApiOkResponse({ status: 200, type: GetArticlesSummaryRes })
   getAllArticles(@Param() params: { enabled: string }) {
