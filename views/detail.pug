@@ -1,0 +1,41 @@
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/css/index.css')
+    link(rel='stylesheet', href='/css/detail.css')
+    link(rel='stylesheet', href='/css/orange.css')
+    link(rel='stylesheet', href='/css/normalize.css')
+    link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/a11y-dark.css')
+    script(src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.4.0/build/highlight.min.js")
+    script(src="https://at.alicdn.com/t/font_1814014_xpt5vpdx3j.js")
+  body
+    div(class='app')
+      include ./menu.pug
+      div(style='background: #fff; margin-left: 20px; width: 100%')
+        div(class='container', id='write')
+          div(class='header')
+            div(class='title')
+              h1= article.title
+            div(class='info')
+              div
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#people"></use>
+                </svg>:&nbsp;
+                span(class='footer-item')= article.author
+              div
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#calendar1"></use>
+                </svg>:&nbsp;
+                span(class='footer-item')= article.createTime
+              div
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#post"></use>
+                </svg>:&nbsp;
+                span(class='footer-item')= article.updateTime
+              div
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#file"></use>
+                </svg>:&nbsp;
+                a(class='footer-item', href='/view/categories')= article.categories
+          div(class='content', innerHTML=article.content)
+    script(src="/js/detail.js")

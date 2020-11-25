@@ -1,22 +1,24 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-09-29 17:16:25
+ * @LastEditTime: 2020-11-20 15:04:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\main.ts
  */
 import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as bodyParser from 'body-parser';
 import { HttpExceptionFilter } from 'src/filter/httpException';
+import { join } from 'path';
 import AppModule from './app.module';
 import { AnyExceptionFilter } from './filter/anyException';
 import { TransformInterceptor } from './interceptor/transform';
 import { logger } from './middleware/logger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.setGlobalPrefix('/blog');
   app.enableCors();
@@ -35,6 +37,10 @@ async function bootstrap() {
   app.useGlobalFilters(new AnyExceptionFilter());
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalInterceptors(new TransformInterceptor());
+
+  app.useStaticAssets(join(__dirname, '..', 'public'));
+  app.setBaseViewsDir(join(__dirname, '..', 'views'));
+  app.setViewEngine('pug');
 
   await app.listen(process.env.PORT);
 }
