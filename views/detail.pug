@@ -1,13 +1,11 @@
 html
   head
     title= title
-    link(rel='stylesheet', href='/css/index.css')
     link(rel='stylesheet', href='/css/detail.css')
     link(rel='stylesheet', href='/css/orange.css')
-    link(rel='stylesheet', href='/css/normalize.css')
     link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/a11y-dark.css')
+    include ./base.pug
     script(src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.4.0/build/highlight.min.js")
-    script(src="https://at.alicdn.com/t/font_1814014_xpt5vpdx3j.js")
   body
     div(class='app')
       include ./menu.pug

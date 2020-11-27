@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-10-19 11:50:47
+ * @LastEditTime: 2020-11-27 16:07:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\.eslintrc.js
@@ -27,6 +27,7 @@ module.exports = {
   env: {
     node: true,
     jest: true,
+    browser: true,
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',

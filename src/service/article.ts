@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-10-30 18:02:45
+ * @LastEditTime: 2020-11-27 16:46:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\article.ts
@@ -82,6 +82,12 @@ export default class ArticleService {
       return { success: false, code: -1, msg: 'id错误', data: {} };
     }
     const data = await this.article.findById(id);
+    return { success: true, code: 0, msg: '查询成功', data };
+  }
+
+  async findByKeyword(keywords: string): Promise<Res<Array<Article>>> {
+    const title = new RegExp(keywords, 'i');
+    const data = await this.article.find({ title });
     return { success: true, code: 0, msg: '查询成功', data };
   }
 

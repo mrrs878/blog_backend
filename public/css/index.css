@@ -29,6 +29,7 @@ body {
   margin-top: 0;
   padding-top: 15px;
   margin-left: 10px;
+  padding-left: 0;
 }
 .menu {
   width: 240px;
@@ -58,6 +59,8 @@ body {
 }
 .menu-item a {
   color: rgba(0,0,0,.65) !important;
+  text-decoration: none;
+  display: block;
 }
 .menu-item:hover {
   background-color: #e6f7ff;
@@ -81,13 +84,39 @@ body {
 }
 .search-c {
   margin-top: 10px;
-  width: 200px;
   position: relative;
+}
+.search-c.float {
+  position: fixed;
+  top: 10;
+}
+.search-c .search {
+  outline: none;
+  border: none;
+  height: 30px;
+  line-height: 30px;
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  position: relative;
+}
+.search-c .search:focus {
+  outline: none;
+  border: 2px solid #3594F7;
 }
 .search-c.top {
   position: fixed;
   top: 0;
   left: 15vw;
+}
+.search-c .close-icon {
+  position: absolute;
+  right: -100px;
+  top: 8;
+  z-index: 1;
+}
+.search-c .close-icon.active {
+  right: 10px;
 }
 
 .item {
@@ -95,7 +124,7 @@ body {
   flex-direction: column;
   background-color: hsla(0,3%,93.5%,.93);
   border-radius: 10px;
-  height: 180px;
+  height: 120px;
   width: 90%;
   margin: 0 auto 20px;
   padding: 20px;

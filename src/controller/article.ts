@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-11-02 22:41:02
+ * @LastEditTime: 2020-11-27 16:59:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\article.ts
@@ -45,6 +45,14 @@ export default class ArticleController {
   @ApiOkResponse({ status: 200, type: GetArticleRes })
   getArticle(@Param() params: { id: string }) {
     return this.articleService.findOneById(params.id);
+  }
+
+  @Get('/keyword/:keyword')
+  @ApiOperation({ description: '通过关键字查询文章', summary: '通过关键字查询文章' })
+  @ApiParam({ name: 'id', description: '关键字', example: 'react', allowEmptyValue: false, type: String })
+  @ApiOkResponse({ status: 200, type: GetArticleRes })
+  getArticleByKeyword(@Param() { keyword }: { keyword: string }) {
+    return this.articleService.findByKeyword(keyword);
   }
 
   @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.ADMIN))
