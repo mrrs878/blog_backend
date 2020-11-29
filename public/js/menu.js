@@ -1,12 +1,13 @@
 /*
  * @Author: your name
  * @Date: 2020-11-27 15:58:55
- * @LastEditTime: 2020-11-27 17:05:00
+ * @LastEditTime: 2020-11-29 10:59:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\public\js\menu.js
  */
 const menuDOM = {
+  menuContainer: document.querySelector('.menu'),
   searchInput: document.querySelector('.search-c .search'),
   searchInputC: document.querySelector('.search-c'),
   searchClear: document.querySelector('.search-c .close-icon'),
@@ -32,8 +33,8 @@ function onInputEnterPress(e) {
   onClearIconClick();
 }
 function onWindowScroll() {
-  const { y } = menuDOM.searchInputC?.getBoundingClientRect() || { y: 0 };
-  if (y <= 0) {
+  const { y } = menuDOM.menuContainer?.getBoundingClientRect() || { y: 0 };
+  if (y < -450) {
     menuDOM.searchInputC?.classList.add('float');
   } else {
     menuDOM.searchInputC?.classList.remove('float');

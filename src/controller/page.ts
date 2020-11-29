@@ -1,12 +1,12 @@
 /*
 * @Author: your name
 * @Date: 2020-11-20 14:43:57
- * @LastEditTime: 2020-11-27 16:55:37
+ * @LastEditTime: 2020-11-29 11:55:42
  * @LastEditors: Please set LastEditors
 * @Description: In User Settings Edit
 * @FilePath: \blog_backend\src\controller\page.ts
 */
-import { Controller, Get, Param, Render } from '@nestjs/common';
+import { Controller, Get, flatten, Param, Render } from '@nestjs/common';
 import ArticleService from 'src/service/article';
 import { Base64 } from 'js-base64';
 import * as MarkdownIt from 'markdown-it';
@@ -58,10 +58,15 @@ export default class PageController {
 
   @Get('/tags')
   @Render('tags')
-  tags() {
-    const md = new MarkdownIt();
-    const content = md.render('');
-    return { article: { content } };
+  async tags() {
+    const res = await this.articleService.findAll('1');
+    const data: any = {};
+    const tmp = flatten(res.data?.map(({ tags }) => tags.split(' ')));
+    tmp?.forEach((tag) => {
+      data[tag] = data[tag] !== undefined ? data[tag] + 1 : 0;
+    });
+
+    return { data };
   }
 
   @Get('/:id')
