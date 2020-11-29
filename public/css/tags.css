@@ -1,0 +1,23 @@
+.tags-c {
+  /* display: flex; */
+}
+.tag {
+  border-bottom: 1px solid #ccc;
+  margin: 10px;
+  color: #666;
+  transition: all ease 0.5s;
+  cursor: pointer;
+  overflow-wrap: break-spaces;
+  display: inline-block;
+  word-wrap: break-word;
+  text-decoration: none;
+}
+.tag:hover {
+  border-bottom-color: #000;
+  color: #000;
+}
+.tag.big {
+  font-size: 24px;
+  color: #000;
+  border-bottom-color: #000;
+}
