@@ -165,3 +165,25 @@ body {
 .item .footer .footer-item:last-child {
   flex: 1;
 }
+
+.goto-top-c {
+  position: fixed;
+  bottom: 60px;
+  right: 40px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  background-color: #fff;
+  cursor: pointer;
+  transition: transform ease 3s, background ease 0.2s;
+  border-radius: 5px;
+  transform: translateX(999999px);
+}
+.goto-top-c.active {
+  transform: translateX(0);
+}
+.goto-top-c:hover {
+  color: #fff;
+  background-color: #3594F7;
+}
