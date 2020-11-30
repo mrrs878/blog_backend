@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-11-27 15:58:55
- * @LastEditTime: 2020-11-29 10:59:57
+ * @LastEditTime: 2020-11-30 18:10:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\public\js\menu.js
@@ -33,7 +33,7 @@ function onInputEnterPress(e) {
   onClearIconClick();
 }
 function onWindowScroll() {
-  const { y } = menuDOM.menuContainer?.getBoundingClientRect() || { y: 0 };
+  const { y } = menuDOM.searchInputC?.getBoundingClientRect() || { y: 0 };
   if (y < -450) {
     menuDOM.searchInputC?.classList.add('float');
   } else {
