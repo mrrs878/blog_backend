@@ -1,7 +1,7 @@
 /*
 * @Author: your name
 * @Date: 2020-11-20 14:43:57
- * @LastEditTime: 2020-11-29 11:55:42
+ * @LastEditTime: 2020-11-30 18:40:54
  * @LastEditors: Please set LastEditors
 * @Description: In User Settings Edit
 * @FilePath: \blog_backend\src\controller\page.ts
@@ -62,11 +62,34 @@ export default class PageController {
     const res = await this.articleService.findAll('1');
     const data: any = {};
     const tmp = flatten(res.data?.map(({ tags }) => tags.split(' ')));
-    tmp?.forEach((tag) => {
+    tmp?.filter((item) => item !== '').forEach((tag) => {
       data[tag] = data[tag] !== undefined ? data[tag] + 1 : 0;
     });
 
     return { data };
+  }
+
+  @Get('/category')
+  @Render('category')
+  async category() {
+    const res = await this.articleService.findAll('1');
+    const data: any = {};
+    const tmp = flatten(res.data?.map(({ categories }) => categories.split(' ')));
+    tmp?.filter((item) => item !== '').forEach((category) => {
+      data[category] = data[category] !== undefined ? data[category] + 1 : 0;
+    });
+
+    return { data };
+  }
+
+  @Get('/category/:category')
+  @Render('index')
+  async categoryArticles(@Param() { category }:{category: string}) {
+    const res = await this.articleService.findByCategory(category);
+    const articles = res.data?.map(({ title, author, author_id, categories, createTime, description, tags, updateTime, _id }) => ({
+      title, author, author_id, categories, createTime, description, tags, updateTime, _id,
+    }));
+    return { articles };
   }
 
   @Get('/:id')

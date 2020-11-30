@@ -6,7 +6,7 @@ html
   body
     div(class='app')
       include ./menu.pug
-      div(style='width: 100%', class='content',  innerHTML=content)
+      div(style='width: 100%', class='context',  innerHTML=content)
         div(class='tags-c')
           each val, tag in data
             a(class=`tag ${ val > 2 ? 'big' : '' }`, href=`/blog/view/tags/${tag}`)= tag

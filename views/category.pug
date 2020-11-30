@@ -1,0 +1,13 @@
+html
+  head
+    title= title
+    link(rel="stylesheet", href="/css/category.css")
+    include ./base.pug
+  body
+    div(class='app')
+      include ./menu.pug
+      div(style='width: 100%', class='context')
+        div(class='category-c')
+          each val, category in data
+            div
+              a(class='category', href=`/blog/view/category/${category}`)= `${category}(${val})`

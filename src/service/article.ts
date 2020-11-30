@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-11-27 16:46:19
+ * @LastEditTime: 2020-11-30 18:44:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\article.ts
@@ -88,6 +88,11 @@ export default class ArticleService {
   async findByKeyword(keywords: string): Promise<Res<Array<Article>>> {
     const title = new RegExp(keywords, 'i');
     const data = await this.article.find({ title });
+    return { success: true, code: 0, msg: '查询成功', data };
+  }
+
+  async findByCategory(categories: string): Promise<Res<Array<Article>>> {
+    const data = await this.article.find({ categories });
     return { success: true, code: 0, msg: '查询成功', data };
   }
 
