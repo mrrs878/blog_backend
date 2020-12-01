@@ -1,14 +1,15 @@
 /*
 * @Author: your name
 * @Date: 2020-11-20 14:43:57
- * @LastEditTime: 2020-11-30 22:21:06
+ * @LastEditTime: 2020-12-01 15:43:03
  * @LastEditors: Please set LastEditors
 * @Description: In User Settings Edit
 * @FilePath: \blog_backend\src\controller\page.ts
 */
-import { Controller, Get, flatten, Param, Render } from '@nestjs/common';
+import { Controller, Get, Param, Render } from '@nestjs/common';
 import ArticleService from 'src/service/article';
 import { Base64 } from 'js-base64';
+import { flatten, groupWith } from 'ramda';
 import * as MarkdownIt from 'markdown-it';
 
 @Controller('/view')
@@ -86,6 +87,36 @@ export default class PageController {
   @Render('index')
   async categoryArticles(@Param() { category }:{category: string}) {
     const res = await this.articleService.findByCategory(category);
+    const articles = res.data?.map(({ title, author, author_id, categories, createTime, description, tags, updateTime, _id }) => ({
+      title, author, author_id, categories, createTime, description, tags, updateTime, _id,
+    }));
+    return { articles };
+  }
+
+  @Get('/timeline')
+  @Render('timeline')
+  async timeline() {
+    const res = await this.articleService.findAll('1');
+    let years: Array<string> = [];
+    const articles = res.data?.map(({ title, createTime, _id }) => {
+      const tmp = createTime.split(' ')[0];
+      const year = tmp.slice(0, 4);
+      years.push(year);
+      return ({
+        title, createTime: tmp, _id, year,
+      });
+    });
+    years = Array.from(new Set(years));
+    const formatted = groupWith((a, b) => a.year === b.year, articles);
+    formatted.forEach((item, index) => item.unshift({ createTime: years[index], title: '', _id: 'year', year: '' }));
+
+    return { articles: flatten(formatted), years: Array.from(new Set(years)) };
+  }
+
+  @Get('/timeline/:timeline')
+  @Render('index')
+  async timelineArticles(@Param() { timeline }:{timeline: string}) {
+    const res = await this.articleService.findByTime(timeline);
     const articles = res.data?.map(({ title, author, author_id, categories, createTime, description, tags, updateTime, _id }) => ({
       title, author, author_id, categories, createTime, description, tags, updateTime, _id,
     }));

@@ -2,8 +2,9 @@ html
   head
     title= title
     link(rel="stylesheet", href="/css/category.css")
-    include ./base.pug
+    include ./baseHeader.pug
   body
+    include ./gotoTop.pug
     div(class='app')
       include ./menu.pug
       div(style='width: 100%', class='context')

@@ -1,0 +1,14 @@
+html
+  head
+    title= title
+    link(rel="stylesheet", href="/css/timeline.css")
+    include ./baseHeader.pug
+  body
+    include ./gotoTop.pug
+    div(class='app')
+      include ./menu.pug
+      div(style='width: 100%', class='context')
+        div(class="item big")= `不错，目前共计${articles.length}篇日志，继续努力~`
+        each article in articles
+          a(href=`${article._id === 'year' ? '/blog/view/timeline' : '/blog/view'}/${article.createTime}`)
+            div(class=`item ${article._id === 'year' ? 'big' : ''}`)= `${article.createTime} ${article.title}`

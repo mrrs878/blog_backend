@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-11-30 22:48:54
- * @LastEditTime: 2020-11-30 22:55:17
+ * @LastEditTime: 2020-12-01 17:52:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\public\js\gotoTop.js
@@ -13,7 +13,8 @@ gotoTopDOM.addEventListener('click', () => {
 window.addEventListener('scroll', () => {
   const { y } = document.querySelector('.context')?.getBoundingClientRect() || { y: 0 };
   if (y < -1000) {
-    gotoTopDOM?.classList.add('active');
+    gotoTopDOM?.classList.add('bounceInRight', 'active');
+    gotoTopDOM?.classList.remove('bounceOutRight');
   } else {
     gotoTopDOM?.classList.remove('active');
   }
