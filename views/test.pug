@@ -1,0 +1,9 @@
+html
+  head
+    title= title
+    include ./baseHeader.pug
+    script(src="/js/test.js")
+  body
+    include ./gotoTop.pug
+    div(class='context')
+      img(id='img', src=`data:image/png;base64,${url}`, height=200, width=300 alt="")

@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-11-20 15:04:26
+ * @LastEditTime: 2020-12-04 18:35:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\main.ts
@@ -12,6 +12,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as bodyParser from 'body-parser';
 import { HttpExceptionFilter } from 'src/filter/httpException';
 import { join } from 'path';
+import * as html2CanvasProxy from 'html2canvas-proxy';
 import AppModule from './app.module';
 import { AnyExceptionFilter } from './filter/anyException';
 import { TransformInterceptor } from './interceptor/transform';
@@ -25,6 +26,7 @@ async function bootstrap() {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(logger);
+  app.use('/html2Canvas', html2CanvasProxy());
 
   const options = new DocumentBuilder()
     .setTitle('blog')
