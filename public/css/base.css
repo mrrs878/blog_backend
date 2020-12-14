@@ -144,3 +144,9 @@ a {
   color: #fff;
   background-color: #3594F7;
 }
+
+.tick {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 29px;
+}

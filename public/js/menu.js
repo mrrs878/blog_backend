@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-11-27 15:58:55
- * @LastEditTime: 2020-11-30 22:39:47
+ * @LastEditTime: 2020-12-14 23:16:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\public\js\menu.js
@@ -41,11 +41,21 @@ function onWindowScroll() {
   }
 }
 
+function setupFlip(tick) {
+  window.Tick.helper.interval(() => {
+    const [, hour, min] = Date().match(/(\d+):(\d+):(\d+)/) || [0, 0, 0, 0];
+    const tmp = `${hour}:${min}`;
+    tick.value = tmp;
+    tick.root.setAttribute('aria-label', tmp);
+  }, 1000);
+}
+
 function initEvent() {
   menuDOM.searchInput?.addEventListener('focus', onInputFocus);
   menuDOM.searchClear?.addEventListener('click', onClearIconClick);
   menuDOM.searchInput?.addEventListener('keyup', onInputEnterPress);
   window.addEventListener('scroll', onWindowScroll);
+  setupFlip.setupFlip = setupFlip;
 }
 
 initEvent();
