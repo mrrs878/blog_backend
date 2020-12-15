@@ -1,7 +1,7 @@
 /*
 * @Author: your name
 * @Date: 2020-11-20 14:43:57
- * @LastEditTime: 2020-12-04 17:34:50
+ * @LastEditTime: 2020-12-15 10:11:51
  * @LastEditors: Please set LastEditors
 * @Description: In User Settings Edit
 * @FilePath: \blog_backend\src\controller\page.ts
@@ -11,7 +11,6 @@ import ArticleService from 'src/service/article';
 import { Base64 } from 'js-base64';
 import { flatten, groupWith } from 'ramda';
 import * as MarkdownIt from 'markdown-it';
-import * as CaptureWebsite from 'capture-website';
 
 @Controller('/view')
 export default class PageController {
@@ -122,13 +121,6 @@ export default class PageController {
       title, author, author_id, categories, createTime, description, tags, updateTime, _id,
     }));
     return { articles };
-  }
-
-  @Get('/test')
-  @Render('test')
-  async test() {
-    const url = await CaptureWebsite.base64('http://www.gmmsj.com');
-    return { url };
   }
 
   @Get('/:id')
