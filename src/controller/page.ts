@@ -1,7 +1,7 @@
 /*
 * @Author: your name
 * @Date: 2020-11-20 14:43:57
- * @LastEditTime: 2020-12-15 10:11:51
+ * @LastEditTime: 2020-12-22 22:32:59
  * @LastEditors: Please set LastEditors
 * @Description: In User Settings Edit
 * @FilePath: \blog_backend\src\controller\page.ts
@@ -70,6 +70,16 @@ export default class PageController {
     return { data };
   }
 
+  @Get('/tags/:tag')
+  @Render('index')
+  async tagArticles(@Param() { tag }:{tag: string}) {
+    const res = await this.articleService.findByTag(tag);
+    const articles = res.data?.map(({ title, author, author_id, categories, createTime, description, tags, updateTime, _id }) => ({
+      title, author, author_id, categories, createTime, description, tags, updateTime, _id,
+    }));
+    return { articles };
+  }
+
   @Get('/category')
   @Render('category')
   async category() {
@@ -77,7 +87,7 @@ export default class PageController {
     const data: any = {};
     const tmp = flatten(res.data?.map(({ categories }) => categories.split(' ')));
     tmp?.filter((item) => item !== '').forEach((category) => {
-      data[category] = data[category] !== undefined ? data[category] + 1 : 0;
+      data[category] = data[category] !== undefined ? data[category] + 1 : 1;
     });
 
     return { data };

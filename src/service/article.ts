@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-12-01 15:42:43
+ * @LastEditTime: 2020-12-22 22:31:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\article.ts
@@ -93,6 +93,11 @@ export default class ArticleService {
 
   async findByCategory(categories: string): Promise<Res<Array<Article>>> {
     const data = await this.article.find({ categories });
+    return { success: true, code: 0, msg: '查询成功', data };
+  }
+
+  async findByTag(tags: string): Promise<Res<Array<Article>>> {
+    const data = await this.article.find({ tags: { $regex: tags } });
     return { success: true, code: 0, msg: '查询成功', data };
   }
 
