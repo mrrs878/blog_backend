@@ -1,7 +1,7 @@
 /*
 * @Author: your name
 * @Date: 2020-11-20 14:43:57
- * @LastEditTime: 2020-12-22 22:32:59
+ * @LastEditTime: 2021-01-12 19:26:55
  * @LastEditors: Please set LastEditors
 * @Description: In User Settings Edit
 * @FilePath: \blog_backend\src\controller\page.ts
@@ -52,7 +52,7 @@ export default class PageController {
       tags,
       updateTime,
       _id,
-      content: md.render(Base64.decode(content).split('---')[2]),
+      content: md.render(Base64.decode(content.toString()).split('---')[2]),
     };
     return { article };
   }
@@ -149,7 +149,7 @@ export default class PageController {
       tags,
       updateTime,
       _id,
-      content: md.render(Base64.decode(content).split('---')[2]),
+      content: md.render(Base64.decode(content.toString()).split('---')[2]),
     };
     return { article };
   }

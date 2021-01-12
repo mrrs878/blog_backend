@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-12-22 22:31:21
+ * @LastEditTime: 2021-01-12 19:25:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\article.ts
@@ -19,122 +19,162 @@ export default class ArticleService {
   ) {}
 
   async findAll(status: string): Promise<Res<Array<Article>>> {
-    const data = await this.article.find({ status: Number(status) }, { content: 0 }).sort({ createTime: -1 });
-    return { success: true, code: 0, msg: '获取成功', data };
+    try {
+      const data = await this.article.find({ status: Number(status) }, { content: 0 }).sort({ createTime: -1 });
+      return { success: true, code: 0, msg: '获取成功', data };
+    } catch (e) {
+      return { success: false, code: -1, msg: e.toString(), data: [] };
+    }
   }
 
   async findByUser(req: any, status: string): Promise<Res<Array<Article>>> {
-    const { name } = req.user;
-    let filter = {};
-    filter = name === 'admin' ? filter : { ...filter, author: name };
-    filter = status === '0' ? filter : { ...filter, status: 1 };
+    try {
+      const { name } = req.user;
+      let filter = {};
+      filter = name === 'admin' ? filter : { ...filter, author: name };
+      filter = status === '0' ? filter : { ...filter, status: 1 };
 
-    const data = await this.article.aggregate([
-      {
-        $match: filter,
-      },
-      { $addFields: { s_article_id: { $toString: '$_id' } } },
-      {
-        $lookup: {
-          from: 'comment',
-          localField: 's_article_id',
-          foreignField: 'article_id',
-          as: 'comments',
+      const data = await this.article.aggregate([
+        {
+          $match: filter,
         },
-      },
-      {
-        $lookup: {
-          from: 'like',
-          localField: 's_article_id',
-          foreignField: 'articleId',
-          as: 'likes',
-        },
-      },
-      { $sort: { createTime: -1 } },
-      {
-        $project: {
-          _id: 1,
-          title: 1,
-          categories: 1,
-          author: 1,
-          createTime: 1,
-          updateTime: 1,
-          tags: 1,
-          status: 1,
-          comments: {
-            content: 1,
-            name: 1,
-            createTime: 1,
-          },
-          likes: {
-            name: 1,
-            createTime: 1,
+        { $addFields: { s_article_id: { $toString: '$_id' } } },
+        {
+          $lookup: {
+            from: 'comment',
+            localField: 's_article_id',
+            foreignField: 'article_id',
+            as: 'comments',
           },
         },
-      },
-    ]);
+        {
+          $lookup: {
+            from: 'like',
+            localField: 's_article_id',
+            foreignField: 'articleId',
+            as: 'likes',
+          },
+        },
+        { $sort: { createTime: -1 } },
+        {
+          $project: {
+            _id: 1,
+            title: 1,
+            categories: 1,
+            author: 1,
+            createTime: 1,
+            updateTime: 1,
+            tags: 1,
+            status: 1,
+            comments: {
+              content: 1,
+              name: 1,
+              createTime: 1,
+            },
+            likes: {
+              name: 1,
+              createTime: 1,
+            },
+          },
+        },
+      ]);
 
-    return { success: true, code: 0, msg: '获取成功', data };
+      return { success: true, code: 0, msg: '获取成功', data };
+    } catch (e) {
+      return { success: false, code: -1, msg: e.toString(), data: [] };
+    }
   }
 
-  async findOneById(id: string): Promise<Res<any|Article>> {
-    if (!isValidObjectId(id)) {
-      return { success: false, code: -1, msg: 'id错误', data: {} };
+  async findOneById(id: string): Promise<Res<Record<string, unknown>|Article>> {
+    try {
+      if (!isValidObjectId(id)) {
+        return { success: false, code: -1, msg: 'id错误', data: {} };
+      }
+      const data = await this.article.findById(id);
+      return { success: true, code: 0, msg: '查询成功', data };
+    } catch (e) {
+      return { success: false, code: -1, msg: e.toString(), data: {} };
     }
-    const data = await this.article.findById(id);
-    return { success: true, code: 0, msg: '查询成功', data };
   }
 
   async findByKeyword(keywords: string): Promise<Res<Array<Article>>> {
-    const title = new RegExp(keywords, 'i');
-    const data = await this.article.find({ title });
-    return { success: true, code: 0, msg: '查询成功', data };
+    try {
+      const title = new RegExp(keywords, 'i');
+      const data = await this.article.find({ title });
+      return { success: true, code: 0, msg: '查询成功', data };
+    } catch (e) {
+      return { success: false, code: -1, msg: e.toString(), data: [] };
+    }
   }
 
   async findByCategory(categories: string): Promise<Res<Array<Article>>> {
-    const data = await this.article.find({ categories });
-    return { success: true, code: 0, msg: '查询成功', data };
+    try {
+      const data = await this.article.find({ categories });
+      return { success: true, code: 0, msg: '查询成功', data };
+    } catch (e) {
+      return { success: false, code: -1, msg: e.toString(), data: [] };
+    }
   }
 
   async findByTag(tags: string): Promise<Res<Array<Article>>> {
-    const data = await this.article.find({ tags: { $regex: tags } });
-    return { success: true, code: 0, msg: '查询成功', data };
+    try {
+      const data = await this.article.find({ tags: { $regex: tags } });
+      return { success: true, code: 0, msg: '查询成功', data };
+    } catch (e) {
+      return { success: false, code: -1, msg: e.toString(), data: [] };
+    }
   }
 
   async findByTime(time: string): Promise<Res<Array<Article>>> {
-    const createTime = new RegExp(`${time}-`, 'i');
-    const data = await this.article.find({ createTime });
-    return { success: true, code: 0, msg: '查询成功', data };
+    try {
+      const createTime = new RegExp(`${time}-`, 'i');
+      const data = await this.article.find({ createTime });
+      return { success: true, code: 0, msg: '查询成功', data };
+    } catch (e) {
+      return { success: false, code: -1, msg: e.toString(), data: [] };
+    }
   }
 
-  async updateArticleById(article: any, req: any): Promise<any> {
-    const { name, _id } = req.user;
-    const data = await this.article.updateOne({ _id: article._id }, {
-      ...article,
-      author: name,
-      author_id: _id,
-      updateTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-    });
-    if (data.ok && data.nModified === 1) return { success: true, code: 0, msg: '修改成功' };
-    return { success: false, code: -1, msg: '修改失败' };
+  async updateArticleById(article: any, req: any): Promise<Res<undefined>> {
+    try {
+      const { name, _id } = req.user;
+      const data = await this.article.updateOne({ _id: article._id }, {
+        ...article,
+        author: name,
+        author_id: _id,
+        updateTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+      });
+      if (data.ok && data.nModified === 1) return { success: true, code: 0, msg: '修改成功' };
+      return { success: false, code: -1, msg: '修改失败' };
+    } catch (e) {
+      return { success: false, code: -1, msg: '修改失败' };
+    }
   }
 
   async deleteArticle(id: string): Promise<Res<any>> {
-    if (!isValidObjectId(id)) {
-      return { success: false, code: -1, msg: 'id错误', data: {} };
+    try {
+      if (!isValidObjectId(id)) {
+        return { success: false, code: -1, msg: 'id错误', data: {} };
+      }
+      const data = await this.article.findByIdAndUpdate(id, { isDeleted: true, deleteTime: dayjs().format('YYYY-MM-DD HH:mm:ss') });
+      return { success: true, code: 0, msg: '', data };
+    } catch (e) {
+      return { success: false, code: -1, msg: e.toString(), data: {} };
     }
-    const data = await this.article.findByIdAndUpdate(id, { isDeleted: true, deleteTime: dayjs().format('YYYY-MM-DD HH:mm:ss') });
-    return { success: true, code: 0, msg: '', data };
   }
 
   async createArticle(req: any, article: Article): Promise<any> {
-    const { name, _id } = req.user;
-    const data = await this.article.create({
-      ...article,
-      createTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-      author: name,
-      author_id: _id,
-    });
-    return { success: true, code: 0, msg: '创建成功', data };
+    try {
+      const { name, _id } = req.user;
+      const data = await this.article.create({
+        ...article,
+        createTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+        author: name,
+        author_id: _id,
+      });
+      return { success: true, code: 0, msg: '创建成功', data };
+    } catch (e) {
+      return { success: false, code: -1, msg: e.toString(), data: {} };
+    }
   }
 }

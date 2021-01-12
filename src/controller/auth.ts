@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 17:38:30
- * @LastEditTime: 2020-10-26 22:38:38
+ * @LastEditTime: 2021-01-12 19:17:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\auth.ts
@@ -16,7 +16,6 @@ import { AddMenuDto, LoginDto, RegDto, UpdateMenuDto } from '../swagger/dto';
 import { AddMenuRes, GetMenusRes, LoginRes, RegRes, UpdateMenuRes } from '../swagger/res';
 import MAIN_CONFIG from '../config';
 import AuthService from '../service/auth';
-import bodyParser from 'body-parser';
 
 @Controller('/auth')
 @ApiTags('登录模块')

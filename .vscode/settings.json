@@ -1,7 +1,10 @@
 {
   "cSpell.words": [
     "RBAC",
+    "chmod",
+    "eval",
     "mrrs",
-    "nestjs"
+    "nestjs",
+    "repassword"
   ]
 }
