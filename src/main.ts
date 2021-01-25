@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2021-01-25 23:09:17
+ * @LastEditTime: 2021-01-25 23:22:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\main.ts
@@ -28,7 +28,7 @@ async function bootstrap() {
   dayjs.locale('zh-cn');
   dayjs.extend(utc);
   dayjs.extend(timezone);
-  dayjs.tz.setDefault('Asia/China');
+  dayjs.tz.setDefault('China/Shanghai');
 
   app.setGlobalPrefix('/blog');
   app.enableCors();
