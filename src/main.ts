@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-12-04 18:35:58
+ * @LastEditTime: 2021-01-25 22:36:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\main.ts
@@ -10,6 +10,10 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as bodyParser from 'body-parser';
+import * as dayjs from 'dayjs';
+import * as utc from 'dayjs/plugin/utc';
+import * as timezone from 'dayjs/plugin/timezone';
+import 'dayjs/locale/zh-cn';
 import { HttpExceptionFilter } from 'src/filter/httpException';
 import { join } from 'path';
 import * as html2CanvasProxy from 'html2canvas-proxy';
@@ -20,6 +24,11 @@ import { logger } from './middleware/logger';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  dayjs.locale('zh-cn');
+  dayjs.extend(utc);
+  dayjs.extend(timezone);
+  dayjs.tz.guess();
 
   app.setGlobalPrefix('/blog');
   app.enableCors();
