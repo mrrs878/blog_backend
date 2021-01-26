@@ -1,13 +1,15 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 15:36:29
- * @LastEditTime: 2020-10-15 17:11:04
+ * @LastEditTime: 2021-01-26 23:34:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\tool\index.ts
  */
 import * as crypto from 'crypto';
 import * as dayjs from 'dayjs';
+import * as utc from 'dayjs/plugin/utc';
+import * as timezone from 'dayjs/plugin/timezone';
 
 export function makeSalt() {
   return crypto.randomBytes(3).toString('base64');
@@ -24,5 +26,7 @@ export function isObject(value: any) {
 }
 
 export function getNow() {
-  return dayjs().format('YYYY-MM-DD HH:mm:ss');
+  dayjs.extend(utc);
+  dayjs.extend(timezone);
+  return dayjs(new Date()).tz('Asia/Shanghai').format('YYYY-MM-DD HH:mm:ss');
 }

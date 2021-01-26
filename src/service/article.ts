@@ -11,6 +11,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, isValidObjectId } from 'mongoose';
 import { Article } from 'src/models/article';
 import * as dayjs from 'dayjs';
+import { getNow } from 'src/tool';
 
 @Injectable()
 export default class ArticleService {
@@ -142,7 +143,7 @@ export default class ArticleService {
         ...article,
         author: name,
         author_id: _id,
-        updateTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+        updateTime: getNow(),
       });
       if (data.ok && data.nModified === 1) return { success: true, code: 0, msg: '修改成功' };
       return { success: false, code: -1, msg: '修改失败' };
