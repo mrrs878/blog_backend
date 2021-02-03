@@ -1,7 +1,7 @@
 /*
 * @Author: your name
 * @Date: 2020-11-20 14:43:57
- * @LastEditTime: 2021-01-12 19:26:55
+ * @LastEditTime: 2021-02-03 19:23:19
  * @LastEditors: Please set LastEditors
 * @Description: In User Settings Edit
 * @FilePath: \blog_backend\src\controller\page.ts
@@ -23,7 +23,7 @@ export default class PageController {
     const articles = res.data?.map(({ title, author, author_id, categories, createTime, description, tags, updateTime, _id }) => ({
       title, author, author_id, categories, createTime, description, tags, updateTime, _id,
     }));
-    return { articles };
+    return { articles, title: 'Mr.RS的个人博客-首页' };
   }
 
   @Get('/keyword/:keyword')
@@ -33,7 +33,7 @@ export default class PageController {
     const articles = res.data?.map(({ title, author, author_id, categories, createTime, description, tags, updateTime, _id }) => ({
       title, author, author_id, categories, createTime, description, tags, updateTime, _id,
     }));
-    return { articles };
+    return { articles, title: 'Mr.RS的个人博客-关键字' };
   }
 
   @Get('/about')
@@ -54,7 +54,7 @@ export default class PageController {
       _id,
       content: md.render(Base64.decode(content.toString()).split('---')[2]),
     };
-    return { article };
+    return { article, title: 'Mr.RS的个人博客-关于我' };
   }
 
   @Get('/tags')
@@ -67,7 +67,7 @@ export default class PageController {
       data[tag] = data[tag] !== undefined ? data[tag] + 1 : 0;
     });
 
-    return { data };
+    return { data, title: 'Mr.RS的个人博客-标签' };
   }
 
   @Get('/tags/:tag')
@@ -77,7 +77,7 @@ export default class PageController {
     const articles = res.data?.map(({ title, author, author_id, categories, createTime, description, tags, updateTime, _id }) => ({
       title, author, author_id, categories, createTime, description, tags, updateTime, _id,
     }));
-    return { articles };
+    return { articles, title: `Mr.RS的个人博客-${tag}` };
   }
 
   @Get('/category')
@@ -90,7 +90,7 @@ export default class PageController {
       data[category] = data[category] !== undefined ? data[category] + 1 : 1;
     });
 
-    return { data };
+    return { data, title: 'Mr.RS的个人博客-分类' };
   }
 
   @Get('/category/:category')
@@ -100,7 +100,7 @@ export default class PageController {
     const articles = res.data?.map(({ title, author, author_id, categories, createTime, description, tags, updateTime, _id }) => ({
       title, author, author_id, categories, createTime, description, tags, updateTime, _id,
     }));
-    return { articles };
+    return { articles, title: `Mr.RS的个人博客-${category}` };
   }
 
   @Get('/timeline')
@@ -120,7 +120,7 @@ export default class PageController {
     const formatted = groupWith((a, b) => a.year === b.year, articles);
     formatted.forEach((item, index) => item.unshift({ createTime: years[index], title: '', _id: 'year', year: '' }));
 
-    return { articles: flatten(formatted), years: Array.from(new Set(years)) };
+    return { articles: flatten(formatted), years: Array.from(new Set(years)), title: 'Mr.RS的个人博客-归档' };
   }
 
   @Get('/timeline/:timeline')
@@ -130,7 +130,7 @@ export default class PageController {
     const articles = res.data?.map(({ title, author, author_id, categories, createTime, description, tags, updateTime, _id }) => ({
       title, author, author_id, categories, createTime, description, tags, updateTime, _id,
     }));
-    return { articles };
+    return { articles, title: `Mr.RS的个人博客-归档${timeline}` };
   }
 
   @Get('/:id')
@@ -151,6 +151,6 @@ export default class PageController {
       _id,
       content: md.render(Base64.decode(content.toString()).split('---')[2]),
     };
-    return { article };
+    return { article, title: `Mr.RS的个人博客-${title}` };
   }
 }
