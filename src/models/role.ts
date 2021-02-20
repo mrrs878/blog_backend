@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-10-19 13:13:09
- * @LastEditTime: 2020-10-19 13:13:45
- * @LastEditors: your name
+ * @LastEditTime: 2021-02-20 17:27:46
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\models\role.ts
  */

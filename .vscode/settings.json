@@ -1,10 +1,12 @@
 {
   "cSpell.words": [
+    "MONGODB",
     "RBAC",
     "chmod",
     "eval",
     "mrrs",
     "nestjs",
+    "prebuild",
     "repassword"
   ]
 }

@@ -1,3 +1,8 @@
+.category-c {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .category {
   border-bottom: 1px solid #ccc;
   margin: 10px;
@@ -8,6 +13,7 @@
   display: inline-block;
   word-wrap: break-word;
   text-decoration: none;
+  width: '50%';
 }
 .category:hover {
   border-bottom-color: #000;
