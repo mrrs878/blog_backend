@@ -37,7 +37,6 @@ a {
 }
 .menu {
   width: 240px;
-  height: max-content;
   padding: 0;
   overflow: hidden;
   background-color: #f0f2f5;
@@ -89,6 +88,7 @@ a {
 .search-c {
   margin-top: 10px;
   position: relative;
+  width: 240px;
 }
 .search-c.float {
   position: fixed;
@@ -121,6 +121,24 @@ a {
 }
 .search-c .close-icon.active {
   right: 10px;
+}
+.catalog-c {
+  position: relative;
+  height: max-content;
+  width: 240px;
+  top: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+.catalog-c ul {
+  margin: 10px;
+  padding: 0;
+}
+.catalog-c li {
+}
+.catalog-c.float {
+  position: fixed;
+  top: 60;
 }
 
 .goto-top-c {

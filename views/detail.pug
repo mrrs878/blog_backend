@@ -46,5 +46,7 @@ html(lang= "en")
                   <use xlink:href="#file"></use>
                 </svg>:&nbsp;
                 a(class='footer-item', href='/view/categories')= article.categories
-          div(class='content', innerHTML=article.content)
+          div(class='content')
+    script.
+      var article = !{JSON.stringify(article)}
     script(src="/js/detail.js")
