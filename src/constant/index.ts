@@ -1,8 +1,8 @@
 /*
- * @Author: your name
+ * @Author: mrrs878@foxmail.com
  * @Date: 2020-10-15 11:21:05
  * @LastEditTime: 2020-10-15 16:46:43
- * @LastEditors: your name
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\constant\index.ts
  */

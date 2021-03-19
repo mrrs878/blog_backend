@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-25 15:20:00
- * @LastEditTime: 2020-09-25 17:55:34
+ * @LastEditTime: 2021-03-19 12:59:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\cache.ts
@@ -22,7 +22,7 @@ export default class CacheService {
     this.redisClient = this.redisService.getClient();
   }
 
-  async set(key: string, value: Redis.ValueType | Record<string, unknown>, expireTime?: number) {
+  async set<T = Redis.ValueType | Record<string, unknown>>(key: string, value: T, expireTime?: number) {
     const tmp = JSON.stringify(value);
     if (!expireTime) {
       await this.redisClient.set(key, tmp);
@@ -32,7 +32,7 @@ export default class CacheService {
   }
 
   async get(key: string) {
-    const data = await this.redisClient.get(key);
+    const data = await this.redisClient.get(key) || '{}';
     return JSON.parse(data);
   }
 

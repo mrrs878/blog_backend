@@ -2,7 +2,7 @@
  * @Author: mrrs878
  * @Date: 2020-09-24 18:39:15
  * @LastEditTime: 2020-09-24 18:41:33
- * @LastEditors: your name
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\guards\auth.ts
  */

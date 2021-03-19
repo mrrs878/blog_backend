@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2021-01-25 22:20:08
+ * @LastEditTime: 2021-03-19 12:32:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\app.module.ts
@@ -17,6 +17,7 @@ import CommentModule from './modules/comment';
 import UserModule from './modules/user';
 import LikeModule from './modules/like';
 import PageModule from './modules/page';
+import RealTimeBusModule from './modules/realTimeBus';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import PageModule from './modules/page';
     UserModule,
     LikeModule,
     PageModule,
+    RealTimeBusModule,
   ],
 })
 export default class AppModule {}

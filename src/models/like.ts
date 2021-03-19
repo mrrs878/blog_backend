@@ -1,5 +1,5 @@
 /*
- * @Author: your name
+ * @Author: mrrs878@foxmail.com
  * @Date: 2020-10-15 11:04:23
  * @LastEditTime: 2020-10-19 13:14:02
  * @LastEditors: Please set LastEditors
@@ -7,10 +7,10 @@
  * @FilePath: \blog_backend\src\models\like.ts
  */
 /*
- * @Author: your name
+ * @Author: mrrs878@foxmail.com
  * @Date: 2020-10-15 11:04:23
  * @LastEditTime: 2020-10-15 11:07:27
- * @LastEditors: your name
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\models\like.ts
  */

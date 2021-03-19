@@ -1,8 +1,8 @@
 /*
- * @Author: your name
+ * @Author: mrrs878@foxmail.com
  * @Date: 2020-10-09 09:57:52
  * @LastEditTime: 2020-10-09 11:42:34
- * @LastEditors: your name
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\comment.ts
  */

@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-10-16 12:49:25
+ * @LastEditTime: 2021-03-19 13:14:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\interfaces\index.d.ts
@@ -108,4 +108,57 @@ interface AddCommentBodyI {
   content: string;
   user_id: string;
   article_id: string;
+}
+
+interface IGetBusBaseRes {
+  end_latetime: string;
+  start_stop: string;
+  start_earlytime: string;
+  start_latetime: string;
+  line_name: string;
+  end_earlytime: string;
+  line_id: string;
+  end_stop: string;
+}
+
+interface IGetBusStopsRes {
+  lineResults0: {
+    stops: Array<{
+      zdmc: string;
+      id: string;
+    }>,
+    direction: boolean;
+  };
+  lineResults1: {
+    stops: Array<{
+      zdmc: string;
+      id: string;
+    }>,
+    direction: boolean;
+  };
+}
+
+interface IGetArriveBaseRes {
+  cars: Array<{
+    stopdis: string;
+    distance: string;
+    terminal: string;
+    time: string;
+  }>;
+}
+
+interface IGetBusBaseReq {
+  name: string;
+}
+
+interface IGetBusStopsReq {
+  name: string;
+  lineid: string;
+}
+
+interface IGetArriveBaseReq {
+  name: string;
+  lineid: string;
+  stopid: string;
+  direction: number;
 }

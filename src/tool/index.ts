@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 15:36:29
- * @LastEditTime: 2021-01-26 23:34:29
+ * @LastEditTime: 2021-03-19 13:16:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\tool\index.ts
@@ -23,6 +23,16 @@ export function encryptPwd(pwd: string, salt: string) {
 
 export function isObject(value: any) {
   return Object.prototype.toString.call(value) === '[object Object]';
+}
+
+export function isEmptyObject(obj: Record<string, any>) {
+  if (!obj) return true;
+  return Reflect.ownKeys(obj).length === 0;
+}
+
+export function obj2QueryString(params: any) {
+  const str = (Reflect.ownKeys(params) as Array<string>).reduce((pre, cur) => `${pre}&${cur}=${params[cur]}`, '');
+  return str.slice(1).replace(/\+/g, '%2b');
 }
 
 export function getNow() {
