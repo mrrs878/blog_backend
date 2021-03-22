@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-25 15:20:00
- * @LastEditTime: 2021-03-19 12:59:17
+ * @LastEditTime: 2021-03-22 19:21:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\cache.ts
@@ -32,8 +32,8 @@ export default class CacheService {
   }
 
   async get(key: string) {
-    const data = await this.redisClient.get(key) || '{}';
-    return JSON.parse(data);
+    const data = await this.redisClient.get(key);
+    return data ? JSON.parse(data) : undefined;
   }
 
   async delete(key: string) {

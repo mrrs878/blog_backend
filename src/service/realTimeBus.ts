@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-19 10:03:01
- * @LastEditTime: 2021-03-19 13:23:12
+ * @LastEditTime: 2021-03-22 19:28:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /blog_backend/src/service/realTimeBus.ts
@@ -38,7 +38,7 @@ export default class RealTimeBusService {
           msg: '线路不存在',
         };
       }
-      await this.cacheService.set(`${name}:busBase`, busBase.data, 1000 * 60 * 60);
+      await this.cacheService.set(`${name}:busBase`, busBase.data, 1000 * 60);
       return {
         success: true,
         code: 0,
