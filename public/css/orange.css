@@ -47,7 +47,7 @@
   font-size: 21px;
   border-bottom: 2px solid rgba(239, 112, 96, 0.8);
 }
-#write h2 span {
+#write h2 .content {
   display: inline-block;
   font-weight: bold;
   background: rgb(239, 112, 96);
@@ -233,9 +233,22 @@ pre code {
   border-radius: 5px;
   display: block;
   overflow-x: auto;
-  background: #2b2b2b;
+  background: #282c34 !important;
   color: #f8f8f2;
   padding: .5em;
+}
+pre::before {
+  content: '';
+  display: block;
+  background: url(../img/point.png);
+  height: 30px;
+  width: 100%;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-color: #282c34;
+  margin-bottom: -7px;
+  border-radius: 5px;
+  background-position: 10px 10px;
 }
 
 /* 加粗 */

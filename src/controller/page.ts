@@ -1,7 +1,7 @@
 /*
 * @Author: mrrs878@foxmail.com
 * @Date: 2020-11-20 14:43:57
- * @LastEditTime: 2021-02-03 19:23:19
+ * @LastEditTime: 2021-03-25 14:47:27
  * @LastEditors: Please set LastEditors
 * @Description: In User Settings Edit
 * @FilePath: \blog_backend\src\controller\page.ts
@@ -139,6 +139,13 @@ export default class PageController {
     const res = await this.articleService.findOneById(id);
     const md = new MarkdownIt();
     const { title, author, author_id, categories, createTime, description, tags, updateTime, _id, content } = res?.data;
+    const _content = md.render(Base64.decode(content.toString()).split('---')[2]).replace(/<h2>(.+?)<\/h2>/g, `
+      <h2>
+        <span class='prefix'></span>
+        <span class='content'>$1</span>
+        <span class='suffix'></span>
+      </h2>
+    `);
     const article = {
       title,
       author,
@@ -149,7 +156,7 @@ export default class PageController {
       tags,
       updateTime,
       _id,
-      content: md.render(Base64.decode(content.toString()).split('---')[2]),
+      content: _content,
     };
     return { article, title: `Mr.RS的个人博客-${title}` };
   }

@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2020-11-27 15:58:55
- * @LastEditTime: 2021-03-04 18:35:21
+ * @LastEditTime: 2021-03-25 14:10:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\public\js\menu.js
@@ -73,7 +73,6 @@ function generateCatalogTree(contentStr) {
 }
 
 function walk(item) {
-  debugger;
   const { children } = item;
   if (children.length > 0) return `<div><ul>${item.content}</ul><ul>${item.children.map(({ content }) => `<li>${content}</li>`).join('')}</ul></div>`;
   return `<ul>${item.content}</ul>`;
