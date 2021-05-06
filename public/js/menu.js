@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2020-11-27 15:58:55
- * @LastEditTime: 2021-03-25 14:10:48
+ * @LastEditTime: 2021-05-06 18:02:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\public\js\menu.js
@@ -60,10 +60,10 @@ function setupFlip(tick) {
 }
 
 function generateCatalogTree(contentStr) {
-  const hxElements = contentStr.match(/<h[1,2,3][^>]*>.*?<\/h[1,2,3]>/ig) || [];
+  const hxElements = contentStr.replace(/[\n]/g, '').match(/<h[1,2,3][^>]*>.*?<\/h[1,2,3]>/ig) || [];
   const treeData = [];
   hxElements.forEach((item) => {
-    const content = item.replace(/[<,h,1,2,3,>,/]/g, '');
+    const content = item.replace(/<[^>]+>/gi, '').trim();
     const level = parseInt((item.match(/^<h([1,2,3])/) || [])[1], 10);
     const tmp = { content, level, children: [] };
     if (lastItem(treeData)?.level && level > lastItem(treeData)?.level) lastItem(treeData).children.push(tmp);
@@ -92,7 +92,7 @@ function initEvent() {
 }
 
 function initDOW() {
-  const treeData = generateCatalogTree(window.article.content);
+  const treeData = generateCatalogTree(window.article?.content || '');
   const domStr = generateCatalogDOM(treeData);
   console.log(domStr);
 }
