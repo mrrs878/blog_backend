@@ -151,19 +151,6 @@
   border-bottom: 1px solid rgba(239, 112, 96, 0.8);
 }
 
-/*行内代码*/
-#write p code {
-  font-size: 14px;
-  word-wrap: break-word;
-  padding: 2px 4px;
-  border-radius: 4px;
-  margin: 0 2px;
-  color:  rgb(239, 112, 96);
-  background-color: #fff5f5;
-  font-family: Operator Mono, Consolas, Monaco, Menlo, monospace;
-  word-break: break-all;
-}
-
 /*图片*/
 #write img {
   display: block;
@@ -200,8 +187,18 @@
 }
 
 /* 行内代码 */
-#write span code, #write li code {
-  color: rgb(239, 112, 96);
+#write span code, 
+#write p code, 
+#write li code {
+  font-size: 14px;
+  word-wrap: break-word;
+  padding: 2px 4px;
+  border-radius: 4px;
+  margin: 0 2px;
+  color:  rgb(239, 112, 96);
+  background-color: #fff5f5;
+  font-family: Operator Mono, Consolas, Monaco, Menlo, monospace;
+  word-break: break-all;
 }
 
 /* 脚注上标 */
