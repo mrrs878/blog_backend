@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-03-19 10:03:01
- * @LastEditTime: 2021-03-22 22:25:01
+ * @LastEditTime: 2021-03-24 17:59:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /blog_backend/src/service/realTimeBus.ts
@@ -77,7 +77,7 @@ export default class RealTimeBusService {
           msg: '线路不存在',
         };
       }
-      await this.cacheService.set(`${param.name}:busStops`, busStop.data, 60);
+      await this.cacheService.set(`${param.name}:busStops`, busStop.data, 60 * 60 * 24 * 30);
       return {
         success: true,
         code: 0,
@@ -118,7 +118,7 @@ export default class RealTimeBusService {
           msg: '获取到站信息失败',
         };
       }
-      await this.cacheService.set(`${param.stopid}@${param.lineid}@${param.direction}:ArriveBase`, arrivalBase.data, 1000 * 30);
+      await this.cacheService.set(`${param.stopid}@${param.lineid}@${param.direction}:ArriveBase`, arrivalBase.data, 60);
       return {
         success: true,
         code: 0,

@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 17:38:30
- * @LastEditTime: 2021-01-12 19:17:48
+ * @LastEditTime: 2021-04-07 16:48:46
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\auth.ts
@@ -92,8 +92,8 @@ export default class AuthController {
   @ApiBody({ description: '更新菜单', type: UpdateMenuDto })
   @ApiParam({ name: 'id', description: '菜单项id', example: '5f50bf09e29bc4b4e723dbf5', allowEmptyValue: false, type: String })
   @ApiOkResponse({ status: 200, type: UpdateMenuRes })
-  updateMenu(@Body(updateMenuV) body, @Param() params: { id: string }) {
-    return this.authService.updateMenu(body, params.id);
+  updateMenu(@Body(updateMenuV) body, @Param('id') id: string) {
+    return this.authService.updateMenu(body, id);
   }
 
   @UseGuards(new RBACGuard(MAIN_CONFIG.ROLE.ADMIN))
@@ -101,5 +101,15 @@ export default class AuthController {
   @Put('/user')
   updateUserStatus(@Body() body) {
     return this.authService.updateUserStatus(body);
+  }
+
+  @Get('/puzzleImg')
+  getPuzzleImg() {
+    return this.authService.getPuzzleImg();
+  }
+
+  @Get('/checkPuzzle/:session/:left')
+  checkPuzzle(@Param('left') left: string, @Param('session') session: string) {
+    return this.authService.checkPuzzle(session, parseInt(left, 10));
   }
 }
