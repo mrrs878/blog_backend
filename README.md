@@ -37,3 +37,19 @@ get key_name
 # 删除value
 del key_name
 ```
+
+## mongoDB指令
+
+``` shell
+# 进入mongo
+docker exec -it _database /bin/sh
+
+# 启动mongo客户端
+mongo
+
+# 使用某一database
+use test
+
+# 查看database下所有的collection
+db.artile.find({})
+```
