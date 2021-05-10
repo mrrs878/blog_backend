@@ -1,0 +1,32 @@
+html(lang= "en")
+  head
+    meta(charset ="UTF-8")
+    meta(name ="viewport", content ="width=device-width, initial-scale=1.0")
+    title= title
+    link(rel="stylesheet", href="/css/error.css")
+    script(type="text/javascript").
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?84749f5eacfb94fcc118d50af0876a57";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })()
+  body
+    div(class='app')
+          div(class='error-page-container')
+            div(class='error-page-main')
+              h3
+                strong 哦豁
+                span 出错了！
+              div(class='error-page-actions')
+                div
+                  h4 可能原因：
+                  ul
+                    li 服务器内部错误
+                    li 资源加载错误
+                div
+                  h4 可以尝试：
+                  ul
+                    li 刷新试试
+                    li 联系管理员(mrrs878@foxmail.com)

@@ -1,7 +1,7 @@
 /*
 * @Author: mrrs878@foxmail.com
 * @Date: 2020-11-20 14:43:57
- * @LastEditTime: 2021-03-25 14:47:27
+ * @LastEditTime: 2021-05-10 15:10:49
  * @LastEditors: Please set LastEditors
 * @Description: In User Settings Edit
 * @FilePath: \blog_backend\src\controller\page.ts
@@ -131,6 +131,12 @@ export default class PageController {
       title, author, author_id, categories, createTime, description, tags, updateTime, _id,
     }));
     return { articles, title: `Mr.RS的个人博客-归档${timeline}` };
+  }
+
+  @Get('/error')
+  @Render('error')
+  async error() {
+    return { title: 'Mr.RS的个人博客-出错了' };
   }
 
   @Get('/:id')
