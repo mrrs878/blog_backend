@@ -18,31 +18,34 @@ html(lang= "en")
     include ./gotoTop.pug
     div(class='app')
       include ./menu.pug
-      ul(class='context')
-        each val in articles
-          li(class='item')
-            a(href=`/blog/view/${val._id}` class='item-a')
-            div(class='title')= val.title
-            div(class='content')= val.description
-            div(class='footer')
-              div
-                <svg class="icon" aria-hidden="true">
-                  <use xlink:href="#file"></use>
-                </svg>:
-                span(class='footer-item')= val.categories
-              div
-                <svg class="icon" aria-hidden="true">
-                  <use xlink:href="#tag"></use>
-                </svg>:
-                span(class='footer-item')= val.tags
-              div
-                <svg class="icon" aria-hidden="true">
-                  <use xlink:href="#calendar1"></use>
-                </svg>:
-                span(class='footer-item')= val.createTime
-              div
-                <svg class="icon" aria-hidden="true">
-                  <use xlink:href="#post"></use>
-                </svg>:
-                span(class='footer-item')= val.updateTime
-              span(class='footer-item')
+      if articles.length === 0
+        div(class='empty') 空空如也~
+      else
+        ul(class='context')
+          each val in articles
+            li(class='item')
+              a(href=`/blog/view/${val._id}` class='item-a')
+              div(class='title')= val.title
+              div(class='content')= val.description
+              div(class='footer')
+                div
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#file"></use>
+                  </svg>:
+                  span(class='footer-item')= val.categories
+                div
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#tag"></use>
+                  </svg>:
+                  span(class='footer-item')= val.tags
+                div
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#calendar1"></use>
+                  </svg>:
+                  span(class='footer-item')= val.createTime
+                div
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#post"></use>
+                  </svg>:
+                  span(class='footer-item')= val.updateTime
+                span(class='footer-item')
