@@ -17,6 +17,7 @@ html(lang= "en")
         s.parentNode.insertBefore(hm, s);
       })()
   body
+  include ./indicator.pug
     include ./gotoTop.pug
     div(class='app')
       include ./menu.pug
@@ -45,7 +46,7 @@ html(lang= "en")
                 <svg class="icon" aria-hidden="true">
                   <use xlink:href="#file"></use>
                 </svg>:&nbsp;
-                a(class='footer-item', href='/view/categories')= article.categories
+                a(class='footer-item', href=`/blog/view/category/${article.categories}`)=article.categories 
           div(class='content')
     script.
       var article = !{JSON.stringify(article)}

@@ -44,3 +44,12 @@
 .item .footer .footer-item:last-child {
   flex: 1;
 }
+
+.empty {
+  text-align: center;
+  background: #fff;
+  margin-left: 20px;
+  width: 73%;
+  padding: 20px;
+  padding-top: 10%;
+}
