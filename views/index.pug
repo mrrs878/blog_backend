@@ -28,24 +28,23 @@ html(lang= "en")
               div(class='title')= val.title
               div(class='content')= val.description
               div(class='footer')
-                div
+                div(class='footer-item')
                   <svg class="icon" aria-hidden="true">
                     <use xlink:href="#file"></use>
                   </svg>:
-                  span(class='footer-item')= val.categories
-                div
+                  span= val.categories
+                div(class='footer-item')
                   <svg class="icon" aria-hidden="true">
                     <use xlink:href="#tag"></use>
                   </svg>:
-                  span(class='footer-item')= val.tags
-                div
+                  span= val.tags
+                div(class='footer-item')
                   <svg class="icon" aria-hidden="true">
                     <use xlink:href="#calendar1"></use>
                   </svg>:
-                  span(class='footer-item')= val.createTime
-                div
+                  span= val.createTime
+                div(class='footer-item')
                   <svg class="icon" aria-hidden="true">
                     <use xlink:href="#post"></use>
                   </svg>:
-                  span(class='footer-item')= val.updateTime
-                span(class='footer-item')
+                  span= val.updateTime
