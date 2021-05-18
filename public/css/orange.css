@@ -162,6 +162,13 @@
 #write table {
   display: table;
   text-align: left;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-collapse:collapse;
+}
+#write table td {
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
 }
 #write tbody {
   border: 0;

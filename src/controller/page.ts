@@ -1,7 +1,7 @@
 /*
 * @Author: mrrs878@foxmail.com
 * @Date: 2020-11-20 14:43:57
- * @LastEditTime: 2021-05-10 15:10:49
+ * @LastEditTime: 2021-05-18 17:31:22
  * @LastEditors: Please set LastEditors
 * @Description: In User Settings Edit
 * @FilePath: \blog_backend\src\controller\page.ts
@@ -143,7 +143,7 @@ export default class PageController {
   @Render('detail')
   async detail(@Param() { id }:{id: string}) {
     const res = await this.articleService.findOneById(id);
-    const md = new MarkdownIt();
+    const md = new MarkdownIt({ html: true });
     const { title, author, author_id, categories, createTime, description, tags, updateTime, _id, content } = res?.data;
     const _content = md.render(Base64.decode(content.toString()).split('---')[2]).replace(/<h2>(.+?)<\/h2>/g, `
       <h2>
