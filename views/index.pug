@@ -16,6 +16,7 @@ html(lang= "en")
   body
     include ./indicator.pug
     include ./gotoTop.pug
+    - var pages = 10
     div(class='app')
       include ./menu.pug
       if articles.length === 0
@@ -49,3 +50,4 @@ html(lang= "en")
                   </svg>:
                   span= val.updateTime
                 div(class='footer-item')
+    include ./pagination.pug
