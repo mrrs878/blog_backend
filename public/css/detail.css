@@ -6,7 +6,7 @@
   margin: 0 auto;
   color: rgb(153, 153, 153);
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
 }
 .info div {
   margin: 0 5px;
