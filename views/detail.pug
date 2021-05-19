@@ -3,7 +3,8 @@ html(lang= "en")
     meta(charset ="UTF-8")
     meta(name ="viewport", content ="width=device-width, initial-scale=1.0")
     title= title
-    link(rel='stylesheet', href='/css/detail.css')
+    link(rel='stylesheet', media="screen and (max-width: 1024px)" href='/css/m.detail.css')
+    link(rel='stylesheet', media="screen and (min-width: 1024px)" href='/css/detail.css')
     link(rel='stylesheet', href='/css/orange.css')
     link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/a11y-dark.css')
     include ./baseHeader.pug
@@ -21,7 +22,7 @@ html(lang= "en")
     include ./gotoTop.pug
     div(class='app')
       include ./menu.pug
-      div(style='background: #fff; margin-left: 20px; width: 73%; padding: 20px')
+      div(class='bg')
         div(class='container', id='write')
           div(class='header')
             div(class='title')

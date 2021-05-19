@@ -1,7 +1,7 @@
 body {
   margin: 0;
   color: rgba(0,0,0,.65);
-  font-size: 14px;
+  font-size: 12px;
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   font-variant: tabular-nums;
   line-height: 1.5715;
@@ -14,7 +14,8 @@ a {
   text-decoration: none;
 }
 .icon {
-  width: 1em; height: 1em;
+  width: 1em; 
+  height: 1em;
   vertical-align: -0.15em;
   fill: currentColor;
   overflow: hidden;
@@ -22,26 +23,20 @@ a {
 .app {
   width: 100%;
   min-height: 100vh;
-  padding: 0 15vw;
   box-sizing: border-box;
   background-color: #f0f2f5;
-  display: flex;
-  justify-content: center;
-}
-.bg {
-  background: #fff;
-  margin-left: 20px;
-  width: 73%;
-  padding: 20px;
 }
 .context {
   width: 100%;
   background-color: #fff;
   margin-top: 0;
   padding-top: 15px;
-  margin-left: 10px;
   padding-left: 0;
   flex: 1;
+}
+.bg {
+  background: #fff;
+  padding: 20px;
 }
 .menu {
   width: 240px;
@@ -49,6 +44,7 @@ a {
   overflow: hidden;
   background-color: #f0f2f5;
   margin-top: 0;
+  display: none;
 }
 .menu-item-c {
   margin: 0;
@@ -162,6 +158,7 @@ a {
   transition: background ease 0.2s;
   border-radius: 5px;
   display: none;
+  z-index: 1;
 }
 .goto-top-c.active {
   display: block;
@@ -195,4 +192,9 @@ a {
   top: 5px; bottom: 0; right: 0; left: 0;
   background: #fff;
   z-index: 1;
+}
+
+#write h2 .content {
+  max-width: 80%;
+  white-space: nowrap;
 }
