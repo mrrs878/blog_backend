@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 17:38:30
- * @LastEditTime: 2021-04-07 16:48:46
+ * @LastEditTime: 2021-05-20 16:15:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\auth.ts
@@ -34,6 +34,12 @@ export default class AuthController {
   })))
   login(@Body() body: LoginBodyI) {
     return this.authService.login(body);
+  }
+
+  @Get('/autoLogin')
+  @ApiOperation({ description: '自动登录', summary: '权限管理' })
+  autoLogin(@Req() req) {
+    return this.authService.autoLogin(req);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -108,7 +114,7 @@ export default class AuthController {
     return this.authService.getPuzzleImg();
   }
 
-  @Get('/checkPuzzle/:session/:left')
+  @Get('/verifyPuzzle/:session/:left')
   checkPuzzle(@Param('left') left: string, @Param('session') session: string) {
     return this.authService.checkPuzzle(session, parseInt(left, 10));
   }

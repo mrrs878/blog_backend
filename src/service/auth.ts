@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 17:38:45
- * @LastEditTime: 2021-04-07 18:06:36
+ * @LastEditTime: 2021-05-20 16:25:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\auth.ts
@@ -193,6 +193,30 @@ export default class AuthService {
         msg: e.message,
       };
     }
+  }
+
+  async autoLogin(req: any): Promise<Res<undefined|{ name: string, role: number, _id: string, token: string }>> {
+    const { authorization } = req.headers;
+
+    const [, token] = authorization.match(/^Bearer (.+)/) || [];
+    const tokenInfo = this.jwtService.decode(token) as any;
+    if (!tokenInfo) {
+      return {
+        success: false,
+        code: -1,
+        msg: '登录信息失效',
+      };
+    }
+    const { name, role } = tokenInfo;
+    const user = await this.userModel.findOne({ name });
+    const newToken = await this.certificate(user);
+    const { _id } = user;
+    return {
+      success: true,
+      code: 0,
+      msg: '登录成功',
+      data: { _id, role, name, token: newToken },
+    };
   }
 
   async logout(req: any): Promise<Res<undefined>> {
