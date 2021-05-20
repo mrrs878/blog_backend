@@ -49,6 +49,7 @@ html(lang= "en")
                 </svg>:&nbsp;
                 a(class='footer-item', href=`/blog/view/category/${article.categories}`)=article.categories 
           div(class='content')
+    include ./footer.pug
     script.
       var article = !{JSON.stringify(article)}
     script(src="/js/detail.js")

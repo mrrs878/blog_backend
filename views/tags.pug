@@ -21,3 +21,4 @@ html(lang= "en")
         div(class='tags-c')
           each val, tag in data
             a(class=`tag ${ val > 2 ? 'big' : '' }`, href=`/blog/view/tags/${tag}`)= tag
+    include ./footer.pug

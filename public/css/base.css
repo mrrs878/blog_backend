@@ -196,3 +196,43 @@ a {
   background: #fff;
   z-index: 1;
 }
+
+.pagination-c {
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+}
+
+.page-number {
+  border-bottom: 0;
+  border-top: 1px solid #eee;
+  transition-property: border-color;
+  transition-delay: 0s;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+  margin: 0 10px;
+  padding: 0 11px;
+  cursor: pointer;
+}
+.page-number.current {
+  background: #ccc;
+  border-top-color: #ccc;
+  color: #fff;
+}
+.page-number:hover {
+  border-top-color: #222;
+}
+
+.footer-c {
+  background-color: #f0f2f5;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.footer-c .cdn {
+  font-size: 12px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2021-05-19 19:20:28
+ * @LastEditTime: 2021-05-20 10:53:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\article.ts
@@ -19,10 +19,19 @@ export default class ArticleService {
     @InjectModel(Article.name) private readonly article: Model<Article>,
   ) {}
 
-  async findAll(status: string, page = 0, size = 10): Promise<Res<{ articles: Array<Article>, total: number }>> {
+  async findAll(status: string): Promise<Res<Array<Article>>> {
+    try {
+      const data = await this.article.find({ status: Number(status) }, { content: 0 }).sort({ createTime: -1 });
+      return { success: true, code: 0, msg: '获取成功', data };
+    } catch (e) {
+      return { success: false, code: -1, msg: e.toString(), data: [] };
+    }
+  }
+
+  async findByPage(status: string, page = 0, size = 10): Promise<Res<{ articles: Array<Article>, total: number }>> {
     try {
       const articles = await this.article.find({ status: Number(status) }, { content: 0 }).skip(page * size).limit(size).sort({ createTime: -1 });
-      return { success: true, code: 0, msg: '获取成功', data: { articles, total: 110 } };
+      return { success: true, code: 0, msg: '获取成功', data: { articles, total: await this.article.count({}).exec() } };
     } catch (e) {
       return { success: false, code: -1, msg: e.toString(), data: { articles: [], total: 0 } };
     }

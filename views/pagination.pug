@@ -2,4 +2,4 @@
 
 nav(class='pagination-c')
   while n < pages
-    a(class=`page-number ${current === n ? 'current' : ''}`, href=`/blog/view/${n}/10`)= n++
+    a(class=`page-number ${current === n ? 'current' : ''}`, href=`/blog/view/${n}/${pageSize}`)= n++

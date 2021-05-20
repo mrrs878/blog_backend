@@ -23,3 +23,4 @@ html(lang= "en")
         each article in articles
           a(href=`${article._id === 'year' ? ('/blog/view/timeline/'+article.createTime) : ('/blog/view/'+article._id)}`)
             div(class=`item ${article._id === 'year' ? 'big' : ''}`)= `${article.createTime} ${article.title}`
+    include ./footer.pug
