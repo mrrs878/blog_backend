@@ -122,8 +122,8 @@ export default class AuthService {
     if (password !== repassword) {
       return {
         success: false,
-        code: -1,
-        msg: '两次输入的密码不一样',
+        return_code: -1,
+        return_message: '两次输入的密码不一样',
       };
     }
 
@@ -131,8 +131,8 @@ export default class AuthService {
     if (user) {
       return {
         success: false,
-        code: -2,
-        msg: '用户名已存在',
+        return_code: -2,
+        return_message: '用户名已存在',
       };
     }
 
@@ -141,8 +141,8 @@ export default class AuthService {
     if (!passwordHash) {
       return {
         success: false,
-        code: -3,
-        msg: '服务器内部错误',
+        return_code: -3,
+        return_message: '服务器内部错误',
       };
     }
     try {
@@ -154,14 +154,14 @@ export default class AuthService {
       });
       return {
         success: true,
-        code: 0,
-        msg: '注册成功',
+        return_code: 0,
+        return_message: '注册成功',
       };
     } catch {
       return {
         success: false,
-        code: -3,
-        msg: '服务器内部错误',
+        return_code: -3,
+        return_message: '服务器内部错误',
       };
     }
   }
@@ -171,9 +171,9 @@ export default class AuthService {
       const { code, msg, user } = await this.validateUser(body);
       if (code !== 0) {
         return {
-          code,
+          return_code: code,
           success: false,
-          msg,
+          return_message: msg,
         };
       }
 
@@ -182,15 +182,15 @@ export default class AuthService {
       const { _id, role, name } = user;
       return {
         success: true,
-        code: 0,
-        msg: '登录成功',
+        return_code: 0,
+        return_message: '登录成功',
         data: { _id, role, name, token },
       };
     } catch (e) {
       return {
         success: false,
-        code: -1,
-        msg: e.message,
+        return_code: -1,
+        return_message: e.message,
       };
     }
   }
@@ -203,8 +203,8 @@ export default class AuthService {
     if (!tokenInfo) {
       return {
         success: false,
-        code: -1,
-        msg: '登录信息失效',
+        return_code: -1,
+        return_message: '登录信息失效',
       };
     }
     const { name, role } = tokenInfo;
@@ -213,8 +213,8 @@ export default class AuthService {
     const { _id } = user;
     return {
       success: true,
-      code: 0,
-      msg: '登录成功',
+      return_code: 0,
+      return_message: '登录成功',
       data: { _id, role, name, token: newToken },
     };
   }
@@ -225,8 +225,8 @@ export default class AuthService {
     await this.cacheService.set(name, '');
     return {
       success: true,
-      code: 0,
-      msg: '退出登录成功',
+      return_code: 0,
+      return_message: '退出登录成功',
     };
   }
 
@@ -237,8 +237,8 @@ export default class AuthService {
     const data = res.filter((item) => item.role?.includes(role));
     return {
       success: true,
-      code: 0,
-      msg: '',
+      return_code: 0,
+      return_message: '',
       data,
     };
   }
@@ -248,15 +248,15 @@ export default class AuthService {
       const data = await this.menuModel.create(body);
       return {
         success: true,
-        code: 0,
-        msg: '添加成功',
+        return_code: 0,
+        return_message: '添加成功',
         data,
       };
     } catch (e) {
       return {
         success: false,
-        code: -1,
-        msg: e.message,
+        return_code: -1,
+        return_message: e.message,
       };
     }
   }
@@ -264,20 +264,20 @@ export default class AuthService {
   async updateMenu(body: UpdateMenuBodyI, _id: string): Promise<Res<MenuItemI|undefined>> {
     try {
       if (!isValidObjectId(_id)) {
-        return { success: false, code: -1, msg: 'id错误' };
+        return { success: false, return_code: -1, return_message: 'id错误' };
       }
       const data = await this.menuModel.updateOne({ _id }, { ...body, updateTime: dayjs().format('YYYY-MM-DD HH:mm:ss') });
       return {
         success: true,
-        code: 0,
-        msg: '更新成功',
+        return_code: 0,
+        return_message: '更新成功',
         data,
       };
     } catch (e) {
       return {
         success: false,
-        code: -1,
-        msg: e.message,
+        return_code: -1,
+        return_message: e.message,
       };
     }
   }
@@ -290,15 +290,15 @@ export default class AuthService {
     if (!user) {
       return {
         success: false,
-        msg: '用户不存在',
-        code: -1,
+        return_message: '用户不存在',
+        return_code: -1,
       };
     }
     const data = await this.userModel.updateOne({ _id: body.userId }, { status, updateTime: dayjs().format('YYYY-MM-DD HH:mm:ss') });
     return {
       success: true,
-      code: 0,
-      msg: '更新成功',
+      return_code: 0,
+      return_message: '更新成功',
       data,
     };
   }
@@ -329,15 +329,15 @@ export default class AuthService {
       this.cacheService.set(session, x);
       return {
         success: true,
-        msg: '获取成功',
-        code: 0,
+        return_message: '获取成功',
+        return_code: 0,
         data: { canvas: imageCanvas.toDataURL(), block: blockCanvas.toDataURL(), session, x },
       };
     } catch (e) {
       return {
         success: false,
-        msg: e.toString(),
-        code: -1,
+        return_message: e.toString(),
+        return_code: -1,
       };
     }
   }
@@ -350,14 +350,14 @@ export default class AuthService {
       const success = left > cacheLeft - 5 && left < cacheLeft + 5;
       return {
         success,
-        msg: success ? '验证成功111' : '验证失败',
-        code: success ? 0 : -1,
+        return_message: success ? '验证成功111' : '验证失败',
+        return_code: success ? 0 : -1,
       };
     } catch (e) {
       return {
         success: false,
-        msg: e.toString(),
-        code: -1,
+        return_message: e.toString(),
+        return_code: -1,
       };
     }
   }

@@ -22,18 +22,18 @@ export default class ArticleService {
   async findAll(status: string): Promise<Res<Array<Article>>> {
     try {
       const data = await this.article.find({ status: Number(status) }, { content: 0 }).sort({ createTime: -1 });
-      return { success: true, code: 0, msg: '获取成功', data };
+      return { success: true, return_code: 0, return_message: '获取成功', data };
     } catch (e) {
-      return { success: false, code: -1, msg: e.toString(), data: [] };
+      return { success: false, return_code: -1, return_message: e.toString(), data: [] };
     }
   }
 
   async findByPage(status: string, page = 0, size = 10): Promise<Res<{ articles: Array<Article>, total: number }>> {
     try {
       const articles = await this.article.find({ status: Number(status) }, { content: 0 }).skip(page * size).limit(size).sort({ createTime: -1 });
-      return { success: true, code: 0, msg: '获取成功', data: { articles, total: await this.article.count({}).exec() } };
+      return { success: true, return_code: 0, return_message: '获取成功', data: { articles, total: await this.article.count({}).exec() } };
     } catch (e) {
-      return { success: false, code: -1, msg: e.toString(), data: { articles: [], total: 0 } };
+      return { success: false, return_code: -1, return_message: e.toString(), data: { articles: [], total: 0 } };
     }
   }
 
@@ -89,21 +89,21 @@ export default class ArticleService {
         },
       ]);
 
-      return { success: true, code: 0, msg: '获取成功', data };
+      return { success: true, return_code: 0, return_message: '获取成功', data };
     } catch (e) {
-      return { success: false, code: -1, msg: e.toString(), data: [] };
+      return { success: false, return_code: -1, return_message: e.toString(), data: [] };
     }
   }
 
   async findOneById(id: string): Promise<Res<Record<string, unknown>|Article>> {
     try {
       if (!isValidObjectId(id)) {
-        return { success: false, code: -1, msg: 'id错误', data: {} };
+        return { success: false, return_code: -1, return_message: 'id错误', data: {} };
       }
       const data = await this.article.findById(id);
-      return { success: true, code: 0, msg: '查询成功', data };
+      return { success: true, return_code: 0, return_message: '查询成功', data };
     } catch (e) {
-      return { success: false, code: -1, msg: e.toString(), data: {} };
+      return { success: false, return_code: -1, return_message: e.toString(), data: {} };
     }
   }
 
@@ -111,27 +111,27 @@ export default class ArticleService {
     try {
       const title = new RegExp(keywords, 'i');
       const data = await this.article.find({ title });
-      return { success: true, code: 0, msg: '查询成功', data };
+      return { success: true, return_code: 0, return_message: '查询成功', data };
     } catch (e) {
-      return { success: false, code: -1, msg: e.toString(), data: [] };
+      return { success: false, return_code: -1, return_message: e.toString(), data: [] };
     }
   }
 
   async findByCategory(categories: string): Promise<Res<Array<Article>>> {
     try {
       const data = await this.article.find({ categories });
-      return { success: true, code: 0, msg: '查询成功', data };
+      return { success: true, return_code: 0, return_message: '查询成功', data };
     } catch (e) {
-      return { success: false, code: -1, msg: e.toString(), data: [] };
+      return { success: false, return_code: -1, return_message: e.toString(), data: [] };
     }
   }
 
   async findByTag(tags: string): Promise<Res<Array<Article>>> {
     try {
       const data = await this.article.find({ tags: { $regex: tags } });
-      return { success: true, code: 0, msg: '查询成功', data };
+      return { success: true, return_code: 0, return_message: '查询成功', data };
     } catch (e) {
-      return { success: false, code: -1, msg: e.toString(), data: [] };
+      return { success: false, return_code: -1, return_message: e.toString(), data: [] };
     }
   }
 
@@ -139,9 +139,9 @@ export default class ArticleService {
     try {
       const createTime = new RegExp(`${time}-`, 'i');
       const data = await this.article.find({ createTime });
-      return { success: true, code: 0, msg: '查询成功', data };
+      return { success: true, return_code: 0, return_message: '查询成功', data };
     } catch (e) {
-      return { success: false, code: -1, msg: e.toString(), data: [] };
+      return { success: false, return_code: -1, return_message: e.toString(), data: [] };
     }
   }
 
@@ -154,22 +154,22 @@ export default class ArticleService {
         author_id: _id,
         updateTime: getNow(),
       });
-      if (data.ok && data.nModified === 1) return { success: true, code: 0, msg: '修改成功' };
-      return { success: false, code: -1, msg: '修改失败' };
+      if (data.ok && data.nModified === 1) return { success: true, return_code: 0, return_message: '修改成功' };
+      return { success: false, return_code: -1, return_message: '修改失败' };
     } catch (e) {
-      return { success: false, code: -1, msg: '修改失败' };
+      return { success: false, return_code: -1, return_message: '修改失败' };
     }
   }
 
   async deleteArticle(id: string): Promise<Res<any>> {
     try {
       if (!isValidObjectId(id)) {
-        return { success: false, code: -1, msg: 'id错误', data: {} };
+        return { success: false, return_code: -1, return_message: 'id错误', data: {} };
       }
       const data = await this.article.findByIdAndUpdate(id, { isDeleted: true, deleteTime: dayjs().format('YYYY-MM-DD HH:mm:ss') });
-      return { success: true, code: 0, msg: '', data };
+      return { success: true, return_code: 0, return_message: '', data };
     } catch (e) {
-      return { success: false, code: -1, msg: e.toString(), data: {} };
+      return { success: false, return_code: -1, return_message: e.toString(), data: {} };
     }
   }
 

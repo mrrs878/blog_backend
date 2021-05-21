@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-29 14:48:46
- * @LastEditTime: 2020-10-19 11:51:09
+ * @LastEditTime: 2021-05-21 18:58:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\service\article.ts
@@ -62,15 +62,15 @@ export default class DictService {
         },
       },
     ]);
-    return { success: true, code: 0, msg: '', data };
+    return { success: true, return_code: 0, return_message: '', data };
   }
 
   async findOneById(id: string): Promise<Res<any|Dict>> {
     if (!isValidObjectId(id)) {
-      return { success: false, code: -1, msg: 'id错误', data: {} };
+      return { success: false, return_code: -1, return_message: 'id错误', data: {} };
     }
     const data = await this.article.findById(id);
-    return { success: true, code: 0, msg: '查询成功', data };
+    return { success: true, return_code: 0, return_message: '查询成功', data };
   }
 
   async updateDictById(article: Dict, req: any): Promise<any> {
@@ -82,11 +82,11 @@ export default class DictService {
 
   async deleteDict(id: string, req: any): Promise<Res<any>> {
     if (!isValidObjectId(id)) {
-      return { success: false, code: -1, msg: 'id错误', data: {} };
+      return { success: false, return_code: -1, return_message: 'id错误', data: {} };
     }
     const { _id } = req.user;
     const data = await this.article.findByIdAndUpdate(id, { isDeleted: true, updater_id: _id, deleteTime: dayjs().format('YYYY-MM-DD HH:mm:ss') });
-    return { success: true, code: 0, msg: '', data };
+    return { success: true, return_code: 0, return_message: '', data };
   }
 
   async createDict(article: Dict, req: any): Promise<any> {

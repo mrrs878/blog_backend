@@ -24,8 +24,8 @@ export default class LikeService {
     const data = await this.like.find({ name });
     return {
       success: true,
-      code: 0,
-      msg: '获取成功',
+      return_code: 0,
+      return_message: '获取成功',
       data,
     };
   }
@@ -34,15 +34,15 @@ export default class LikeService {
     if (!isValidObjectId(articleId)) {
       return {
         success: false,
-        code: -1,
-        msg: 'id有误',
+        return_code: -1,
+        return_message: 'id有误',
       };
     }
     const data = await this.like.find({ article_id: articleId, status: DocumentStatus.running });
     return {
       success: true,
-      code: 0,
-      msg: '获取成功',
+      return_code: 0,
+      return_message: '获取成功',
       data,
     };
   }
@@ -54,8 +54,8 @@ export default class LikeService {
     if (tmp) {
       return {
         success: true,
-        msg: '点赞成功',
-        code: 0,
+        return_message: '点赞成功',
+        return_code: 0,
         data: tmp,
       };
     }
@@ -64,8 +64,8 @@ export default class LikeService {
     const data = await this.like.create(like);
     return {
       success: true,
-      msg: '点赞成功',
-      code: 0,
+      return_message: '点赞成功',
+      return_code: 0,
       data,
     };
   }
@@ -75,8 +75,8 @@ export default class LikeService {
     const data = await this.like.update({ article_id: articleId, name }, { status: DocumentStatus.deleted, updateTime: getNow() });
     return {
       success: true,
-      msg: '取消点赞成功',
-      code: 0,
+      return_message: '取消点赞成功',
+      return_code: 0,
       data,
     };
   }

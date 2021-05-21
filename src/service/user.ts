@@ -22,8 +22,8 @@ export default class UserService {
     const data = await this.user.find({}, { passwordHash: 0, salt: 0, _v: 0 });
     return {
       success: true,
-      code: 0,
-      msg: '获取成功',
+      return_code: 0,
+      return_message: '获取成功',
       data,
     };
   }
@@ -33,15 +33,15 @@ export default class UserService {
     if (data.nModified === 1) {
       return {
         success: true,
-        code: 0,
-        msg: '修改成功',
+        return_code: 0,
+        return_message: '修改成功',
         data,
       };
     }
     return {
       success: false,
-      code: -1,
-      msg: '修改失败',
+      return_code: -1,
+      return_message: '修改失败',
       data,
     };
   }

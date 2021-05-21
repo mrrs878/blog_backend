@@ -24,8 +24,8 @@ export default class RealTimeBusService {
       if (!isEmptyObject(data)) {
         return {
           success: true,
-          code: 0,
-          msg: '获取成功',
+          return_code: 0,
+          return_message: '获取成功',
           data,
         };
       }
@@ -34,23 +34,23 @@ export default class RealTimeBusService {
       if (busBase.data.line_name !== name || busBase.status !== 200) {
         return {
           success: false,
-          code: -1,
-          msg: '线路不存在',
+          return_code: -1,
+          return_message: '线路不存在',
         };
       }
       await this.cacheService.set(`${name}:busBase`, busBase.data, 60 * 60 * 24 * 30);
       return {
         success: true,
-        code: 0,
-        msg: '获取成功',
+        return_code: 0,
+        return_message: '获取成功',
         data: busBase.data,
       };
     } catch (e) {
       console.log(e);
       return {
         success: false,
-        code: -1,
-        msg: e.message,
+        return_code: -1,
+        return_message: e.message,
       };
     }
   }
@@ -61,8 +61,8 @@ export default class RealTimeBusService {
       if (!isEmptyObject(data)) {
         return {
           success: true,
-          code: 0,
-          msg: '获取成功',
+          return_code: 0,
+          return_message: '获取成功',
           data,
         };
       }
@@ -73,23 +73,23 @@ export default class RealTimeBusService {
       if (!busStop.data.lineResults0 || busStop.status !== 200) {
         return {
           success: false,
-          code: -1,
-          msg: '线路不存在',
+          return_code: -1,
+          return_message: '线路不存在',
         };
       }
       await this.cacheService.set(`${param.name}:busStops`, busStop.data, 60 * 60 * 24 * 30);
       return {
         success: true,
-        code: 0,
-        msg: '获取成功',
+        return_code: 0,
+        return_message: '获取成功',
         data: busStop.data,
       };
     } catch (e) {
       console.log(e);
       return {
         success: false,
-        code: -1,
-        msg: e.message,
+        return_code: -1,
+        return_message: e.message,
       };
     }
   }

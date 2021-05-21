@@ -22,7 +22,7 @@ export default class CommentService {
 
   async findAll(): Promise<Res<Array<Comment>>> {
     const data = await this.comment.find(null, { content: 0 }).sort({ createTime: -1 });
-    return { success: true, code: 0, msg: '获取成功', data };
+    return { success: true, return_code: 0, return_message: '获取成功', data };
   }
 
   async findByArticleId(article_id: string): Promise<Res<Array<Comment>>> {
@@ -67,7 +67,7 @@ export default class CommentService {
         },
       },
     ]);
-    return { success: true, code: 0, msg: '获取成功', data };
+    return { success: true, return_code: 0, return_message: '获取成功', data };
   }
 
   async findByAuthor(req: any): Promise<Res<Array<any>>> {
@@ -112,15 +112,15 @@ export default class CommentService {
       },
     ]);
 
-    return { success: true, code: 0, msg: '获取成功', data: data.filter((item) => item.article.author === name) };
+    return { success: true, return_code: 0, return_message: '获取成功', data: data.filter((item) => item.article.author === name) };
   }
 
   async findOneById(id: string): Promise<Res<any|Comment>> {
     if (!isValidObjectId(id)) {
-      return { success: false, code: -1, msg: 'id错误', data: {} };
+      return { success: false, return_code: -1, return_message: 'id错误', data: {} };
     }
     const data = await this.comment.findById(id);
-    return { success: true, code: 0, msg: '查询成功', data };
+    return { success: true, return_code: 0, return_message: '查询成功', data };
   }
 
   async updateCommentById(comment: Comment): Promise<any> {
@@ -131,10 +131,10 @@ export default class CommentService {
 
   async deleteComment(id: string): Promise<Res<any>> {
     if (!isValidObjectId(id)) {
-      return { success: false, code: -1, msg: 'id错误', data: {} };
+      return { success: false, return_code: -1, return_message: 'id错误', data: {} };
     }
     const data = await this.comment.findByIdAndUpdate(id, { isDeleted: true, deleteTime: dayjs().format('YYYY-MM-DD HH:mm:ss') });
-    return { success: true, code: 0, msg: '', data };
+    return { success: true, return_code: 0, return_message: '', data };
   }
 
   async createComment(comment: Comment): Promise<any> {

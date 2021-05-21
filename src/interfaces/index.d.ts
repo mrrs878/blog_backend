@@ -1,15 +1,15 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2021-03-19 13:14:02
+ * @LastEditTime: 2021-05-21 18:58:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\interfaces\index.d.ts
  */
 interface Res<T> {
   success: boolean;
-  code: number;
-  msg: string;
+  return_code: number;
+  return_message: string;
   data?: T
 }
 
