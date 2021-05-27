@@ -108,7 +108,7 @@ class BaseRes {
   success: boolean;
 
   @ApiProperty({ description: '提示信息' })
-  msg: string;
+  return_message: string;
 
   @ApiProperty({ description: '操作码' })
   code: number;

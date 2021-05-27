@@ -1,10 +1,10 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 19:08:02
- * @LastEditTime: 2021-05-10 16:20:42
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-05-27 10:16:51
+ * @LastEditors: lihang.gw@heyqu.net
  * @Description: In User Settings Edit
- * @FilePath: \blog_backend\src\filter\httpException.ts
+ * @FilePath: /blog_backend/src/filter/anyException.ts
  */
 import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from '@nestjs/common';
 import { Response } from 'express';
@@ -37,7 +37,7 @@ export class AnyExceptionFilter implements ExceptionFilter {
       data: {
         exception,
       },
-      msg: `Service Error: ${exception}`,
+      return_message: `Service Error: ${exception}`,
     });
   }
 }

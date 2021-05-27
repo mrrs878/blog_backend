@@ -1,10 +1,10 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2020-10-09 09:57:52
- * @LastEditTime: 2020-10-19 19:05:20
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-05-27 10:17:26
+ * @LastEditors: lihang.gw@heyqu.net
  * @Description: In User Settings Edit
- * @FilePath: \blog_backend\src\service\comment.ts
+ * @FilePath: /blog_backend/src/service/comment.ts
  */
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -125,8 +125,8 @@ export default class CommentService {
 
   async updateCommentById(comment: Comment): Promise<any> {
     const data = await this.comment.updateOne({ _id: comment._id }, { ...comment, updateTime: dayjs().format('YYYY-MM-DD HH:mm:ss') });
-    if (data.ok && data.nModified === 1) return { success: true, code: 0, msg: '修改成功' };
-    return { success: false, code: -1, msg: '修改失败' };
+    if (data.ok && data.nModified === 1) return { success: true, code: 0, return_message: '修改成功' };
+    return { success: false, code: -1, return_message: '修改失败' };
   }
 
   async deleteComment(id: string): Promise<Res<any>> {
@@ -142,6 +142,6 @@ export default class CommentService {
       ...comment,
       createTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
     });
-    return { success: true, code: 0, msg: '发表成功', data };
+    return { success: true, code: 0, return_message: '发表成功', data };
   }
 }

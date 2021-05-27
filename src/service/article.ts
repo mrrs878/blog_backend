@@ -1,10 +1,10 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2021-05-20 10:53:20
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-05-27 10:17:07
+ * @LastEditors: lihang.gw@heyqu.net
  * @Description: In User Settings Edit
- * @FilePath: \blog_backend\src\service\article.ts
+ * @FilePath: /blog_backend/src/service/article.ts
  */
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -182,9 +182,9 @@ export default class ArticleService {
         author: name,
         author_id: _id,
       });
-      return { success: true, code: 0, msg: '创建成功', data };
+      return { success: true, code: 0, return_message: '创建成功', data };
     } catch (e) {
-      return { success: false, code: -1, msg: e.toString(), data: {} };
+      return { success: false, code: -1, return_message: e.toString(), data: {} };
     }
   }
 }

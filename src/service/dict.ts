@@ -1,10 +1,10 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-29 14:48:46
- * @LastEditTime: 2021-05-21 18:58:55
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-05-27 10:17:33
+ * @LastEditors: lihang.gw@heyqu.net
  * @Description: In User Settings Edit
- * @FilePath: \blog_backend\src\service\article.ts
+ * @FilePath: /blog_backend/src/service/dict.ts
  */
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -76,8 +76,8 @@ export default class DictService {
   async updateDictById(article: Dict, req: any): Promise<any> {
     const { _id } = req.user;
     const data = await this.article.updateOne({ _id: article._id }, { ...article, updater_id: _id, updateTime: dayjs().format('YYYY-MM-DD HH:mm:ss') });
-    if (data.ok && data.nModified === 1) return { success: true, code: 0, msg: '修改成功' };
-    return { success: false, code: -1, msg: '修改失败' };
+    if (data.ok && data.nModified === 1) return { success: true, code: 0, return_message: '修改成功' };
+    return { success: false, code: -1, return_message: '修改失败' };
   }
 
   async deleteDict(id: string, req: any): Promise<Res<any>> {
@@ -97,6 +97,6 @@ export default class DictService {
       updater_id: _id,
       createTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
     });
-    return { success: true, code: 0, msg: '创建成功', data };
+    return { success: true, code: 0, return_message: '创建成功', data };
   }
 }

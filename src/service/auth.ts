@@ -1,10 +1,10 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 17:38:45
- * @LastEditTime: 2021-05-20 16:25:40
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-05-27 10:18:02
+ * @LastEditors: lihang.gw@heyqu.net
  * @Description: In User Settings Edit
- * @FilePath: \blog_backend\src\service\auth.ts
+ * @FilePath: /blog_backend/src/service/auth.ts
  */
 import { Injectable } from '@nestjs/common';
 import { Model, isValidObjectId } from 'mongoose';
@@ -76,7 +76,7 @@ export default class AuthService {
     return {
       success: true,
       code: 0,
-      msg: '',
+      return_message: '',
       data,
     };
   }
@@ -87,7 +87,7 @@ export default class AuthService {
     if (!user) {
       return {
         code: -1,
-        msg: '用户不存在',
+        return_message: '用户不存在',
       };
     }
 
@@ -96,13 +96,13 @@ export default class AuthService {
     if (passwordHash === hashPassword) {
       return {
         code: 0,
-        msg: '',
+        return_message: '',
         user,
       };
     }
     return {
       code: -2,
-      msg: '密码错误',
+      return_message: '密码错误',
     };
   }
 
@@ -168,12 +168,12 @@ export default class AuthService {
 
   async login(body: LoginBodyI): Promise<Res<undefined|{ name: string, role: number, _id: string, token: string }>> {
     try {
-      const { code, msg, user } = await this.validateUser(body);
+      const { code, return_message, user } = await this.validateUser(body);
       if (code !== 0) {
         return {
           return_code: code,
           success: false,
-          return_message: msg,
+          return_message,
         };
       }
 
