@@ -100,7 +100,7 @@ a {
 }
 .search-c.float {
   position: fixed;
-  top: 10;
+  top: 10px;
 }
 .search-c .search {
   outline: none;
