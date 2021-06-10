@@ -105,12 +105,13 @@ a {
 .search-c .search {
   outline: none;
   border: none;
-  height: 30px;
+  height: 40px;
   line-height: 30px;
   width: 100%;
   padding: 5px;
   border-radius: 5px;
   position: relative;
+  box-sizing: border-box;
 }
 .search-c .search:focus {
   outline: none;
