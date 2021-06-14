@@ -237,3 +237,7 @@ a {
   align-items: center;
   justify-content: center;
 }
+.cdn-logo-c {
+  display: flex;
+  align-items: center;
+}
