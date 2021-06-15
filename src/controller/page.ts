@@ -1,7 +1,7 @@
 /*
 * @Author: mrrs878@foxmail.com
 * @Date: 2020-11-20 14:43:57
- * @LastEditTime: 2021-05-20 10:59:11
+ * @LastEditTime: 2021-06-15 16:51:27
  * @LastEditors: Please set LastEditors
 * @Description: In User Settings Edit
 * @FilePath: \blog_backend\src\controller\page.ts
@@ -24,16 +24,6 @@ export default class PageController {
       title, author, author_id, categories, createTime, description, tags, updateTime, _id,
     }));
     return { articles, totalPage: Math.ceil(res.data.total / 10), currentPage: 0, pageSize: 10, title: 'Mr.RS的个人博客-首页' };
-  }
-
-  @Get('/:page/:size')
-  @Render('index')
-  async indexPage(@Param() { page, size }) {
-    const res = await this.articleService.findByPage('1', +page, +size);
-    const articles = res.data?.articles.map(({ title, author, author_id, categories, createTime, description, tags, updateTime, _id }) => ({
-      title, author, author_id, categories, createTime, description, tags, updateTime, _id,
-    }));
-    return { articles, totalPage: Math.ceil(res.data.total / size), currentPage: +page, pageSize: size, title: 'Mr.RS的个人博客-首页' };
   }
 
   @Get('/keyword/:keyword')
@@ -147,6 +137,16 @@ export default class PageController {
   @Render('error')
   async error() {
     return { title: 'Mr.RS的个人博客-出错了' };
+  }
+
+  @Get('/:page/:size')
+  @Render('index')
+  async indexPage(@Param() { page, size }) {
+    const res = await this.articleService.findByPage('1', +page, +size);
+    const articles = res.data?.articles.map(({ title, author, author_id, categories, createTime, description, tags, updateTime, _id }) => ({
+      title, author, author_id, categories, createTime, description, tags, updateTime, _id,
+    }));
+    return { articles, totalPage: Math.ceil(res.data.total / size), currentPage: +page, pageSize: size, title: 'Mr.RS的个人博客-首页' };
   }
 
   @Get('/:id')

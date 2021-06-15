@@ -1,8 +1,8 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2021-05-27 10:17:07
- * @LastEditors: lihang.gw@heyqu.net
+ * @LastEditTime: 2021-06-15 16:52:19
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /blog_backend/src/service/article.ts
  */
@@ -21,7 +21,7 @@ export default class ArticleService {
 
   async findAll(status: string): Promise<Res<Array<Article>>> {
     try {
-      const data = await this.article.find({ status: Number(status) }, { content: 0 }).sort({ createTime: -1 });
+      const data = await this.article.find({ status: Number(status) }, { content: 0 }).sort({ updateTime: -1 });
       return { success: true, return_code: 0, return_message: '获取成功', data };
     } catch (e) {
       return { success: false, return_code: -1, return_message: e.toString(), data: [] };
@@ -30,7 +30,7 @@ export default class ArticleService {
 
   async findByPage(status: string, page = 0, size = 10): Promise<Res<{ articles: Array<Article>, total: number }>> {
     try {
-      const articles = await this.article.find({ status: Number(status) }, { content: 0 }).skip(page * size).limit(size).sort({ createTime: -1 });
+      const articles = await this.article.find({ status: Number(status) }, { content: 0 }).skip(page * size).limit(size).sort({ updateTime: -1 });
       return { success: true, return_code: 0, return_message: '获取成功', data: { articles, total: await this.article.count({}).exec() } };
     } catch (e) {
       return { success: false, return_code: -1, return_message: e.toString(), data: { articles: [], total: 0 } };
@@ -65,7 +65,7 @@ export default class ArticleService {
             as: 'likes',
           },
         },
-        { $sort: { createTime: -1 } },
+        { $sort: { updateTime: -1 } },
         {
           $project: {
             _id: 1,
@@ -119,7 +119,7 @@ export default class ArticleService {
 
   async findByCategory(categories: string): Promise<Res<Array<Article>>> {
     try {
-      const data = await this.article.find({ categories });
+      const data = await this.article.find({ categories }).sort({ createTime: -1 });
       return { success: true, return_code: 0, return_message: '查询成功', data };
     } catch (e) {
       return { success: false, return_code: -1, return_message: e.toString(), data: [] };
