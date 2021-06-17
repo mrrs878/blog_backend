@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 17:38:30
- * @LastEditTime: 2021-05-20 16:15:16
+ * @LastEditTime: 2021-06-17 11:02:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\auth.ts
@@ -64,7 +64,6 @@ export default class AuthController {
     return this.authService.reg(body);
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Get('/menu')
   @ApiOperation({ description: '获取菜单目录', summary: '权限管理' })
   @ApiOkResponse({ status: 200, type: GetMenusRes })
@@ -72,7 +71,6 @@ export default class AuthController {
     return this.authService.getMenu(request);
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Get('/info')
   @ApiOperation({ description: '获取用户信息', summary: '权限管理' })
   @ApiOkResponse({ status: 200, type: GetMenusRes })
