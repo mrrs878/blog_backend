@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 17:38:30
- * @LastEditTime: 2021-06-17 11:02:17
+ * @LastEditTime: 2021-06-18 12:38:14
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\controller\auth.ts
@@ -37,6 +37,7 @@ export default class AuthController {
   }
 
   @Get('/autoLogin')
+  @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ description: '自动登录', summary: '权限管理' })
   autoLogin(@Req() req) {
     return this.authService.autoLogin(req);
@@ -65,6 +66,7 @@ export default class AuthController {
   }
 
   @Get('/menu')
+  @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ description: '获取菜单目录', summary: '权限管理' })
   @ApiOkResponse({ status: 200, type: GetMenusRes })
   getMenus(@Request() request) {
