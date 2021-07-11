@@ -1,41 +1,21 @@
 /*
- * @Author: mrrs878
- * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2021-01-26 22:59:33
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
+ * @Author: mrrs878@foxmail.com
+ * @Date: 2021-07-09 16:43:04
+ * @LastEditors: mrrs878@foxmail.com
+ * @LastEditTime: 2021-07-11 15:46:09
  * @FilePath: \blog_backend\src\main.ts
  */
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import * as bodyParser from 'body-parser';
-import * as dayjs from 'dayjs';
-import * as utc from 'dayjs/plugin/utc';
-import * as timezone from 'dayjs/plugin/timezone';
-import 'dayjs/locale/zh-cn';
-import { HttpExceptionFilter } from 'src/filter/httpException';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { join } from 'path';
-import * as html2CanvasProxy from 'html2canvas-proxy';
-import AppModule from './app.module';
-import { AnyExceptionFilter } from './filter/anyException';
-import { TransformInterceptor } from './interceptor/transform';
-import { logger } from './middleware/logger';
+import { AppModule } from './app.module';
+import { AnyExceptionFilter } from './common/filters/anyException';
+import { HttpExceptionFilter } from './common/filters/httpException';
+import { logger } from './common/middleware/logger';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-
-  dayjs.locale('zh-cn');
-  dayjs.extend(utc);
-  dayjs.extend(timezone);
-  dayjs.tz.setDefault('Asia/Shanghai');
-
-  app.setGlobalPrefix('/blog');
-  app.enableCors();
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(bodyParser.json());
-  app.use(logger);
-  app.use('/html2Canvas', html2CanvasProxy());
 
   const options = new DocumentBuilder()
     .setTitle('blog')
@@ -45,9 +25,9 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('blog-doc', app, document);
 
+  app.use(logger);
   app.useGlobalFilters(new AnyExceptionFilter());
   app.useGlobalFilters(new HttpExceptionFilter());
-  app.useGlobalInterceptors(new TransformInterceptor());
 
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
@@ -55,6 +35,8 @@ async function bootstrap() {
 
   await app.listen(process.env.PORT);
 }
-bootstrap().then(() => {
-  console.log(`app is running at ${process.env.PORT}`);
-}).catch((e) => console.log(e));
+bootstrap()
+  .then(() => {
+    console.log(`app is running at ${process.env.PORT}`);
+  })
+  .catch((e) => console.log(e));

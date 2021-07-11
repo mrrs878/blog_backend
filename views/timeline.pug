@@ -22,6 +22,6 @@ html(lang= "en")
       div(style='width: 100%', class='context')
         div(class="item big")= `不错，目前共计${articles.length}篇日志，继续努力~`
         each article in articles
-          a(href=`${article._id === 'year' ? ('/blog/view/timeline/'+article.createTime) : ('/blog/view/'+article._id)}`)
-            div(class=`item ${article._id === 'year' ? 'big' : ''}`)= `${article.createTime} ${article.title}`
+          a(href=`${article.id === 0 ? ('/view/blog/timeline/'+article.create_time) : ('/view/blog/'+article.id)}`)
+            div(class=`item ${article.id === 0 ? 'big' : ''}`)= `${article.create_time} ${article.title}`
     include ./footer.pug
