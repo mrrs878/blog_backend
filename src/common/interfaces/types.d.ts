@@ -2,7 +2,7 @@
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-07-09 18:00:43
  * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2021-07-11 22:18:01
+ * @LastEditTime: 2021-07-12 16:17:28
  * @FilePath: \blog_backend\src\common\interfaces\types.d.ts
  */
 interface Res<T> {
@@ -42,10 +42,10 @@ interface MenuItemI {
   icon_name?: string;
   title: string;
   path?: string;
-  sub_menu?: Array<string>;
+  sub_menu?: string;
   parent: string;
   position: number;
-  role?: Array<number>;
+  role?: string;
   status?: number;
   create_time?: Date;
   update_time?: Date;
@@ -98,7 +98,7 @@ interface UpdateMenuBodyI {
   title: string;
   path?: string;
   parent: string;
-  role?: Array<number>;
+  role?: string;
 }
 
 interface AddCommentBodyI {

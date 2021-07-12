@@ -199,7 +199,8 @@ export class BlogService {
           author_id: id,
         },
       );
-      if (data.affected === 1) return { return_code: 0, return_message: '修改成功' };
+      if (data.affected === 1)
+        return { return_code: 0, return_message: '修改成功' };
       return { return_code: -1, return_message: '修改失败' };
     } catch (e) {
       return { return_code: -1, return_message: '修改失败' };

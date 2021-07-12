@@ -6,7 +6,7 @@ import { CacheService } from 'src/cache/cache.service';
 import { encryptPwd, makeSalt } from 'src/common/tool';
 import { Menu } from 'src/menu/menu.entity';
 import { Repository } from 'typeorm';
-import { User } from './User.entity';
+import { User } from './user.entity';
 
 const l = 42; // 滑块边长
 const r = 9; // 滑块半径
@@ -157,29 +157,19 @@ export class AuthService {
       };
     }
     try {
-      const defaultVal = {
-        department: '',
-        address: '',
-        tags: [],
-        avatar: '',
-        teams: [],
-        profession: '',
-        signature: '',
-        status: 0,
-      };
-      await this.userRepo.create({
+      await this.userRepo.save({
         name,
         password_hash,
         salt,
         role,
         created_by,
-        ...defaultVal,
       });
       return {
         return_code: 0,
         return_message: '注册成功',
       };
-    } catch {
+    } catch (e) {
+      console.log(e);
       return {
         return_code: -3,
         return_message: '服务器内部错误',
@@ -191,7 +181,7 @@ export class AuthService {
     body: LoginBodyI,
   ): Promise<
     Res<undefined | { name: string; role: number; id: number; token: string }>
-    > {
+  > {
     try {
       const { code, return_message, user } = await this.validateUser(body);
       if (code !== 0) {
@@ -221,7 +211,7 @@ export class AuthService {
     req: any,
   ): Promise<
     Res<undefined | { name: string; role: number; id: number; token: string }>
-    > {
+  > {
     const { authorization } = req.headers;
 
     const [, token] = authorization.match(/^Bearer (.+)/) || [];
@@ -323,9 +313,9 @@ export class AuthService {
   }
 
   async getPuzzleImg(): Promise<
-  Res<
-  { canvas: string; block: string; session: string; x: number } | undefined
-  >
+    Res<
+      { canvas: string; block: string; session: string; x: number } | undefined
+    >
   > {
     try {
       const imageCanvas = createCanvas(w, h);

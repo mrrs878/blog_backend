@@ -2,11 +2,11 @@
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-07-11 22:23:52
  * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2021-07-11 23:39:32
+ * @LastEditTime: 2021-07-12 15:48:12
  * @FilePath: \blog_backend\src\cache\cache.service.ts
  */
 import { Injectable } from '@nestjs/common';
-import { RedisService } from 'nestjs-redis';
+import { RedisService } from '../common/lib/nestjs-redis';
 import * as Redis from 'ioredis';
 
 @Injectable()

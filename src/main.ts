@@ -2,7 +2,7 @@
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-07-09 16:43:04
  * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2021-07-11 15:46:09
+ * @LastEditTime: 2021-07-12 17:43:40
  * @FilePath: \blog_backend\src\main.ts
  */
 import { NestFactory } from '@nestjs/core';

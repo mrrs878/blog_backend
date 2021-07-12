@@ -2,7 +2,7 @@
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-07-11 22:14:55
  * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2021-07-11 22:16:27
+ * @LastEditTime: 2021-07-12 16:21:33
  * @FilePath: \blog_backend\src\menu\menu.entity.ts
  */
 import { BaseEntity } from 'src/common/models/Base.entity';
@@ -25,14 +25,14 @@ export class Menu extends BaseEntity {
   @Column({ default: '', nullable: false })
   path?: string;
 
-  @Column({ nullable: false, default: [] })
-  sub_menu?: Array<string>;
+  @Column({ nullable: false, default: '' })
+  sub_menu?: string;
 
   @Column()
   parent: string;
 
   @Column({ nullable: false })
-  role?: Array<number>;
+  role?: string;
 
   @Column({ nullable: false })
   position: number;

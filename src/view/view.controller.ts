@@ -216,12 +216,14 @@ export class ViewController {
     });
     years = Array.from(new Set(years));
     const formatted = groupWith((a, b) => a.year === b.year, articles);
-    formatted.forEach((item, index) => item.unshift({
-      create_time: years[index],
-      title: '',
-      id: 0,
-      year: '',
-    }));
+    formatted.forEach((item, index) =>
+      item.unshift({
+        create_time: years[index],
+        title: '',
+        id: 0,
+        year: '',
+      }),
+    );
 
     return {
       articles: flatten(formatted),

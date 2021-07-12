@@ -2,7 +2,7 @@
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-07-09 17:26:21
  * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2021-07-11 23:34:46
+ * @LastEditTime: 2021-07-12 16:20:45
  * @FilePath: \blog_backend\src\db\db.module.ts
  */
 import { Module } from '@nestjs/common';
@@ -20,7 +20,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         username: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
-        synchronize: false,
+        synchronize: true,
         autoLoadEntities: true,
       }),
     }),

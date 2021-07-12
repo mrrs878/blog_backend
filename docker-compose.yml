@@ -1,41 +1,41 @@
 version: '3.7'
 services:
-  blog_database:
-    image: mongo
-    container_name: blog_database
+  backend_database:
+    image: mysql
+    container_name: backend_database
     restart: always
     ports:
-      - 8084:27017
+      - 8084:3306
     volumes:
-      - ~/data/blog_backend:/data/db
+      - ~/data/backend_database:/data/db
     networks:
-      - blog_backend-n-mongo
-  blog_cache:
+      - backend-n-mysql
+  backend_cache:
     image: redis:alpine
-    container_name: blog_cache
+    container_name: backend_cache
     restart: always
     ports:
       - 8085:6379
     volumes:
-      - ~/cache/blog_backend:/data
+      - ~/cache/backend_cache:/data
     networks:
-      - blog_backend-n-mongo
+      - backend-n-redis
     command: --appendonly yes
-  blog_backend:
-    image: mrrs878/blog_backend:latest
-    container_name: blog_backend
+  backend:
+    image: mrrs878/backend:latest
+    container_name: backend
     volumes:
-      - ~/log/blog_backend:/app/log
+      - ~/log/backend:/app/log
     depends_on:
-      - blog_database
-      - blog_cache
+      - backend_database
+      - backend_cache
     ports:
       - 3000:3000
     networks:
-      - blog_backend-n-mongo
-      - blog_backend-n-redis
+      - backend-n-mysql
+      - backend-n-redis
 networks:
-  blog_backend-n-mongo:
+  backend-n-mysql:
     driver: bridge
-  blog_backend-n-redis:
+  backend-n-redis:
     driver: bridge

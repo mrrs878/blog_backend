@@ -1,9 +1,8 @@
 /*
- * @Author: mrrs878
- * @Date: 2020-09-21 14:48:46
- * @LastEditTime: 2020-11-27 16:07:21
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
+ * @Author: mrrs878@foxmail.com
+ * @Date: 2021-07-12 14:11:32
+ * @LastEditors: mrrs878@foxmail.com
+ * @LastEditTime: 2021-07-12 17:54:13
  * @FilePath: \blog_backend\.eslintrc.js
  */
 module.exports = {
@@ -11,42 +10,25 @@ module.exports = {
   parserOptions: {
     project: 'tsconfig.json',
     sourceType: 'module',
-    createDefaultProgram: true,
   },
-  plugins: [
-    '@typescript-eslint',
-    '@typescript-eslint/eslint-plugin',
-  ],
+  plugins: ['@typescript-eslint/eslint-plugin'],
   extends: [
-    'airbnb-typescript/base',
-    'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
   ],
   root: true,
   env: {
     node: true,
     jest: true,
-    browser: true,
   },
+  ignorePatterns: [
+    '.eslintrc.js',
+    'lib'
+  ],
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'max-len': 'off',
-    'object-curly-newline': 'off',
-    'import/prefer-default-export': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/no-empty-function': 'off',
-    '@typescript-eslint/camelcase': 'off',
+    '@typescript-eslint/interface-name-prefix': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    'no-underscore-dangle': 'off',
-    'no-bitwise': 0,
-    'no-plusplus': 0,
-    'consistent-return': 0,
-    'no-param-reassign': 0,
-    'linebreak-style': ['off', 'windows'],
-    'class-methods-use-this': 0,
-    'import/no-absolute-path': 1,
-    '@typescript-eslint/naming-convention': 0
+    '@typescript-eslint/no-explicit-any': 'off',
   },
 };

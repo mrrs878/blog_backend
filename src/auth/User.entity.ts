@@ -2,7 +2,7 @@
  * @Author: mrrs878@foxmail.com
  * @Date: 2021-07-11 21:59:51
  * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2021-07-11 22:11:27
+ * @LastEditTime: 2021-07-12 16:25:21
  * @FilePath: \blog_backend\src\auth\User.entity.ts
  */
 import { BaseEntity } from 'src/common/models/Base.entity';
@@ -22,29 +22,29 @@ export class User extends BaseEntity {
   @Column()
   salt: string;
 
-  @Column()
+  @Column({ default: '' })
   avatar: string;
 
-  @Column()
+  @Column({ default: 0 })
   created_by: number;
 
-  @Column()
+  @Column({ default: '' })
   signature: string;
 
-  @Column()
+  @Column({ default: '' })
   department: string;
 
-  @Column()
+  @Column({ default: '' })
   address: string;
 
-  @Column()
+  @Column({ default: '' })
   profession: string;
 
-  @Column()
-  tags: Array<string>;
+  @Column({ default: '' })
+  tags: string;
 
-  @Column()
-  teams: Array<string>;
+  @Column({ default: '' })
+  teams: string;
 
   @Column({ default: 2 })
   role: number;
