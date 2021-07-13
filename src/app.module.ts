@@ -1,18 +1,23 @@
 /*
- * @Author: mrrs878@foxmail.com
- * @Date: 2021-07-09 16:43:04
- * @LastEditors: mrrs878@foxmail.com
- * @LastEditTime: 2021-07-12 16:14:36
+ * @Author: mrrs878
+ * @Date: 2020-09-21 14:48:46
+ * @LastEditTime: 2021-03-19 12:32:23
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
  * @FilePath: \blog_backend\src\app.module.ts
  */
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { BlogModule } from './blog/blog.module';
-import { DBModule } from './db/db.module';
-import { ViewModule } from './view/view.module';
-import { AuthModule } from './auth/auth.module';
-import { MenuModule } from './menu/menu.module';
-import { CacheModule } from './cache/cache.module';
+import DB from './modules/db';
+import { RedisCacheModule } from './modules/cache';
+import ArticleModule from './modules/article';
+import AuthModule from './modules/auth';
+import DictModule from './modules/dict';
+import CommentModule from './modules/comment';
+import UserModule from './modules/user';
+import LikeModule from './modules/like';
+import PageModule from './modules/page';
+import RealTimeBusModule from './modules/realTimeBus';
 
 @Module({
   imports: [
@@ -20,12 +25,16 @@ import { CacheModule } from './cache/cache.module';
       envFilePath: ['.env.local', '.env'],
       isGlobal: true,
     }),
-    CacheModule,
-    DBModule,
-    MenuModule,
-    BlogModule,
-    ViewModule,
+    RedisCacheModule,
+    DB,
     AuthModule,
+    ArticleModule,
+    DictModule,
+    CommentModule,
+    UserModule,
+    LikeModule,
+    PageModule,
+    RealTimeBusModule,
   ],
 })
-export class AppModule {}
+export default class AppModule {}

@@ -38,17 +38,17 @@ html(lang= "en")
                 <svg class="icon" aria-hidden="true">
                   <use xlink:href="#calendar1"></use>
                 </svg>:&nbsp;
-                span(class='footer-item')= article.create_time
+                span(class='footer-item')= article.createTime
               div
                 <svg class="icon" aria-hidden="true">
                   <use xlink:href="#post"></use>
                 </svg>:&nbsp;
-                span(class='footer-item')= article.update_time
+                span(class='footer-item')= article.updateTime
               div
                 <svg class="icon" aria-hidden="true">
                   <use xlink:href="#file"></use>
                 </svg>:&nbsp;
-                a(class='footer-item', href=`/view/blog/category/${article.category}`)=article.category 
+                a(class='footer-item', href=`/blog/view/category/${article.categories}`)=article.categories 
           div(class='content')
     include ./footer.pug
     script.
