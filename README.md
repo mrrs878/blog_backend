@@ -1,8 +1,19 @@
+<!--
+ * @Author: mrrs878@foxmail.com
+ * @Date: 2021-07-13 23:28:27
+ * @LastEditors: mrrs878@foxmail.com
+ * @LastEditTime: 2021-07-20 22:13:57
+ * @FilePath: \blog_backend\README.md
+-->
 # dashboard后端代码
 
 [![Build Status](https://www.travis-ci.org/mrrs878/monitor_backend.svg?branch=master)](https://www.travis-ci.org/mrrs878/monitor_backend)
 
 Nest.js + Typescript + MongoDB
+
+## 一些常见问题
+
+本地在启动redis服务时
 
 ## docker 指令
 
