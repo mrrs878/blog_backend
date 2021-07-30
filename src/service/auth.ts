@@ -1,10 +1,9 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 17:38:45
- * @LastEditTime: 2021-05-27 10:18:02
- * @LastEditors: lihang.gw@heyqu.net
+ * @LastEditTime: 2021-07-30 11:28:56
+ * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
- * @FilePath: /blog_backend/src/service/auth.ts
  */
 import { Injectable } from '@nestjs/common';
 import { Model, isValidObjectId } from 'mongoose';
@@ -316,7 +315,7 @@ export default class AuthService {
       const blockShapeTmp = (Math.random() * 100) % 3 >> 0;
       drawLine(imageCanvasCtx, x, y, 'fill', blockShapeTmp);
       drawLine(blockCanvasCtx, x, y, 'clip', blockShapeTmp);
-      const image = await loadImage('http://gmm.sdoprofile.com/events/assets/img/home_bg.5849ea6.png');
+      const image = await loadImage('http://mrrsblog.oss-cn-shanghai.aliyuncs.com/browser_event_loop.png');
       blockCanvasCtx?.drawImage(image, 0, 0, w, h);
       imageCanvasCtx?.drawImage(image, 0, 0, w, h);
       const newY = y - r * 2 - 1 + BLOCK_POSITION_FIX[blockShapeTmp];
