@@ -27,8 +27,6 @@ jobs:
 
       - name: Install packages
         run: npm install
-      - name: Run tests
-        run: npm test
       - name: Build for Production
         env: 
           CI: false
