@@ -22,7 +22,7 @@ services:
       - blog_backend-n-mongo
     command: --appendonly yes
   blog_backend:
-    image: mrrs878/blog_backend:latest
+    image: mrrs878/blog_backend:master
     container_name: blog_backend
     volumes:
       - ~/log/blog_backend:/app/log

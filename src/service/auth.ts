@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878
  * @Date: 2020-09-23 17:38:45
- * @LastEditTime: 2021-07-30 11:28:56
+ * @LastEditTime: 2021-08-11 20:25:26
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  */
@@ -315,7 +315,7 @@ export default class AuthService {
       const blockShapeTmp = (Math.random() * 100) % 3 >> 0;
       drawLine(imageCanvasCtx, x, y, 'fill', blockShapeTmp);
       drawLine(blockCanvasCtx, x, y, 'clip', blockShapeTmp);
-      const image = await loadImage('http://mrrsblog.oss-cn-shanghai.aliyuncs.com/browser_event_loop.png');
+      const image = await loadImage('https://mrrsblog.oss-cn-shanghai.aliyuncs.com/browser_event_loop.png');
       blockCanvasCtx?.drawImage(image, 0, 0, w, h);
       imageCanvasCtx?.drawImage(image, 0, 0, w, h);
       const newY = y - r * 2 - 1 + BLOCK_POSITION_FIX[blockShapeTmp];
