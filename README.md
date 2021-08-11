@@ -8,6 +8,7 @@
 # dashboard后端代码
 
 [![Build Status](https://www.travis-ci.org/mrrs878/monitor_backend.svg?branch=master)](https://www.travis-ci.org/mrrs878/monitor_backend)
+[![Node.js CI](https://github.com/mrrs878/blog_backend/actions/workflows/node.js.yml/badge.svg)](https://github.com/mrrs878/blog_backend/actions/workflows/node.js.yml)
 
 Nest.js + Typescript + MongoDB
 
