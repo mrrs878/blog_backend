@@ -14,7 +14,15 @@ Nest.js + Typescript + MongoDB
 
 ## 一些常见问题
 
-本地在启动redis服务时
+1. win10本地在启动redis服务时，有时会出现如下报错`Creating Server TCP listening socket 127.0.0.1:637 9: bind: No error`
+
+``` shell
+Redis-cli.exe
+shutdown
+exit
+redis-server.exe redis.windows.conf
+```
+
 
 ## docker 指令
 
