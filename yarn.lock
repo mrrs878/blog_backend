@@ -1439,7 +1439,7 @@
 
 "@mapbox/node-pre-gyp@^1.0.0":
   version "1.0.5"
-  resolved "https://npm.iyunquna.com/@mapbox%2fnode-pre-gyp/-/node-pre-gyp-1.0.5.tgz#2a0b32fcb416fb3f2250fd24cb2a81421a4f5950"
+  resolved "https://registry.npm.taobao.org/@mapbox%2fnode-pre-gyp/-/node-pre-gyp-1.0.5.tgz#2a0b32fcb416fb3f2250fd24cb2a81421a4f5950"
   integrity sha1-Kgsy/LQW+z8iUP0kyyqBQhpPWVA=
   dependencies:
     detect-libc "^1.0.3"
@@ -3545,7 +3545,7 @@ canvas@^2.7.0:
 
 canvas@^2.8.0:
   version "2.8.0"
-  resolved "https://npm.iyunquna.com/canvas/-/canvas-2.8.0.tgz#f99ca7f25e6e26686661ffa4fec1239bbef74461"
+  resolved "https://registry.npm.taobao.org/canvas/-/canvas-2.8.0.tgz#f99ca7f25e6e26686661ffa4fec1239bbef74461"
   integrity sha1-+Zyn8l5uJmhmYf+k/sEjm773RGE=
   dependencies:
     "@mapbox/node-pre-gyp" "^1.0.0"
@@ -7778,7 +7778,7 @@ minizlib@^2.0.0, minizlib@^2.1.0:
 
 minizlib@^2.1.1:
   version "2.1.2"
-  resolved "https://npm.iyunquna.com/minizlib/-/minizlib-2.1.2.tgz#e90d3466ba209b932451508a11ce3d3632145931"
+  resolved "https://registry.npm.taobao.org/minizlib/-/minizlib-2.1.2.tgz#e90d3466ba209b932451508a11ce3d3632145931"
   integrity sha1-6Q00Zrogm5MkUVCKEc49NjIUWTE=
   dependencies:
     minipass "^3.0.0"
@@ -8031,7 +8031,7 @@ node-fetch@^1.0.1:
 
 node-fetch@^2.6.1:
   version "2.6.2"
-  resolved "https://npm.iyunquna.com/node-fetch/-/node-fetch-2.6.2.tgz#986996818b73785e47b1965cc34eb093a1d464d0"
+  resolved "https://registry.npm.taobao.org/node-fetch/-/node-fetch-2.6.2.tgz#986996818b73785e47b1965cc34eb093a1d464d0"
   integrity sha512-aLoxToI6RfZ+0NOjmWAgn9+LEd30YCkJKFSyWacNZdEKTit/ZMcKjGkTRo8uWEsnIb/hfKecNPEbln02PdWbcA==
 
 node-int64@^0.4.0:
@@ -8111,7 +8111,7 @@ nopt@^4.0.1:
 
 nopt@^5.0.0:
   version "5.0.0"
-  resolved "https://npm.iyunquna.com/nopt/-/nopt-5.0.0.tgz#530942bb58a512fccafe53fe210f13a25355dc88"
+  resolved "https://registry.npm.taobao.org/nopt/-/nopt-5.0.0.tgz#530942bb58a512fccafe53fe210f13a25355dc88"
   integrity sha1-UwlCu1ilEvzK/lP+IQ8TolNV3Ig=
   dependencies:
     abbrev "1"
@@ -9082,7 +9082,7 @@ rc@^1.2.7:
 
 react-dom@^17.0.2:
   version "17.0.2"
-  resolved "https://npm.iyunquna.com/react-dom/-/react-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"
+  resolved "https://registry.npm.taobao.org/react-dom/-/react-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"
   integrity sha1-7P+2hF462Nv83EmPDQqTlzZQLCM=
   dependencies:
     loose-envify "^1.1.0"
@@ -9096,7 +9096,7 @@ react-is@^16.12.0:
 
 react@^17.0.2:
   version "17.0.2"
-  resolved "https://npm.iyunquna.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
+  resolved "https://registry.npm.taobao.org/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
   integrity sha1-0LXMUW0p6z7uOD91tihkz7aAADc=
   dependencies:
     loose-envify "^1.1.0"
@@ -9589,7 +9589,7 @@ saxes@^5.0.0:
 
 scheduler@^0.20.2:
   version "0.20.2"
-  resolved "https://npm.iyunquna.com/scheduler/-/scheduler-0.20.2.tgz#4baee39436e34aa93b4874bddcbf0fe8b8b50e91"
+  resolved "https://registry.npm.taobao.org/scheduler/-/scheduler-0.20.2.tgz#4baee39436e34aa93b4874bddcbf0fe8b8b50e91"
   integrity sha1-S67jlDbjSqk7SHS93L8P6Li1DpE=
   dependencies:
     loose-envify "^1.1.0"
@@ -9628,7 +9628,7 @@ semver@^6.0.0, semver@^6.3.0:
 
 semver@^7.3.4:
   version "7.3.5"
-  resolved "https://npm.iyunquna.com/semver/-/semver-7.3.5.tgz#0b621c879348d8998e4b0e4be94b3f12e6018ef7"
+  resolved "https://registry.npm.taobao.org/semver/-/semver-7.3.5.tgz#0b621c879348d8998e4b0e4be94b3f12e6018ef7"
   integrity sha1-C2Ich5NI2JmOSw5L6Us/EuYBjvc=
   dependencies:
     lru-cache "^6.0.0"
@@ -10373,7 +10373,7 @@ tar@^6.0.2:
 
 tar@^6.1.0:
   version "6.1.11"
-  resolved "https://npm.iyunquna.com/tar/-/tar-6.1.11.tgz#6760a38f003afa1b2ffd0ffe9e9abbd0eab3d621"
+  resolved "https://registry.npm.taobao.org/tar/-/tar-6.1.11.tgz#6760a38f003afa1b2ffd0ffe9e9abbd0eab3d621"
   integrity sha1-Z2CjjwA6+hsv/Q/+npq70Oqz1iE=
   dependencies:
     chownr "^2.0.0"
