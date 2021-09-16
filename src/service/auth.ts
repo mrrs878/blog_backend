@@ -1,7 +1,7 @@
 /*
  * @Author: mrrs878@foxmail.com
  * @Date: 2020-09-23 17:38:45
- * @LastEditTime: 2021-09-15 20:57:20
+ * @LastEditTime: 2021-09-16 21:11:26
  * @LastEditors: mrrs878@foxmail.com
  * @Description: In User Settings Edit
  */
@@ -258,7 +258,7 @@ export default class AuthService {
     };
   }
 
-  async getPuzzleImg(): Promise<Res<{ canvas: string, block: string, session: string}|undefined>> {
+  async getPuzzleImg(): Promise<Res<{ background: string, block: string, session: string}|undefined>> {
     try {
       const data = await getPuzzleImg('https://mrrsblog.oss-cn-shanghai.aliyuncs.com/avatar.jpg');
       const session = `${new Date().getTime()}`;
@@ -267,7 +267,7 @@ export default class AuthService {
         success: true,
         return_message: '获取成功',
         return_code: 0,
-        data: { canvas: data.background, block: data.block, session },
+        data: { background: data.background, block: data.block, session },
       };
     } catch (e) {
       return {
